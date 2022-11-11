@@ -13,24 +13,22 @@
 #ifndef FT_VECTOR_HPP
 #define FT_VECTOR_HPP
 
-#include "ft_allocator.hpp"
-
 /*
 	Since memory must be contiguos m_capacity is fundamental to keep track
 			of how much memory we have before reallocating
 
-	ReAlloc --> Growing function which makes realocation more efficient 
+	ReAlloc --> Growing function which makes realocation more efficient
 				1. Allocate a new block of memory
 				2. copy/move old elements into new block
 				3. delete[] expression;
 
 */
 
-template <typename T, typename Allocator = ft_allocator<T> >
+template <typename T>
 class ft_vector
 {
-	public: 
-		ft_vector( void )
+	public:
+		ft_vector( void ) : m_Data(NULL), m_Size(0), m_Capacity(0)
 		{
 			ReAlloc(2);
 		}
@@ -41,36 +39,35 @@ class ft_vector
 			this->m_Data[this->m_Size] = value;
 			this->m_Size++;
 		}
-		
+
 		T& operator[](size_t index)
 		{
 			if ( index >= this->m_Size || index < 0)
-				throw OutOfBoundsException(); 		
-			return (this->m_Data[index]); 
+				throw OutOfBoundsException();
+			return (this->m_Data[index]);
 		}
 		const T& operator[](size_t index) const
 		{
 			if ( index >= this->m_Size || index < 0)
-				throw OutOfBoundsException(); 
-			return (this->m_Data[index]); 
+				throw OutOfBoundsException();
+			return (this->m_Data[index]);
 		}
-	
+
 		size_t getSize( void ) const { return this->m_Size; }
+
 	private:
 		void	ReAlloc(size_t newCapacity)
 		{
-			Allocator<T> allocator;
-			
-			T	*newBlock = allocator.allocate(newCapacity);
+			T	*newBlock = new T[newCapacity];
 
 			if (newCapacity < this->m_Size)
 				this->m_Size = newCapacity;
-			
+
 			for (size_t i = 0; i < this->m_Size; i++)
 			{
-				newBlock[i] = this->m_Data[i]; 
-			}	
-			allocator.deallocate(this->m_Data);
+				newBlock[i] = this->m_Data[i];
+			}
+			delete [] this->m_Data;
 			this->m_Data = newBlock;
 			this->m_Capacity = newCapacity;
 		}
