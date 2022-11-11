@@ -38,5 +38,6 @@ All info about project can be found in wiki pages:
 * [C++ Reference](https://en.cppreference.com/w/)
 * [GoogleTests](http://google.github.io/googletest/)
 * [Vector](https://www.youtube.com/watch?v=ryRf4Jh_YC0&list=PLlrATfBNZ98dudnM48yfGUldqGD0S4FFb&index=93&ab_channel=TheCherno)
+* [How to implement our own Vector Class in C++](https://www.geeksforgeeks.org/how-to-implement-our-own-vector-class-in-c/)
 
 
