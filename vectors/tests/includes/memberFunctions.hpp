@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.hpp                                          :+:      :+:    :+:   */
+/*   memberFunctions.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/13 17:04:43 by smodesto          #+#    #+#             */
-/*   Updated: 2022/11/13 17:54:56 by smodesto         ###   ########.fr       */
+/*   Created: 2022/11/13 17:49:43 by smodesto          #+#    #+#             */
+/*   Updated: 2022/11/13 18:14:31 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_HPP
-#define UTILS_HPP
+#ifndef MEMBER_FUCNTIONS_HPP
+#define MEMBER_FUCNTIONS_HPP
 
-#include "./tests.hpp"
-
-template <class container>
-void	printVector (const container &vector)
+template<class container>
+void	testingCapacity(const container &vector)
 {
-	for (size_t i = 0; i < vector.size(); i++)
-		std::cout << vector[i] << " ";
+	std::cout << "----------------- Capacity -------------------" << std::endl;
+	std::cout	<< " | Size: " << vector.size()
+				<< " | Empty: " << (vector.empty() ? TRUE : FALSE)
+				<< " | Capacity: " << vector.capacity() << " |" << std::endl;
 }
-#endif //UTILS_HPP
+
+#endif //MEMBER_FUCNTIONS_HPP

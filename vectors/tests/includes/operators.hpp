@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 17:00:38 by smodesto          #+#    #+#             */
-/*   Updated: 2022/11/13 17:29:52 by smodesto         ###   ########.fr       */
+/*   Updated: 2022/11/13 18:15:00 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 #include "utils.hpp"
 
 // access specified element
-template<typename T>
-void	Squarebrackets( const ft::vector<T> &vector )
+template<class container>
+void	Squarebrackets( const container &vector )
 {
-	std::cout << "---------- Operator [] -----------" << std::endl;
+	std::cout << "--------------- Operator [] -----------------" << std::endl;
 	try {
 		std::cout << " Read at [-1] pos : " << vector[-1] << std::endl;
 	} catch(const std::exception& e) {
@@ -32,8 +32,8 @@ void	Squarebrackets( const ft::vector<T> &vector )
 	}
 }
 
-template<typename T>
-void	testingOperators(const ft::vector<T> &vector)
+template<class container>
+void	testingOperators(const container &vector)
 {
 	Squarebrackets(vector);
 }
