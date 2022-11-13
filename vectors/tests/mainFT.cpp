@@ -1,33 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   mainFT.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 05:24:36 by coder             #+#    #+#             */
-/*   Updated: 2022/11/13 16:07:07 by smodesto         ###   ########.fr       */
+/*   Updated: 2022/11/13 17:24:35 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
-#include "vector.hpp"
-
-template <typename T>
-void	printVector (const ft::vector<T> &vector)
-{
-	for (size_t i = 0; i < vector.size(); i++)
-		std::cout << vector[i] << " ";
-	std::cout << std::endl << "----------------------" << std::endl;
-}
+#include "./includes/tests.hpp"
 
 int main( void )
 {
-	ft::vector<std::string>		vector;
+	ft::vector<std::string>		ft_str_vector;
 
-	vector.push_back("Creating");
-	vector.push_back("Vector");
-	printVector<std::string>(vector);
+	ft_str_vector.push_back("Position 0");
+	ft_str_vector.push_back("Position 1");
 
+	testingOperators(ft_str_vector);
 	return (0);
 }

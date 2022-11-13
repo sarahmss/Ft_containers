@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 05:36:46 by coder             #+#    #+#             */
-/*   Updated: 2022/11/13 16:10:22 by smodesto         ###   ########.fr       */
+/*   Updated: 2022/11/13 17:32:17 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,14 @@ namespace ft
 			size_t	_alloc;
 
 		public:
-			vector(void) : _data(NULL), _size(0), _alloc(0)
+
+			vector(void) :	_data(NULL),
+							_size(0),
+							_alloc(0)
 			{
 				ReAlloc(2);
 			}
+
 			void push_back(const T &value)
 			{
 				if (_size >= _alloc)
@@ -91,7 +95,7 @@ namespace ft
 			public:
 				char const *what() const throw()
 				{
-					return (" Out of bounds exception ");
+					return ("\u001b[31m Out of bounds exception \u001b[0m");
 				}
 			};
 		};
