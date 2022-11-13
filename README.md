@@ -1,6 +1,9 @@
 # Containers
 
-In this project we have to reimplement some of STL containers and functionalitys. They are: 
+In this project we have to reimplement some of STL containers and functionalitys.
+
+<details> 
+<summary> They are: </summary>
 
 * Containers:
 
@@ -24,6 +27,7 @@ this needs to be done following the rules ahead:
 - [ ] All the member functions, non-member functions and overloads of the standard containers are expected
 - [ ] iterator system in containers that have it
 - [ ] use std::alocator
+</details >
 
 All info about project can be found in wiki pages:
 * [00. STL recap](https://github.com/sarahmss/Containers/wiki/STL-recap)
