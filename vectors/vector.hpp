@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 05:36:46 by coder             #+#    #+#             */
-/*   Updated: 2022/11/13 17:32:17 by smodesto         ###   ########.fr       */
+/*   Updated: 2022/11/13 18:07:09 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 	-> Private attributes:
 		- _data;		Pointer for whatever T it is
 		- _size;		Number of elments
-		- _alloc;	How much could we store without realocating
-	Since memory must be contiguos _alloc is fundamental to keep track
+		- _capacity;		How much could we store without realocating
+	Since memory must be contiguos _capacity is fundamental to keep track
 			of how much memory we have before reallocating
 
 	ReAlloc --> Growing function which makes realocation more efficient
@@ -37,23 +37,15 @@ namespace ft
 		private:
 			T		*_data;
 			size_t	_size;
-			size_t	_alloc;
+			size_t	_capacity;
 
 		public:
 
 			vector(void) :	_data(NULL),
 							_size(0),
-							_alloc(0)
+							_capacity(0)
 			{
 				ReAlloc(2);
-			}
-
-			void push_back(const T &value)
-			{
-				if (_size >= _alloc)
-					ReAlloc(_alloc + (_alloc / 2));
-				_data[_size] = value;
-				_size++;
 			}
 
 			T &operator[](size_t index)
@@ -68,13 +60,33 @@ namespace ft
 					throw OutOfBoundsException();
 				return (_data[index]);
 			}
+			/*-------------------- Member Functions --------------------------*/
 
-			size_t size(void) const
+			//-> Modifiers
+			void push_back(const T &value)
+			{
+				if (_size >= _capacity)
+					ReAlloc(_capacity + (_capacity / 2));
+				_data[_size] = value;
+				_size++;
+			}
+
+			//-> Capacity
+			size_t size( void ) const
 			{
 				return (_size);
 			}
+			size_t capacity() const
+			{
+				return (_capacity);
+			}
+			bool empty( void ) const
+			{
+				return (_size == 0 ? true : false);
+			}
 
 		private:
+			/*------------------------- Utils --------------------------------*/
 			void ReAlloc(size_t newCapacity)
 			{
 				T *newBlock = new T[newCapacity];
@@ -88,8 +100,9 @@ namespace ft
 				}
 				delete[] _data;
 				_data = newBlock;
-				_alloc = newCapacity;
+				_capacity = newCapacity;
 			}
+			/*------------------------- Exceptions ---------------------------*/
 			class OutOfBoundsException : public std::exception
 			{
 			public:
