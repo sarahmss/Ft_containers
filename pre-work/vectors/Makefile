@@ -3,14 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: coder <coder@student.42.fr>                +#+  +:+       +#+         #
+#    By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/11 17:02:33 by smodesto          #+#    #+#              #
-#    Updated: 2022/11/10 05:20:08 by coder            ###   ########.fr        #
+#    Updated: 2022/11/13 15:54:34 by smodesto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= Vector
+NAME	= vector
 
 SRC_PATH		= ./
 INCLUDES_PATH	= ./
@@ -23,7 +23,7 @@ SRCS = $(addprefix $(SRC_PATH), $(SRCS_FILES))
 OBJS_FILES	= $(patsubst %.cpp, %.o, $(SRCS_FILES))
 OBJS = $(addprefix $(OBJS_PATH), $(OBJS_FILES))
 
-HEADER_FILES	=	ft_vector.hpp
+HEADER_FILES	=	vector.hpp
 
 HEADERS = $(addprefix $(INCLUDES_PATH), $(HEADER_FILES))
 
