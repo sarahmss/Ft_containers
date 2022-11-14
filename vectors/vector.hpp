@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 05:36:46 by coder             #+#    #+#             */
-/*   Updated: 2022/11/14 17:03:07 by smodesto         ###   ########.fr       */
+/*   Updated: 2022/11/14 20:15:13 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define VECTOR_HPP
 
 # include "utils/randomAccessIterator.hpp"
+# include "utils/iteratorTraits.hpp"
 
 /*
 	-> Reimplementation of vector container
@@ -46,14 +47,15 @@ namespace ft
 			typedef typename allocator_type::const_pointer						const_pointer;
 			typedef ft::random_access_iterator<value_type>						iterator;
 			typedef ft::random_access_iterator<const value_type>				const_iterator;
-		/* 	typedef ft::reverse_iterator<iterator>								reverse_iterator;
-			typedef ft::reverse_iterator<const_iterator>						const_reverse_iterator;
-			typedef typename ft::iterator::traits<iterator>::difference_type	difference_type; */
+/* 			typedef ft::reverse_iterator<iterator>								reverse_iterator;
+			typedef ft::reverse_iterator<const_iterator>						const_reverse_iterator; */
+			typedef typename ft::iterator_traits<iterator>::difference_type		difference_type;
 
 		private:
-			T		*_data;
-			size_t	_size;
-			size_t	_capacity;
+			T				*_data;
+			size_t			_size;
+			size_t			_capacity;
+			allocator_type	_alloc;
 
 		public:
 
@@ -79,24 +81,37 @@ namespace ft
 			}
 
 									/* Capacity */
-			size_t size( void ) const
+			size_type	size( void ) const
 			{
 				return (_size);
 			}
-			size_t capacity() const
+			size_type	capacity() const
 			{
 				return (_capacity);
 			}
-			bool empty( void ) const
+			bool		empty( void ) const
 			{
 				return (_size == 0 ? true : false);
 			}
-
+			size_type	max_size( void ) const
+			{
+				return (_alloc.max_size());
+			}
+			void		reserve( size_type new_cap )
+			{
+				size_type oldCapacity = this->_capacity;
+				if (new_cap <= _capacity)
+					return ;
+				if (new_cap > this->max_size())
+					throw OutOfBoundsException();
+				_ReAlloc(new_cap);
+			}
 									/* Iterators */
 			iterator begin( void )
 			{
 				return (iterator(this->_data));
 			}
+
 			iterator end( void )
 			{
 				return (iterator(this->_data + this->_size));
@@ -106,6 +121,7 @@ namespace ft
 			{
 				return (const_iterator(this->_data));
 			}
+
 			const_iterator end( void ) const
 			{
 				return (const_iterator(this->_data + this->_size));

@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:26:35 by smodesto          #+#    #+#             */
-/*   Updated: 2022/11/14 17:33:47 by smodesto         ###   ########.fr       */
+/*   Updated: 2022/11/14 20:14:08 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ namespace ft
 			typedef random_access_iterator<T>		iterator;
 			typedef random_access_iterator<const T>	const_iterator;
 			typedef std::random_access_iterator_tag	iterator_category;
-			typedef std::ptrdiff_t					difference_type;	// used to
+			typedef std::ptrdiff_t					difference_type;	//
 		private:
-			pointer									_element;
+			pointer									_element;			// element pointed by the iterator
 
 		public:
 			random_access_iterator( void ): _element(NULL){}
@@ -45,7 +45,7 @@ namespace ft
 				return (*this);
 			}
 
-			reference operator[]( int index )
+			reference operator[]( int index )				// a reference to the element placed at index
 			{
 				return (*(_element + index));
 			}
@@ -53,6 +53,26 @@ namespace ft
 			operator const_iterator() const
 			{
 				return const_iterator(_element);
+			}
+
+			iterator operator+( difference_type n ) const	// a iterator where the element is pointed at this + n in memory
+			{
+				return (_element + n);
+			}
+
+			iterator operator-( difference_type n ) const	// a iterator where the element is pointed at this - n in memory
+			{
+				return (_element - n);
+			}
+
+			pointer operator->( void )						// return lvalue (pointer to the element)
+			{
+				return (_element);
+			}
+
+			reference operator*( void )						// return rvalue (value where point the pointer)
+			{
+				return (*(_element));
 			}
 
 			iterator& operator++( void )					// pre increment
@@ -81,36 +101,109 @@ namespace ft
 				return (it);
 			}
 
-			iterator operator+( difference_type n ) const	// a iterator where the element is pointed at this + n in memory
+			iterator operator+=( difference_type n ) const	// a reference to the element placed at the actual pointer memory + n
 			{
-				return (_element + n);
+				_element += n;
+				return (*this);
 			}
 
-			iterator operator-( difference_type n ) const	// a iterator where the element is pointed at this - n in memory
+			iterator operator-=( difference_type n ) const	// a reference to the element placed at the actual pointer memory - n
 			{
-				return (_element - n);
+				_element -= n;
+				return (*this);
 			}
 
-			pointer operator->( void )						// return lvalue (pointer to the element)
-			{
-				return (_element);
-			}
-
-			reference operator*( void )						// return rvalue (value where point the pointer)
-			{
-				return (*(_element));
-			}
-
-			bool operator==( const iterator& it ) const
+			bool operator==( const iterator& it ) const		// checks if lhs is equal to rhs
 			{
 				return (_element == it._element);
 			}
 
-			bool operator!=( const iterator& it ) const
+			bool operator!=( const iterator& it ) const		// checks if lhs is not equal to rhs
 			{
 				return (_element != it._element);
 			}
+
+			bool operator>=( const iterator& it ) const		// checks if lhs is greater or equal then rhs
+			{
+				return (_element >= it._element);
+			}
+
+			bool operator>( const iterator& it ) const		// checks if lhs is greater then rhs
+			{
+				return (_element > it._element);
+			}
+
+			bool operator<=( const iterator& it ) const		// checks if lhs is less or equant then rhs
+			{
+				return (_element <= it._element);
+			}
+
+			bool operator<( const iterator& it ) const		// checks if lhs is less then rhs
+			{
+				return (_element < it._element);
+			}
 	};
+
+	template<class T>
+	bool operator==(const ft::random_access_iterator<T>& lhs, const ft::random_access_iterator<T>& rhs){
+
+		return lhs.base() == rhs.base();
+	}
+
+	template<class T>
+	bool operator!=(const ft::random_access_iterator<T>& lhs, const ft::random_access_iterator<T>& rhs){
+		return lhs.base() != rhs.base();
+	}
+
+	template<class T>
+	bool operator<(const ft::random_access_iterator<T>& lhs, const ft::random_access_iterator<T>& rhs){
+		return lhs.base() < rhs.base();
+	}
+
+	template<class T>
+	bool operator<=(const ft::random_access_iterator<T>& lhs, const ft::random_access_iterator<T>& rhs){
+		return lhs.base() <= rhs.base();
+	}
+
+	template<class T>
+	bool operator>(const ft::random_access_iterator<T>& lhs, const ft::random_access_iterator<T>& rhs){
+		return lhs.base() > rhs.base();
+	}
+
+	template<class T>
+	bool operator>=(const ft::random_access_iterator<T>& lhs, const ft::random_access_iterator<T>& rhs){
+		return lhs.base() >= rhs.base();
+	}
+
+	template<class T_L, class T_R>
+	bool operator==(const ft::random_access_iterator<T_R>& lhs, const ft::random_access_iterator<T_L>& rhs){
+		return lhs.base() == rhs.base();
+	}
+
+	template<class T_L, class T_R>
+	bool operator!=(const ft::random_access_iterator<T_L>& lhs, const ft::random_access_iterator<T_R>& rhs){
+		return lhs.base() != rhs.base();
+	}
+
+	template<class T_L, class T_R>
+	bool operator<(const ft::random_access_iterator<T_L>& lhs, const ft::random_access_iterator<T_R>& rhs){
+		return lhs.base() < rhs.base();
+	}
+
+	template<class T_L, class T_R>
+	bool operator<=(const ft::random_access_iterator<T_L>& lhs, const ft::random_access_iterator<T_R>& rhs){
+		return lhs.base() <= rhs.base();
+	}
+
+	template<class T_L, class T_R>
+	bool operator>(const ft::random_access_iterator<T_L>& lhs, const ft::random_access_iterator<T_R>& rhs){
+		return lhs.base() > rhs.base();
+	}
+
+	template<class T_L, class T_R>
+	bool operator>=(const ft::random_access_iterator<T_L>& lhs, const ft::random_access_iterator<T_R>& rhs){
+		return lhs.base() >= rhs.base();
+	}
 }
 
 #endif //RANDOM_ACCESS_ITERATOR_HPP
