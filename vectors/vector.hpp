@@ -6,12 +6,14 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 05:36:46 by coder             #+#    #+#             */
-/*   Updated: 2022/11/14 00:20:31 by smodesto         ###   ########.fr       */
+/*   Updated: 2022/11/14 17:03:07 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
+
+# include "utils/randomAccessIterator.hpp"
 
 /*
 	-> Reimplementation of vector container
@@ -42,9 +44,9 @@ namespace ft
 			typedef typename allocator_type::const_reference					const_reference;
 			typedef typename allocator_type::pointer							pointer;
 			typedef typename allocator_type::const_pointer						const_pointer;
-/* 			typedef ft::random_access_iterator<value_type>						iterator;
+			typedef ft::random_access_iterator<value_type>						iterator;
 			typedef ft::random_access_iterator<const value_type>				const_iterator;
-			typedef ft::reverse_iterator<iterator>								reverse_iterator;
+		/* 	typedef ft::reverse_iterator<iterator>								reverse_iterator;
 			typedef ft::reverse_iterator<const_iterator>						const_reverse_iterator;
 			typedef typename ft::iterator::traits<iterator>::difference_type	difference_type; */
 
@@ -90,15 +92,24 @@ namespace ft
 				return (_size == 0 ? true : false);
 			}
 
-									/* Iterators
-			void begin( void )
+									/* Iterators */
+			iterator begin( void )
 			{
-				return (ft::iterator(_data));
+				return (iterator(this->_data));
 			}
-			void end( void )
+			iterator end( void )
 			{
-				return (ft::iterator(_data + _size));
-			}*/
+				return (iterator(this->_data + this->_size));
+			}
+
+			const_iterator begin( void ) const
+			{
+				return (const_iterator(this->_data));
+			}
+			const_iterator end( void ) const
+			{
+				return (const_iterator(this->_data + this->_size));
+			}
 
 			/*-------------------- Operators --------------------------*/
 			T &operator[](size_t index)
