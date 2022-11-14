@@ -30,18 +30,42 @@ this needs to be done following the rules ahead:
 </details >
 
 All info about project can be found in wiki pages:
-* [00. STL recap](https://github.com/sarahmss/Containers/wiki/STL-recap)
-* [01. Allocators](https://github.com/sarahmss/Containers/wiki/Allocators)
-* [02. Vectors](https://github.com/sarahmss/Containers/wiki/Vectors)
-* [03. Map](https://github.com/sarahmss/Containers/wiki/Map)
-* [04. Stack](https://github.com/sarahmss/Containers/wiki/Stack)
+* [00. STL recap](https://github.com/sarahmss/Containers/wiki/00.-STL-recap)
+* [01. Allocators](https://github.com/sarahmss/Containers/wiki/01.-Allocators)
+* [02. Iterators](https://github.com/sarahmss/Containers/wiki/02.-Iterators)
+* [03. Vectors](https://github.com/sarahmss/Containers/wiki/03.-Vectors)
+* [04. Map](https://github.com/sarahmss/Containers/wiki/04.-Map)
+* [05. Stack](https://github.com/sarahmss/Containers/wiki/05.-Stack)
 
 ***
-# Refs
+### Refs
 
 * [C++ Reference](https://en.cppreference.com/w/)
 * [GoogleTests](http://google.github.io/googletest/)
 * [Vector](https://www.youtube.com/watch?v=ryRf4Jh_YC0&list=PLlrATfBNZ98dudnM48yfGUldqGD0S4FFb&index=93&ab_channel=TheCherno)
 * [How to implement our own Vector Class in C++](https://www.geeksforgeeks.org/how-to-implement-our-own-vector-class-in-c/)
 
+### Progress schedule
+<details> <summary> Vectors </summary>
 
+```mermaid
+
+journey
+    title Working tree (Week 1)
+    section 13/11
+      Iterators and allocators: 6: study
+    section 14/11
+      Iterators and allocators: 0: implementation
+    section 15/11
+      Member functions: 0: study 
+    section 16/11
+      Member functions: 0: implementation
+    section 17/11
+      Non Member functions: 0: study
+    section 18/11
+      Non Member fucntions: 0: implementation 
+    section 19/11
+      Finish Vector: 0: implementation
+```
+
+</details>
