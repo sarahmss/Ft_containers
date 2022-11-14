@@ -30,11 +30,12 @@ this needs to be done following the rules ahead:
 </details >
 
 All info about project can be found in wiki pages:
-* [00. STL recap](https://github.com/sarahmss/Containers/wiki/STL-recap)
-* [01. Allocators](https://github.com/sarahmss/Containers/wiki/Allocators)
-* [02. Vectors](https://github.com/sarahmss/Containers/wiki/Vectors)
-* [03. Map](https://github.com/sarahmss/Containers/wiki/Map)
-* [04. Stack](https://github.com/sarahmss/Containers/wiki/Stack)
+* [00. STL recap](https://github.com/sarahmss/Containers/wiki/00.-STL-recap)
+* [01. Allocators](https://github.com/sarahmss/Containers/wiki/01.-Allocators)
+* [02. Iterators](https://github.com/sarahmss/Containers/wiki/02.-Iterators)
+* [03. Vectors](https://github.com/sarahmss/Containers/wiki/03.-Vectors)
+* [04. Map](https://github.com/sarahmss/Containers/wiki/04.-Map)
+* [05. Stack](https://github.com/sarahmss/Containers/wiki/05.-Stack)
 
 ***
 ### Refs
