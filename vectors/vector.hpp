@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 05:36:46 by coder             #+#    #+#             */
-/*   Updated: 2022/11/13 18:07:09 by smodesto         ###   ########.fr       */
+/*   Updated: 2022/11/14 00:20:31 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,14 @@
 
 /*
 	-> Reimplementation of vector container
-
 	-> Private attributes:
 		- _data;		Pointer for whatever T it is
 		- _size;		Number of elments
 		- _capacity;		How much could we store without realocating
 	Since memory must be contiguos _capacity is fundamental to keep track
-			of how much memory we have before reallocating
+			of how much memory we have before _reallocating
 
-	ReAlloc --> Growing function which makes realocation more efficient
+	_ReAlloc --> Growing function which makes realocation more efficient
 				1. Allocate a new block of memory
 				2. copy/move old elements into new block
 				3. delete[] expression;
@@ -34,6 +33,21 @@ namespace ft
 	template <class T, class Alloc = std::allocator<T> >
 	class vector
 	{
+		public:
+			/*---------------------------Member types--------------------------------------------*/
+			typedef	T															value_type;
+			typedef	Alloc														allocator_type;
+			typedef typename allocator_type::size_type							size_type;
+			typedef typename allocator_type::reference							reference;
+			typedef typename allocator_type::const_reference					const_reference;
+			typedef typename allocator_type::pointer							pointer;
+			typedef typename allocator_type::const_pointer						const_pointer;
+/* 			typedef ft::random_access_iterator<value_type>						iterator;
+			typedef ft::random_access_iterator<const value_type>				const_iterator;
+			typedef ft::reverse_iterator<iterator>								reverse_iterator;
+			typedef ft::reverse_iterator<const_iterator>						const_reverse_iterator;
+			typedef typename ft::iterator::traits<iterator>::difference_type	difference_type; */
+
 		private:
 			T		*_data;
 			size_t	_size;
@@ -41,37 +55,28 @@ namespace ft
 
 		public:
 
-			vector(void) :	_data(NULL),
+			/*-------------------- Member Functions --------------------------*/
+			vector( void ) :	_data(NULL),
 							_size(0),
 							_capacity(0)
 			{
-				ReAlloc(2);
+				_ReAlloc(2);
+			}
+			~vector( void )
+			{
+				return ;
 			}
 
-			T &operator[](size_t index)
-			{
-				if (index >= _size || index < 0)
-					throw OutOfBoundsException();
-				return (_data[index]);
-			}
-			const T &operator[](size_t index) const
-			{
-				if (index >= _size || index < 0)
-					throw OutOfBoundsException();
-				return (_data[index]);
-			}
-			/*-------------------- Member Functions --------------------------*/
-
-			//-> Modifiers
+									/* Modifiers */
 			void push_back(const T &value)
 			{
 				if (_size >= _capacity)
-					ReAlloc(_capacity + (_capacity / 2));
+					_ReAlloc(_capacity + (_capacity / 2));
 				_data[_size] = value;
 				_size++;
 			}
 
-			//-> Capacity
+									/* Capacity */
 			size_t size( void ) const
 			{
 				return (_size);
@@ -85,9 +90,34 @@ namespace ft
 				return (_size == 0 ? true : false);
 			}
 
+									/* Iterators
+			void begin( void )
+			{
+				return (ft::iterator(_data));
+			}
+			void end( void )
+			{
+				return (ft::iterator(_data + _size));
+			}*/
+
+			/*-------------------- Operators --------------------------*/
+			T &operator[](size_t index)
+			{
+				if (index >= _size || index < 0)
+					throw OutOfBoundsException();
+				return (_data[index]);
+			}
+
+			const T &operator[](size_t index) const
+			{
+				if (index >= _size || index < 0)
+					throw OutOfBoundsException();
+				return (_data[index]);
+			}
+
 		private:
 			/*------------------------- Utils --------------------------------*/
-			void ReAlloc(size_t newCapacity)
+			void _ReAlloc(size_t newCapacity)
 			{
 				T *newBlock = new T[newCapacity];
 
