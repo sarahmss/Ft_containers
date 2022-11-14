@@ -44,4 +44,26 @@ All info about project can be found in wiki pages:
 * [Vector](https://www.youtube.com/watch?v=ryRf4Jh_YC0&list=PLlrATfBNZ98dudnM48yfGUldqGD0S4FFb&index=93&ab_channel=TheCherno)
 * [How to implement our own Vector Class in C++](https://www.geeksforgeeks.org/how-to-implement-our-own-vector-class-in-c/)
 
+# Progress schedule
+<details> <summary> Vectors </summary>
 
+```mermaid
+journey
+    title Working tree (Week 1)
+    section 13/11
+      Iterators and allocators: 6: study
+    section 14/11
+      Iterators and allocators: 0: implementation
+    section 15/11
+      Member functions: 0: study 
+    section 16/11
+      Member functions: 0: implementation
+    section 17/11
+      Non Member functions: 0: study
+    section 18/11
+      Non Member fucntions: 0: implementation 
+    section 19/11
+      Finish Vector: 0: implementation
+```
+
+</details>
