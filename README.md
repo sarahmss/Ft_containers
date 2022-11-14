@@ -37,17 +37,18 @@ All info about project can be found in wiki pages:
 * [04. Stack](https://github.com/sarahmss/Containers/wiki/Stack)
 
 ***
-# Refs
+### Refs
 
 * [C++ Reference](https://en.cppreference.com/w/)
 * [GoogleTests](http://google.github.io/googletest/)
 * [Vector](https://www.youtube.com/watch?v=ryRf4Jh_YC0&list=PLlrATfBNZ98dudnM48yfGUldqGD0S4FFb&index=93&ab_channel=TheCherno)
 * [How to implement our own Vector Class in C++](https://www.geeksforgeeks.org/how-to-implement-our-own-vector-class-in-c/)
 
-# Progress schedule
+### Progress schedule
 <details> <summary> Vectors </summary>
 
 ```mermaid
+
 journey
     title Working tree (Week 1)
     section 13/11
