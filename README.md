@@ -57,7 +57,7 @@ journey
     section 14/11
       capacity memeber functions + some iterators: 4: implementation, study
     section 15/11
-      finish iterators implementation 3: implementation 
+      finish iterators implementation: 3: implementation 
     section 16/11
       lexygraphical compare, type traits: 0: study
     section 17/11
