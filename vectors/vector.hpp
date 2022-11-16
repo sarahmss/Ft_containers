@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 05:36:46 by coder             #+#    #+#             */
-/*   Updated: 2022/11/16 00:43:57 by smodesto         ###   ########.fr       */
+/*   Updated: 2022/11/16 00:57:07 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,10 @@ namespace ft
 			}
 			~vector( void )
 			{
+				for (size_t i = 0; i < this->_capacity; ++i)
+					_alloc.destroy(this->_data + i);
+				if (this->_data)
+					_alloc.deallocate(this->_data, this->_capacity);
 				return ;
 			}
 
@@ -112,37 +116,30 @@ namespace ft
 			{
 				return (iterator(this->_data));
 			}
-
 			iterator end( void )
 			{
 				return (iterator(this->_data + this->_size));
 			}
-
 			const_iterator begin( void ) const
 			{
 				return (const_iterator(this->_data));
 			}
-
 			const_iterator end( void ) const
 			{
 				return (const_iterator(this->_data + this->_size));
 			}
-
 			reverse_iterator rbegin( void )
 			{
 				return (reverse_iterator(this->end() - 1));
 			}
-
 			const_reverse_iterator rbegin( void ) const
 			{
 				return (const_reverse_iterator(this->end() - 1));
 			}
-
 			reverse_iterator rend( void )
 			{
 				return(reverse_iterator(this->begin() - 1));
 			}
-
 			const_reverse_iterator rend( void ) const
 			{
 				return(const_reverse_iterator(this->begin() - 1));
@@ -167,16 +164,17 @@ namespace ft
 			/*------------------------- Utils --------------------------------*/
 			void _ReAlloc(size_t newCapacity)
 			{
-				T *newBlock = new T[newCapacity];
+				pointer newBlock = _alloc.allocate(newCapacity + 1);
 
+				if (!newBlock)
+					throw std::bad_alloc();
 				if (newCapacity < _size)
 					_size = newCapacity;
-
 				for (size_t i = 0; i < _size; i++)
-				{
-					newBlock[i] = _data[i];
-				}
-				delete[] _data;
+					_alloc.construct(newBlock + i, value_type());
+				for (size_t i = 0; i < this->_capacity; ++i)
+					_alloc.destroy(this->_data + i);
+				_alloc.deallocate(this->_data, this->_capacity);
 				_data = newBlock;
 				_capacity = newCapacity;
 			}
