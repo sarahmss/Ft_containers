@@ -6,7 +6,7 @@
 #    By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/11 17:02:33 by smodesto          #+#    #+#              #
-#    Updated: 2022/11/14 00:19:55 by smodesto         ###   ########.fr        #
+#    Updated: 2022/11/16 00:40:14 by smodesto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,10 @@ OBJS = $(addprefix $(OBJS_PATH), $(OBJS_FILES))
 
 HEADER_FILES	=	../vector.hpp						\
 					../utils/randomAccessIterator.hpp	\
+					../utils/reverseIterator.hpp		\
+					../utils/iteratorTraits.hpp			\
 					./includes/tests.hpp				\
+					./includes/iterators.hpp				\
 					./includes/utils.hpp				\
 					./includes/memberFunctions.hpp		\
 					./includes/operators.hpp
