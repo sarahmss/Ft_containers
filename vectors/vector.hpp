@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 05:36:46 by coder             #+#    #+#             */
-/*   Updated: 2022/11/14 20:15:13 by smodesto         ###   ########.fr       */
+/*   Updated: 2022/11/16 00:43:57 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "utils/randomAccessIterator.hpp"
 # include "utils/iteratorTraits.hpp"
+# include "utils/reverseIterator.hpp"
 
 /*
 	-> Reimplementation of vector container
@@ -47,8 +48,8 @@ namespace ft
 			typedef typename allocator_type::const_pointer						const_pointer;
 			typedef ft::random_access_iterator<value_type>						iterator;
 			typedef ft::random_access_iterator<const value_type>				const_iterator;
-/* 			typedef ft::reverse_iterator<iterator>								reverse_iterator;
-			typedef ft::reverse_iterator<const_iterator>						const_reverse_iterator; */
+ 			typedef ft::reverse_iterator<iterator>								reverse_iterator;
+			typedef ft::reverse_iterator<const_iterator>						const_reverse_iterator;
 			typedef typename ft::iterator_traits<iterator>::difference_type		difference_type;
 
 		private:
@@ -125,6 +126,26 @@ namespace ft
 			const_iterator end( void ) const
 			{
 				return (const_iterator(this->_data + this->_size));
+			}
+
+			reverse_iterator rbegin( void )
+			{
+				return (reverse_iterator(this->end() - 1));
+			}
+
+			const_reverse_iterator rbegin( void ) const
+			{
+				return (const_reverse_iterator(this->end() - 1));
+			}
+
+			reverse_iterator rend( void )
+			{
+				return(reverse_iterator(this->begin() - 1));
+			}
+
+			const_reverse_iterator rend( void ) const
+			{
+				return(const_reverse_iterator(this->begin() - 1));
 			}
 
 			/*-------------------- Operators --------------------------*/
