@@ -55,11 +55,11 @@ journey
     section 13/11
       Iterators and allocators: 6: study
     section 14/11
-      Iterators and allocators: 0: implementation
+      capacity memeber functions + some iterators: 4: implementation, study
     section 15/11
-      Member functions: 0: study 
+      finish iterators implementation 3: implementation 
     section 16/11
-      Member functions: 0: implementation
+      lexygraphical compare, type traits: 0: study
     section 17/11
       Non Member functions: 0: study
     section 18/11
