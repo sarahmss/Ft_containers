@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 17:02:46 by smodesto          #+#    #+#             */
-/*   Updated: 2022/11/14 16:44:38 by smodesto         ###   ########.fr       */
+/*   Updated: 2022/11/16 21:57:47 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,7 @@
 #include "iterators.hpp"
 #include "memberFunctions.hpp"
 #include "utils.hpp"
+#include "elementAccess.hpp"
+
 
 #endif //TESTS_HPP
