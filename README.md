@@ -2,7 +2,7 @@
 
 In this project we have to reimplement some of STL containers and functionalitys.
 
-<details> 
+<details>
 <summary> They are: </summary>
 
 * Containers:
@@ -11,7 +11,7 @@ In this project we have to reimplement some of STL containers and functionalitys
 - [ ] map
 - [ ] stack
 
-* 
+*
 - [x] std::iterator_traits
 - [x] std::reverse_iterator
 - [ ] std::enable_if (c++11)
@@ -26,7 +26,7 @@ this needs to be done following the rules ahead:
 - [ ] You cannot implement more public functions than the ones offered in the standard containers
 - [ ] All the member functions, non-member functions and overloads of the standard containers are expected
 - [ ] iterator system in containers that have it
-- [ ] use std::alocator
+- [x] use std::alocator
 </details >
 
 All info about project can be found in wiki pages:
@@ -57,13 +57,13 @@ journey
     section 14/11
       capacity memeber functions + some iterators: 4: implementation, study
     section 15/11
-      finish iterators implementation: 3: implementation 
+      finish iterators implementation: 5: implementation
     section 16/11
-      lexygraphical compare, type traits: 0: study
+      lexygraphical compare, type traits: 5: study
     section 17/11
       Non Member functions: 0: study
     section 18/11
-      Non Member fucntions: 0: implementation 
+      Non Member fucntions: 0: implementation
     section 19/11
       Finish Vector: 0: implementation
 ```

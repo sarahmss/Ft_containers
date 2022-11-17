@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 05:36:46 by coder             #+#    #+#             */
-/*   Updated: 2022/11/16 00:57:07 by smodesto         ###   ########.fr       */
+/*   Updated: 2022/11/16 22:48:18 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include "utils/randomAccessIterator.hpp"
 # include "utils/iteratorTraits.hpp"
 # include "utils/reverseIterator.hpp"
+# include "utils/equal.hpp"
+# include "utils/lexicographicalCompare.hpp"
 
 /*
 	-> Reimplementation of vector container
@@ -69,11 +71,19 @@ namespace ft
 			}
 			~vector( void )
 			{
-				for (size_t i = 0; i < this->_capacity; ++i)
-					_alloc.destroy(this->_data + i);
 				if (this->_data)
-					_alloc.deallocate(this->_data, this->_capacity);
+				{
+					for (size_t i = 0; i < this->_capacity; ++i)
+						_alloc.destroy(this->_data + i);
+					if (this->_data)
+						_alloc.deallocate(this->_data, this->_capacity);
+				}
+
 				return ;
+			}
+			allocator_type get_allocator( void ) const
+			{
+				return this->_alloc;
 			}
 
 									/* Modifiers */
@@ -84,8 +94,44 @@ namespace ft
 				_data[_size] = value;
 				_size++;
 			}
+			void pop_back( void )
+			{
+				this->_size -= 1;
+			}
+			void swap(vector &other)
+			{
+				pointer tempD = other._data;
+				size_t	tempS = other._size;
+				size_t	tempC = other._capacity;
+				allocator_type tempA = other._alloc;
 
-									/* Capacity */
+				other._data = this->_data;
+				other._size = this->_size;
+				other._capacity = this->_capacity;
+				other._alloc = this->_alloc;
+
+				this->_data = tempD;
+				this->_size = tempS;
+				this->_capacity = tempC;
+				this->_alloc = tempA;
+			}
+		/*
+			void clear( void ) // Erases all elements from the container
+			{
+				if (this->_data)
+				{
+					for (size_t i = 0; i < this->_capacity; ++i)
+						_alloc.destroy(this->_data + i);
+					_alloc.deallocate(this->_data, this->_capacity);
+					this->_data = NULL;
+					this->_size = 0;
+				}
+			}
+			iterator insert(const_iterator pos, const T& value) // inserts value before pos.
+			{
+
+			} */
+												/* Capacity */
 			size_type	size( void ) const
 			{
 				return (_size);
@@ -145,21 +191,51 @@ namespace ft
 				return(const_reverse_iterator(this->begin() - 1));
 			}
 
-			/*-------------------- Operators --------------------------*/
-			T &operator[](size_t index)
+			/*-------------------- Element access --------------------------*/
+			reference operator[](size_t index)
+			{
+				return (this->_data[index]);
+			}
+			const_reference operator[](size_t index) const
+			{
+				return (this->_data[index]);
+			}
+			reference at(size_type index)
 			{
 				if (index >= _size || index < 0)
 					throw OutOfBoundsException();
-				return (_data[index]);
+				return (this->data[index]);
 			}
-
-			const T &operator[](size_t index) const
+			const_reference at(size_type index) const
 			{
 				if (index >= _size || index < 0)
 					throw OutOfBoundsException();
-				return (_data[index]);
+				return (this->_data[index]);
 			}
-
+			reference front( void )
+			{
+				return (this->_data[0]);
+			}
+			const_reference front( void ) const
+			{
+				return (this->_data[0]);
+			}
+			reference back( void)
+			{
+				return (this->_data[this->_size - 1]);
+			}
+			const_reference back( void ) const
+			{
+				return (this->_data[this->_size - 1]);
+			}
+			pointer data( void )
+			{
+				return (this->_data);
+			}
+			const_pointer data( void ) const
+			{
+				return (this->_data);
+			}
 		private:
 			/*------------------------- Utils --------------------------------*/
 			void _ReAlloc(size_t newCapacity)
@@ -188,6 +264,46 @@ namespace ft
 				}
 			};
 		};
+		/*------------------------- Non member functions ---------------------------*/
+
+		template<class T, class Alloc>
+		void swap(vector<T, Alloc> &lhs, vector<T, Alloc> &rhs)
+		{
+			lhs.swap(rhs);
+		}
+		template<class T, class Alloc>
+		bool operator==(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs)
+		{
+			if (lhs.size()!= rhs.size())
+				return (false);
+			return (ft::equal(lhs.begin(), rhs.begin(), rhs.end()));
+		}
+		template<class T, class Alloc>
+		bool operator!=(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs)
+		{
+			return (!(lhs==rhs));
+		}
+		template<class T, class Alloc>
+		bool operator<(const vector<T, Alloc> &lhs, const vector<T,Alloc> &rhs)
+		{
+			return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
+		}
+		template<class T, class Alloc>
+		bool operator>(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs)
+		{
+			return (ft::lexicographical_compare(rhs.begin(), rhs.end(), lhs.begin(), lhs.end()));
+		}
+		template<class T, class Alloc>
+		bool operator<=(const vector<T, Alloc> &lhs, const vector<T,Alloc> &rhs)
+		{
+			return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
+		}
+		template<class T, class Alloc>
+		bool operator>=(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs)
+		{
+			return (ft::lexicographical_compare(rhs.begin(), rhs.end(), lhs.begin(), lhs.end()));
+		}
+
 }
 
 #endif // VECTOR_HPP
