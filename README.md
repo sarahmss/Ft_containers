@@ -12,11 +12,11 @@ In this project we have to reimplement some of STL containers and functionalitys
 - [ ] stack
 
 * 
-- [ ] std::iterator_traits
-- [ ] std::reverse_iterator
+- [x] std::iterator_traits
+- [x] std::reverse_iterator
 - [ ] std::enable_if (c++11)
 - [ ] std::is_integral
-- [ ] std::equal and/or std::lexicographical_compare
+- [x] std::equal and/or std::lexicographical_compare
 - [ ] std::pair
 - [ ] std::make_pair
 
