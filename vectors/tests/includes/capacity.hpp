@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.hpp                                          :+:      :+:    :+:   */
+/*   capacity.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/13 17:04:43 by smodesto          #+#    #+#             */
-/*   Updated: 2022/11/21 23:00:10 by smodesto         ###   ########.fr       */
+/*   Created: 2022/11/17 17:52:11 by smodesto          #+#    #+#             */
+/*   Updated: 2022/11/21 22:52:53 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_HPP
-#define UTILS_HPP
+#ifndef CAPACITY_HPP
+#define CAPACITY_HPP
 
-#include "./tests.hpp"
-#include <iomanip>
+#include "utils.hpp"
 
-
-template <class container>
-void	printVector (const container &vector)
+template<class container>
+void	testingCapacity(const container &vector)
 {
-	std::cout << "  vector = [ ";
-	for (size_t i = 0; i < vector.size(); i++)
-		std::cout << vector[i] << " ";
-	std::cout << "]" << std::endl;
+	std::cout << "----- Capacity ------" << std::endl;
+	std::cout	<< " | Size:     " << vector.size()
+				<< "    |\n | Empty:  " << (vector.empty() ? TRUE : FALSE)
+				<< " |\n | Capacity: " << vector.capacity() << "    |" << std::endl;
 }
-#endif //UTILS_HPP
+
+#endif //CAPACITY_HPP

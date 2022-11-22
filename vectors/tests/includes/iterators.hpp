@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 16:41:43 by smodesto          #+#    #+#             */
-/*   Updated: 2022/11/16 00:44:19 by smodesto         ###   ########.fr       */
+/*   Updated: 2022/11/21 23:08:10 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@
 template<class container>
 void	testingIterators(const container &vector)
 {
-	std::cout << "----------------- Iterators -------------------" << std::endl;
-	std::cout	<< " | begin: " << *vector.begin()
-				<< " | end: " << *(vector.end() - 1)
-				<< " | rbegin: " << *vector.rbegin()
-				<< " | rend: " << *(vector.rend() - 1)
-				<< " |" << std::endl;
+	std::cout	<< "------ Iterators -----\n"
+				<< " | begin:"		<< std::setw(9) << *vector.begin()
+				<< " |\n | end:"	<< std::setw(11) << *(vector.end() - 1)
+				<< " |\n | rbegin:"	<< std::setw(8) << *vector.rbegin()
+				<< " |\n | rend:"	<< std::setw(10) << *(vector.rend() - 1)
+				<< " | " << std::endl;
 }
 
 #endif //ITERATORS_HPP

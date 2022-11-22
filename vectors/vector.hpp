@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 05:36:46 by coder             #+#    #+#             */
-/*   Updated: 2022/11/16 22:48:18 by smodesto         ###   ########.fr       */
+/*   Updated: 2022/11/17 18:36:19 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,19 +71,18 @@ namespace ft
 			}
 			~vector( void )
 			{
-				if (this->_data)
-				{
-					for (size_t i = 0; i < this->_capacity; ++i)
-						_alloc.destroy(this->_data + i);
-					if (this->_data)
-						_alloc.deallocate(this->_data, this->_capacity);
-				}
-
+				this->clear();
 				return ;
 			}
 			allocator_type get_allocator( void ) const
 			{
 				return this->_alloc;
+			}
+			vector& operator=(const vector& other)
+			{
+				this->clear();
+				_ReAlloc(other._size);
+				return (*this);
 			}
 
 									/* Modifiers */
@@ -115,7 +114,6 @@ namespace ft
 				this->_capacity = tempC;
 				this->_alloc = tempA;
 			}
-		/*
 			void clear( void ) // Erases all elements from the container
 			{
 				if (this->_data)
@@ -127,7 +125,7 @@ namespace ft
 					this->_size = 0;
 				}
 			}
-			iterator insert(const_iterator pos, const T& value) // inserts value before pos.
+/* 			iterator insert(const_iterator pos, const T& value) // inserts value before pos.
 			{
 
 			} */
@@ -238,21 +236,27 @@ namespace ft
 			}
 		private:
 			/*------------------------- Utils --------------------------------*/
+
+			void _copyData(pointer src, pointer dst, size_t n){
+				for (size_t i = 0; i < n; i++)
+					dst[i] = src[i];
+			}
+
 			void _ReAlloc(size_t newCapacity)
 			{
 				pointer newBlock = _alloc.allocate(newCapacity + 1);
-
+				size_t size = _size;
 				if (!newBlock)
 					throw std::bad_alloc();
-				if (newCapacity < _size)
-					_size = newCapacity;
-				for (size_t i = 0; i < _size; i++)
+				if (newCapacity < size)
+					size = newCapacity;
+				for (size_t i = 0; i < size; i++)
 					_alloc.construct(newBlock + i, value_type());
-				for (size_t i = 0; i < this->_capacity; ++i)
-					_alloc.destroy(this->_data + i);
-				_alloc.deallocate(this->_data, this->_capacity);
+				_copyData(this->_data, newBlock, _size);
+				this->clear();
 				_data = newBlock;
 				_capacity = newCapacity;
+				_size = size;
 			}
 			/*------------------------- Exceptions ---------------------------*/
 			class OutOfBoundsException : public std::exception
