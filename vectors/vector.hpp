@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 05:36:46 by coder             #+#    #+#             */
-/*   Updated: 2022/11/17 18:36:19 by smodesto         ###   ########.fr       */
+/*   Updated: 2022/11/21 23:59:01 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ namespace ft
 	class vector
 	{
 		public:
-			/*---------------------------Member types--------------------------------------------*/
+			/*--------- Member types -------------*/
 			typedef	T															value_type;
 			typedef	Alloc														allocator_type;
 			typedef typename allocator_type::size_type							size_type;
@@ -62,7 +62,7 @@ namespace ft
 
 		public:
 
-			/*-------------------- Member Functions --------------------------*/
+			/*------------ Member Functions ---------*/
 			vector( void ) :	_data(NULL),
 							_size(0),
 							_capacity(0)
@@ -80,10 +80,26 @@ namespace ft
 			}
 			vector& operator=(const vector& other)
 			{
-				this->clear();
 				_ReAlloc(other._size);
+				_copyData(other._data, this->_data, other._size);
+				this->_size = other._size;
+				this->_alloc = other._alloc;
 				return (*this);
 			}
+/*			void assign(size_type count, const T&value)
+			{
+				this->clear();
+				if (count == 0)
+					return;
+				_ReAlloc(count);
+				for (size_type i = 0; i < count; i++)
+					this->_data[i] = value;
+			}
+			template<class InputIt>
+			void assign(InputIt first, InputIt last)
+			{
+
+			}*/
 
 									/* Modifiers */
 			void push_back(const T &value)
@@ -234,6 +250,7 @@ namespace ft
 			{
 				return (this->_data);
 			}
+
 		private:
 			/*------------------------- Utils --------------------------------*/
 
@@ -254,11 +271,11 @@ namespace ft
 					_alloc.construct(newBlock + i, value_type());
 				_copyData(this->_data, newBlock, _size);
 				this->clear();
-				_data = newBlock;
-				_capacity = newCapacity;
-				_size = size;
+				this->_data = newBlock;
+				this->_capacity = newCapacity;
+				this->_size = size;
 			}
-			/*------------------------- Exceptions ---------------------------*/
+			/*---------------- Exceptions ------------------*/
 			class OutOfBoundsException : public std::exception
 			{
 			public:
@@ -268,7 +285,7 @@ namespace ft
 				}
 			};
 		};
-		/*------------------------- Non member functions ---------------------------*/
+		/*---------------- Non member functions ----------------*/
 
 		template<class T, class Alloc>
 		void swap(vector<T, Alloc> &lhs, vector<T, Alloc> &rhs)
