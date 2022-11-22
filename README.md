@@ -48,8 +48,9 @@ All info about project can be found in wiki pages:
 ### Progress schedule
 <details> <summary> Vectors </summary>
 
-```mermaid
+* Week 1:
 
+```mermaid
 journey
     title Working tree (Week 1)
     section 13/11
@@ -57,15 +58,49 @@ journey
     section 14/11
       capacity memeber functions + some iterators: 4: implementation, study
     section 15/11
-      finish iterators implementation: 5: implementation
+      finish iterators implementation: 4: implementation
     section 16/11
-      lexygraphical compare, type traits: 5: study
+      lexygraphical compare, type traits: 4: study, implementation
     section 17/11
-      Non Member functions: 0: study
-    section 18/11
-      Non Member fucntions: 0: implementation
-    section 19/11
-      Finish Vector: 0: implementation
+      Non Member functions: 3: study, Implementation
+```
+
+* Week 2
+
+```mermaid
+journey
+    title Working tree (Week 2)
+    section 21/11
+      assign + tests: 3: implementation 
+    section 22/11
+      x: 0: implementation, study
+    section 23/11
+      x: 0: implementation
+    section 24/11
+      x: 0: study, implementation
+    section 25/11
+      x: 0: study, Implementation
+    section 26/11
+      x: 0: study, Implementation
+```
+
+* Week 3
+
+```mermaid
+journey
+    title Working tree (Week 3)
+    section 21/11
+      assign + tests: 3: implementation 
+    section 22/11
+      x: 0: implementation, study
+    section 23/11
+      x: 0: implementation
+    section 24/11
+      x: 0: study, implementation
+    section 25/11
+      x: 0: study, Implementation
+    section 26/11
+      x: 0: study, Implementation
 ```
 
 </details>
