@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 05:36:46 by coder             #+#    #+#             */
-/*   Updated: 2022/11/21 23:59:01 by smodesto         ###   ########.fr       */
+/*   Updated: 2022/11/22 21:07:29 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,9 @@ namespace ft
 
 			/*------------ Member Functions ---------*/
 			vector( void ) :	_data(NULL),
-							_size(0),
-							_capacity(0)
+								_size(0),
+								_capacity(0),
+								_alloc(allocator_type())
 			{
 				_ReAlloc(2);
 			}
@@ -80,7 +81,11 @@ namespace ft
 			}
 			vector& operator=(const vector& other)
 			{
-				_ReAlloc(other._size);
+				pointer newBlock;
+
+				_clearData();
+				newBlock = _getNewBlock(other._size);
+				_Construct(newBlock, other._size, value_type());
 				_copyData(other._data, this->_data, other._size);
 				this->_size = other._size;
 				this->_alloc = other._alloc;
@@ -134,15 +139,13 @@ namespace ft
 			{
 				if (this->_data)
 				{
-					for (size_t i = 0; i < this->_capacity; ++i)
-						_alloc.destroy(this->_data + i);
-					_alloc.deallocate(this->_data, this->_capacity);
+					_clearData();
 					this->_data = NULL;
 					this->_size = 0;
 				}
 			}
 /* 			iterator insert(const_iterator pos, const T& value) // inserts value before pos.
-			{
+			{newCapacity
 
 			} */
 												/* Capacity */
@@ -254,26 +257,39 @@ namespace ft
 		private:
 			/*------------------------- Utils --------------------------------*/
 
-			void _copyData(pointer src, pointer dst, size_t n){
+			void _ReAlloc(size_type newCapacity)
+			{
+				pointer newBlock;
+				newBlock = _getNewBlock(newCapacity);
+				_Construct(newBlock, newCapacity, value_type());
+				_copyData (this->_data, newBlock, this->_size);
+				_clearData();
+				this->_data = newBlock;
+				this->_capacity = newCapacity;
+			}
+
+			pointer _getNewBlock(size_t newCapacity)
+			{
+				pointer newBlock = _alloc.allocate(newCapacity);
+				if (!newBlock)
+					throw std::bad_alloc();
+				return (newBlock);
+			}
+			void _Construct(pointer newBlock, size_type size, value_type value)
+			{
+				for (size_t i = 0; i < size; i++)
+					_alloc.construct(newBlock + i, value);
+			}
+			void _copyData(pointer src, pointer dst, size_t n)
+			{
 				for (size_t i = 0; i < n; i++)
 					dst[i] = src[i];
 			}
-
-			void _ReAlloc(size_t newCapacity)
+			void _clearData()
 			{
-				pointer newBlock = _alloc.allocate(newCapacity + 1);
-				size_t size = _size;
-				if (!newBlock)
-					throw std::bad_alloc();
-				if (newCapacity < size)
-					size = newCapacity;
-				for (size_t i = 0; i < size; i++)
-					_alloc.construct(newBlock + i, value_type());
-				_copyData(this->_data, newBlock, _size);
-				this->clear();
-				this->_data = newBlock;
-				this->_capacity = newCapacity;
-				this->_size = size;
+				for (size_t i = 0; i < this->_capacity; ++i)
+					_alloc.destroy(this->_data + i);
+				_alloc.deallocate(this->_data, this->_capacity);
 			}
 			/*---------------- Exceptions ------------------*/
 			class OutOfBoundsException : public std::exception
