@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 05:36:46 by coder             #+#    #+#             */
-/*   Updated: 2022/11/22 21:07:29 by smodesto         ###   ########.fr       */
+/*   Updated: 2022/11/28 18:26:03 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,28 +83,28 @@ namespace ft
 			{
 				pointer newBlock;
 
-				_clearData();
-				newBlock = _getNewBlock(other._size);
-				_Construct(newBlock, other._size, value_type());
-				_copyData(other._data, this->_data, other._size);
+				if (this->_data != other._data)
+				{
+					_clearData();
+					newBlock = _getNewBlock(other._capacity);
+					_Construct(newBlock, other._capacity, value_type());
+					_copyData(other._data, newBlock, 0, other._size);
+					this->_data = newBlock;
+				}
+				this->_capacity = other._capacity;
 				this->_size = other._size;
 				this->_alloc = other._alloc;
 				return (*this);
 			}
-/*			void assign(size_type count, const T&value)
+			void assign(size_type count, const T&value)
 			{
-				this->clear();
-				if (count == 0)
-					return;
-				_ReAlloc(count);
-				for (size_type i = 0; i < count; i++)
-					this->_data[i] = value;
+
 			}
 			template<class InputIt>
 			void assign(InputIt first, InputIt last)
 			{
 
-			}*/
+			}
 
 									/* Modifiers */
 			void push_back(const T &value)
@@ -144,10 +144,27 @@ namespace ft
 					this->_size = 0;
 				}
 			}
-/* 			iterator insert(const_iterator pos, const T& value) // inserts value before pos.
-			{newCapacity
+ 			iterator insert(const_iterator pos, const value_type& value) // inserts value before pos.
+			{
+				iterator current = this->begin();
+				pointer newBlock;
+				int len = 0;
+				size_t newCapacity = this->_capacity + 1;
 
-			} */
+				newBlock = _getNewBlock(newCapacity);
+				_Construct(newBlock, newCapacity, value_type());
+				while (current++ != pos)
+					len++;
+				_copyData (this->_data, newBlock, 0, len);
+				newBlock[len] = value;
+				for (size_t i = len; i < _capacity; i++)
+					newBlock[i + 1] = this->_data[i];
+				_clearData();
+				this->_data = newBlock;
+				this->_capacity = newCapacity;
+				_size++;
+				return (iterator(this->_data + len));
+			}
 												/* Capacity */
 			size_type	size( void ) const
 			{
@@ -262,7 +279,7 @@ namespace ft
 				pointer newBlock;
 				newBlock = _getNewBlock(newCapacity);
 				_Construct(newBlock, newCapacity, value_type());
-				_copyData (this->_data, newBlock, this->_size);
+				_copyData (this->_data, newBlock, 0, this->_size);
 				_clearData();
 				this->_data = newBlock;
 				this->_capacity = newCapacity;
@@ -280,9 +297,9 @@ namespace ft
 				for (size_t i = 0; i < size; i++)
 					_alloc.construct(newBlock + i, value);
 			}
-			void _copyData(pointer src, pointer dst, size_t n)
+			void _copyData(pointer src, pointer dst, size_t begin, size_t end)
 			{
-				for (size_t i = 0; i < n; i++)
+				for (size_t i = begin; i < end; i++)
 					dst[i] = src[i];
 			}
 			void _clearData()

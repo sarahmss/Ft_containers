@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:26:35 by smodesto          #+#    #+#             */
-/*   Updated: 2022/11/15 23:44:47 by smodesto         ###   ########.fr       */
+/*   Updated: 2022/11/28 17:49:52 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,13 +101,13 @@ namespace ft
 				return (it);
 			}
 
-			iterator operator+=( difference_type n ) const	// a reference to the element placed at the actual pointer memory + n
+			iterator operator+=( difference_type n )	// a reference to the element placed at the actual pointer memory + n
 			{
 				_element += n;
 				return (*this);
 			}
 
-			iterator operator-=( difference_type n ) const	// a reference to the element placed at the actual pointer memory - n
+			iterator operator-=( difference_type n )	// a reference to the element placed at the actual pointer memory - n
 			{
 				_element -= n;
 				return (*this);

@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 17:04:43 by smodesto          #+#    #+#             */
-/*   Updated: 2022/11/22 20:33:32 by smodesto         ###   ########.fr       */
+/*   Updated: 2022/11/28 16:20:26 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 
 
 template <class container>
-void	printVector (const container &vector)
+void	printVector (const container &vector, std::string vecName)
 {
-	std::cout << " vector = [ ";
+	std::cout << vecName << " [ ";
 	for (size_t i = 0; i < vector.size(); i++)
 		std::cout << vector[i] << " ";
 	std::cout << "]" << std::endl;

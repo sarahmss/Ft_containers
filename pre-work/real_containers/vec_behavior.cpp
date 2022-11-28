@@ -1,28 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mainFT.cpp                                         :+:      :+:    :+:   */
+/*   vec_behavior.cpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/09 05:24:36 by coder             #+#    #+#             */
-/*   Updated: 2022/11/28 17:28:57 by smodesto         ###   ########.fr       */
+/*   Created: 2022/11/28 16:35:42 by smodesto          #+#    #+#             */
+/*   Updated: 2022/11/28 16:50:19 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/tests.hpp"
+#include <vector>
+#include <iostream>
+#include <string>
+#include <memory>
+
+template <class container>
+void	printVector (const container &vector, std::string vecName)
+{
+	std::cout << vecName << " [ ";
+	for (size_t i = 0; i < vector.size(); i++)
+		std::cout << vector[i] << " ";
+	std::cout << "]" << std::endl;
+}
 
 static void ft_str_vector_test(void)
 {
-	std::string s1[10] =	{"v1_S1", "v1_S2", "v1_S3", "v1_S4", "v1_S5",
-							"v1_S6", "v1_S7", "v1_S8", "v1_S9", "v1_S10"};
-	ft::vector<std::string> v1;
+	//std::vector<std::string> v1 = {"A", "B", "C", "D", "E", "F"};
+	std::vector<int> v1 = {1, 2, 3, 4, 5, 6, 7, 8, 9};
 
-	testingModifiers(v1, s1);
-	testingCapacity(v1);
-	testingIterators(v1);
-	testingOperators(v1, v1);
-	testingElementAccess(v1);
 }
 
 int main(void)
@@ -30,3 +36,4 @@ int main(void)
 	ft_str_vector_test();
 	return (0);
 }
+
