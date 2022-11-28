@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 05:36:46 by coder             #+#    #+#             */
-/*   Updated: 2022/11/28 18:26:03 by smodesto         ###   ########.fr       */
+/*   Updated: 2022/11/28 20:34:27 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ namespace ft
 					this->_size = 0;
 				}
 			}
- 			iterator insert(const_iterator pos, const value_type& value) // inserts value before pos.
+ 			iterator insert(const_iterator pos, const value_type& value)			// inserts value before pos.
 			{
 				iterator current = this->begin();
 				pointer newBlock;
@@ -163,6 +163,55 @@ namespace ft
 				this->_data = newBlock;
 				this->_capacity = newCapacity;
 				_size++;
+				return (iterator(this->_data + len));
+			}
+			iterator insert( const_iterator pos, size_type count, const T& value )	// inserts count copies of the value before pos
+			{
+				iterator current = this->begin();
+				pointer newBlock;
+				int len = 0;
+				size_t newCapacity = this->_capacity + count;
+
+				newBlock = _getNewBlock(newCapacity);
+				_Construct(newBlock, newCapacity, value_type());
+				while (current++ != pos)
+					len++;
+				_copyData (this->_data, newBlock, 0, len);
+				for (size_t i = 0; i < count; i++)
+					newBlock[len++] = value;
+				for (size_t i = len - count; i < _size; i++)
+					newBlock[i + count] = this->_data[i];
+				_clearData();
+				this->_data = newBlock;
+				this->_capacity = newCapacity;
+				_size += count;
+				return (iterator(this->_data + len));
+			}
+			template< class InputIt >
+			iterator insert( const_iterator pos, InputIt first, InputIt last )		// inserts elements from range [first, last) before pos
+			{
+				iterator current = this->begin();
+				InputIt temp = first;
+				pointer newBlock;
+				int len = 0;
+				int count = 0;
+				while (temp++ != last)
+					count++;
+				size_t newCapacity = this->_capacity + count;
+
+				newBlock = _getNewBlock(newCapacity);
+				_Construct(newBlock, newCapacity, value_type());
+				while (current++ != pos)
+					len++;
+				_copyData (this->_data, newBlock, 0, len);
+				for (temp = first; temp < last; temp++)
+					newBlock[len++] = *temp;
+				for (size_t i = len - count; i < _size; i++)
+					newBlock[i + count] = this->_data[i];
+				_clearData();
+				this->_data = newBlock;
+				this->_capacity = newCapacity;
+				_size += count;
 				return (iterator(this->_data + len));
 			}
 												/* Capacity */

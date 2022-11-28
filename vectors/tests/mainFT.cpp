@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 05:24:36 by coder             #+#    #+#             */
-/*   Updated: 2022/11/28 17:28:57 by smodesto         ###   ########.fr       */
+/*   Updated: 2022/11/28 20:38:38 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static void ft_str_vector_test(void)
 {
-	std::string s1[10] =	{"v1_S1", "v1_S2", "v1_S3", "v1_S4", "v1_S5",
-							"v1_S6", "v1_S7", "v1_S8", "v1_S9", "v1_S10"};
+	std::string s1[10] =	{"S1", "S2", "S3", "S4", "S5",
+							"S6", "S7", "S8", "S9", "S10"};
 	ft::vector<std::string> v1;
 
 	testingModifiers(v1, s1);
