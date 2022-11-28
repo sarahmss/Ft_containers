@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 22:42:09 by smodesto          #+#    #+#             */
-/*   Updated: 2022/11/28 17:59:25 by smodesto         ###   ########.fr       */
+/*   Updated: 2022/11/28 20:28:56 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,20 @@ void	testingModifiers(container &v1, T type[10])
 	std::cout << " | using = to make a copy: ";
 	v1_copy = v1;
 	printVector(v1_copy, "v1 copy");
-	std::cout << " | Clearing v1 copy: " << std::endl;;
-	v1_copy.clear();
-	std::cout << " | inserting 1 element at v1[2]: " << std::endl;;
+	std::cout << " | inserting 1 element at v1[2]: ";
 	it = v1.begin();
 	it += 2;
 	v1.insert(it, "Inserted");
-	printVector(v1, "v1");
+	printVector(v1, " v1");
+	std::cout << " | inserting 3 element at v1[4]: ";
+	it = v1.begin() + 4;
+	v1.insert(it, 3 ,"Inserted");
+	printVector(v1, " v1");
+	std::cout << " | inserting elements in range at v1_copy[0]: ";
+	v1_copy.insert(v1_copy.begin(), it, it + 3);
+	printVector(v1, " v1");
+	std::cout << " | Clearing v1 copy: " << std::endl;;
+	v1_copy.clear();
 }
 
 #endif //MODIFIERS_HPP
