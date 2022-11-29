@@ -7,18 +7,18 @@ In this project we have to reimplement some of STL containers and functionalitys
 
 * Containers:
 
-- [ ] vector
+- [x] vector
 - [ ] map
 - [ ] stack
 
 *
 - [x] std::iterator_traits
 - [x] std::reverse_iterator
-- [ ] std::enable_if (c++11)
-- [ ] std::is_integral
+- [x] std::enable_if (c++11)
+- [x] std::is_integral
 - [x] std::equal and/or std::lexicographical_compare
-- [ ] std::pair
-- [ ] std::make_pair
+- [x] std::pair
+- [x] std::make_pair
 
 this needs to be done following the rules ahead:
 
@@ -73,15 +73,15 @@ journey
     section 21/11
       assign + tests: 3: implementation 
     section 22/11
-      x: 0: implementation, study
+      x: 0: nothing
     section 23/11
-      x: 0: implementation
+      x: 0: nothing
     section 24/11
-      x: 0: study, implementation
+      x: 0: nothing
     section 25/11
-      x: 0: study, Implementation
+      x: 0: nothing
     section 26/11
-      x: 0: study, Implementation
+      x: 0: nothing
 ```
 
 * Week 3
@@ -89,10 +89,10 @@ journey
 ```mermaid
 journey
     title Working tree (Week 3)
-    section 21/11
-      assign + tests: 3: implementation 
-    section 22/11
-      x: 0: implementation, study
+    section 28/11
+      erase, insert: 3: implementation 
+    section 29/11
+      assign, resize 0: implementation
     section 23/11
       x: 0: implementation
     section 24/11
