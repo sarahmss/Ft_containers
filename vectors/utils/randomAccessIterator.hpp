@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:26:35 by smodesto          #+#    #+#             */
-/*   Updated: 2022/11/28 17:49:52 by smodesto         ###   ########.fr       */
+/*   Updated: 2022/11/28 21:22:41 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ namespace ft
 			{
 				return const_iterator(_element);
 			}
-
 			iterator operator+( difference_type n ) const	// a iterator where the element is pointed at this + n in memory
 			{
 				return (_element + n);
@@ -63,6 +62,12 @@ namespace ft
 			iterator operator-( difference_type n ) const	// a iterator where the element is pointed at this - n in memory
 			{
 				return (_element - n);
+			}
+			int operator+(const iterator& right_hand_side){
+				return (this->_element + right_hand_side._element);
+			}
+			int operator-(const iterator& right_hand_side){
+				return (this->_element - right_hand_side._element);
 			}
 
 			pointer operator->( void )						// return lvalue (pointer to the element)

@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 05:36:46 by coder             #+#    #+#             */
-/*   Updated: 2022/11/28 21:15:09 by smodesto         ###   ########.fr       */
+/*   Updated: 2022/11/28 22:10:04 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,16 +146,13 @@ namespace ft
 			}
  			iterator insert(const_iterator pos, const value_type& value)			// inserts value before pos.
 			{
-				iterator current = this->begin();
 				pointer newBlock;
-				int len = 0;
-				size_t newCapacity = this->_capacity + 1;
+				difference_type len = pos - this->begin();
+				size_t newCapacity = this->_size + 1;
 
-				while (current++ != pos)
-					len++;
 				newBlock = _ReAllocToInsert(newCapacity, len);
 				newBlock[len] = value;
-				for (size_t i = len; i < _capacity; i++)
+				for (size_t i = len; i < _size; i++)
 					newBlock[i + 1] = this->_data[i];
 				_clearData();
 				this->_data = newBlock;
@@ -165,13 +162,10 @@ namespace ft
 			}
 			iterator insert( const_iterator pos, size_type count, const T& value )	// inserts count copies of the value before pos
 			{
-				iterator current = this->begin();
 				pointer newBlock;
-				int len = 0;
-				size_t newCapacity = this->_capacity + count;
+				difference_type len = pos - this->begin();
+				size_t newCapacity = this->_size + count;
 
-				while (current++ != pos)
-					len++;
 				newBlock = _ReAllocToInsert(newCapacity, len);
 				for (size_t i = 0; i < count; i++)
 					newBlock[len++] = value;
@@ -186,19 +180,13 @@ namespace ft
 			template< class InputIt >
 			iterator insert( const_iterator pos, InputIt first, InputIt last )		// inserts elements from range [first, last) before pos
 			{
-				iterator current = this->begin();
-				InputIt temp = first;
 				pointer newBlock;
-				int len = 0;
-				int count = 0;
-				while (temp++ != last)
-					count++;
-				size_t newCapacity = this->_capacity + count;
+				difference_type len = pos - this->begin();
+				difference_type count = last - first;
+				size_t newCapacity = this->_size + count;
 
-				while (current++ != pos)
-					len++;
 				newBlock = _ReAllocToInsert(newCapacity, len);
-				for (temp = first; temp < last; temp++)
+				for (InputIt temp = first; temp < last; temp++)
 					newBlock[len++] = *temp;
 				for (size_t i = len - count; i < _size; i++)
 					newBlock[i + count] = this->_data[i];
