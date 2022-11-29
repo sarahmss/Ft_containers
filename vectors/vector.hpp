@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 05:36:46 by coder             #+#    #+#             */
-/*   Updated: 2022/11/28 22:56:59 by smodesto         ###   ########.fr       */
+/*   Updated: 2022/11/28 23:07:36 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,6 +210,15 @@ namespace ft
 			{
 				this->_size -= 1;
 			}
+			void resize( size_type count, value_type value = value_type() )
+			{
+				if (count < _size)
+					_size = count;
+				else if(count > _capacity)
+					reserve(count < (_size * 2) ? (_size * 2) : count);
+				while (count > _size)
+					push_back(value);
+			}
 			void swap(vector &other)
 			{
 				pointer tempD = other._data;
@@ -227,7 +236,6 @@ namespace ft
 				this->_capacity = tempC;
 				this->_alloc = tempA;
 			}
-
 
 												/* Capacity */
 			size_type	size( void ) const
