@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 05:36:46 by coder             #+#    #+#             */
-/*   Updated: 2022/11/28 23:07:36 by smodesto         ###   ########.fr       */
+/*   Updated: 2022/11/29 15:19:29 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,14 +96,45 @@ namespace ft
 				this->_alloc = other._alloc;
 				return (*this);
 			}
-			void assign(size_type count, const T&value)
+			void assign(size_type count, const value_type&value)	// replaces the contents with count copies of value
 			{
+				pointer newBlock;
 
+				if (count > _capacity)
+				{
+					newBlock = _getNewBlock(count);
+					_Construct(newBlock, count, value);
+					_copyData(_data, newBlock, count, _size);
+					_clearData();
+					_data = newBlock;
+				}
+				else
+				{
+					for (size_type i = 0; i < count; i++)
+						_alloc.destroy(_data + i);
+					_Construct(_data, count, value);
+				}
 			}
 			template<class InputIt>
-			void assign(InputIt first, InputIt last)
+			void assign(InputIt first, InputIt last)	// Replaces the contents with copies of those in the range [first, last)
 			{
+				pointer newBlock;
+				size_type count = last - first;
 
+				if (count > _capacity)
+				{
+					newBlock = _getNewBlock(count);
+					_copyData(_data, newBlock, count, _size);
+					_clearData();
+					_data = newBlock;
+				}
+				else
+				{
+					for (size_type i = 0; i < count; i++)
+						_alloc.destroy(_data + i);
+				}
+				for (size_type i = 0; i < count; i++)
+						_alloc.construct(_data + i, *(last--));
 			}
 
 									/* Modifiers */
@@ -364,7 +395,6 @@ namespace ft
 				_copyData (this->_data, newBlock, 0, len);
 				return (newBlock);
 			}
-
 			pointer _getNewBlock(size_t newCapacity)
 			{
 				pointer newBlock = _alloc.allocate(newCapacity);

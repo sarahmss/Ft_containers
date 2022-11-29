@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 22:42:09 by smodesto          #+#    #+#             */
-/*   Updated: 2022/11/28 23:08:59 by smodesto         ###   ########.fr       */
+/*   Updated: 2022/11/29 15:24:52 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	testingModifiers(container &v1, T type[10])
 {
 	ft::vector<std::string> v1_copy;
 
-	std::cout << "------ Modifiers --------" << std::endl;
+	std::cout << "------------- Modifiers  and member functions ------------------" << std::endl;
 	std::cout << " | Pushing 10 elements: ";
 	for (int i = 0; i < 10; i++)
 			v1.push_back(type[i]);
@@ -40,7 +40,13 @@ void	testingModifiers(container &v1, T type[10])
 	printVector(v1, " v1");
 	std::cout << " | inserting elements in range at v1_copy[0]: ";
 	v1_copy.insert(v1_copy.begin(), v1.begin() + 4, v1.begin() + 7);
-	printVector(v1_copy, " v1");
+	printVector(v1_copy, " v1_copy");
+	std::cout << " | assign 3 elements to v1_copy: ";
+	v1_copy.assign(3, "A");
+	printVector(v1_copy, " v1_copy");
+	std::cout << " | assign 3 elements in range to v1_copy: ";
+	v1_copy.assign((v1.begin() + 3), (v1.begin() + 6));
+	printVector(v1_copy, " v1_copy");
 	std::cout << " | Clearing v1 copy!! " << std::endl;;
 	v1_copy.clear();
 	std::cout << " | erase inserted elements in v1: ";
