@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 05:36:46 by coder             #+#    #+#             */
-/*   Updated: 2022/11/28 22:10:04 by smodesto         ###   ########.fr       */
+/*   Updated: 2022/11/28 22:56:59 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,35 +107,7 @@ namespace ft
 			}
 
 									/* Modifiers */
-			void push_back(const T &value)
-			{
-				if (_size >= _capacity)
-					_ReAlloc(_capacity + (_capacity / 2));
-				_data[_size] = value;
-				_size++;
-			}
-			void pop_back( void )
-			{
-				this->_size -= 1;
-			}
-			void swap(vector &other)
-			{
-				pointer tempD = other._data;
-				size_t	tempS = other._size;
-				size_t	tempC = other._capacity;
-				allocator_type tempA = other._alloc;
-
-				other._data = this->_data;
-				other._size = this->_size;
-				other._capacity = this->_capacity;
-				other._alloc = this->_alloc;
-
-				this->_data = tempD;
-				this->_size = tempS;
-				this->_capacity = tempC;
-				this->_alloc = tempA;
-			}
-			void clear( void ) // Erases all elements from the container
+			void clear( void )														// Erases all elements from the container
 			{
 				if (this->_data)
 				{
@@ -196,6 +168,67 @@ namespace ft
 				_size += count;
 				return (iterator(this->_data + len));
 			}
+			iterator erase( iterator pos )											// Removes the element at pos
+			{
+				iterator ItBegin = begin();
+				iterator ItEnd = end();
+				difference_type i = pos - ItBegin;
+
+				if (_size == 0 || pos >= ItEnd || pos < ItBegin)
+					throw std::out_of_range("\u001b[31m ft::vector::erase \u001b[0m");
+				for (; (size_t)i < (_size - 1); ++i)
+					_data[i] = _data[i + 1];
+				_alloc.destroy(_data + _size - 1);
+				_size -= 1;
+				return pos;
+			}
+			iterator erase( iterator first, iterator last )							// Removes the elements in the range [first, last)
+			{
+				iterator ItBegin = begin();
+				iterator ItEnd = end();
+				difference_type range = last - first;
+				difference_type i = first - ItBegin;
+
+				if (_size == 0 || last > ItEnd || first < ItBegin || range < 0)
+					throw std::out_of_range("\u001b[31m ft::vector::erase \u001b[0m");
+				for (; (_data + i + range) != (_data + _size); ++i)
+				{
+					_alloc.destroy(_data + i);
+					_alloc.construct(_data + i, _data[i + range]);
+				}
+				_size -= range;
+				return first;
+			}
+			void push_back(const T &value)
+			{
+				if (_size >= _capacity)
+					_ReAlloc(_capacity + (_capacity / 2));
+				_data[_size] = value;
+				_size++;
+			}
+			void pop_back( void )
+			{
+				this->_size -= 1;
+			}
+			void swap(vector &other)
+			{
+				pointer tempD = other._data;
+				size_t	tempS = other._size;
+				size_t	tempC = other._capacity;
+				allocator_type tempA = other._alloc;
+
+				other._data = this->_data;
+				other._size = this->_size;
+				other._capacity = this->_capacity;
+				other._alloc = this->_alloc;
+
+				this->_data = tempD;
+				this->_size = tempS;
+				this->_capacity = tempC;
+				this->_alloc = tempA;
+			}
+
+
 												/* Capacity */
 			size_type	size( void ) const
 			{
@@ -219,7 +252,7 @@ namespace ft
 				if (new_cap <= _capacity)
 					return ;
 				if (new_cap > this->max_size())
-					throw OutOfBoundsException();
+					throw std::out_of_range("\u001b[31m Out of bounds exception \u001b[0m");
 				_ReAlloc(new_cap);
 			}
 									/* Iterators */
@@ -268,13 +301,13 @@ namespace ft
 			reference at(size_type index)
 			{
 				if (index >= _size || index < 0)
-					throw OutOfBoundsException();
+					throw std::out_of_range("\u001b[31m Out of bounds exception \u001b[0m");
 				return (this->data[index]);
 			}
 			const_reference at(size_type index) const
 			{
 				if (index >= _size || index < 0)
-					throw OutOfBoundsException();
+					throw std::out_of_range("\u001b[31m Out of bounds exception \u001b[0m");
 				return (this->_data[index]);
 			}
 			reference front( void )
@@ -347,15 +380,6 @@ namespace ft
 					_alloc.destroy(this->_data + i);
 				_alloc.deallocate(this->_data, this->_capacity);
 			}
-			/*---------------- Exceptions ------------------*/
-			class OutOfBoundsException : public std::exception
-			{
-			public:
-				char const *what() const throw()
-				{
-					return ("\u001b[31m Out of bounds exception \u001b[0m");
-				}
-			};
 		};
 		/*---------------- Non member functions ----------------*/
 

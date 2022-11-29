@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 22:42:09 by smodesto          #+#    #+#             */
-/*   Updated: 2022/11/28 20:48:59 by smodesto         ###   ########.fr       */
+/*   Updated: 2022/11/28 22:58:17 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,12 @@ void	testingModifiers(container &v1, T type[10])
 	printVector(v1_copy, " v1");
 	std::cout << " | Clearing v1 copy!! " << std::endl;;
 	v1_copy.clear();
+	std::cout << " | erase inserted elements in v1: ";
+	v1.erase(v1.begin() + 2);
+	printVector(v1, " v1");
+	std::cout << " | erase range of inserted elements in v1: ";
+	v1.erase(v1.begin() + 3, v1.begin() + 6);
+	printVector(v1, " v1");
 }
 
 #endif //MODIFIERS_HPP
