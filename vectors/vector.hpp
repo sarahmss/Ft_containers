@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 05:36:46 by coder             #+#    #+#             */
-/*   Updated: 2022/11/28 20:34:27 by smodesto         ###   ########.fr       */
+/*   Updated: 2022/11/28 21:15:09 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,11 +151,9 @@ namespace ft
 				int len = 0;
 				size_t newCapacity = this->_capacity + 1;
 
-				newBlock = _getNewBlock(newCapacity);
-				_Construct(newBlock, newCapacity, value_type());
 				while (current++ != pos)
 					len++;
-				_copyData (this->_data, newBlock, 0, len);
+				newBlock = _ReAllocToInsert(newCapacity, len);
 				newBlock[len] = value;
 				for (size_t i = len; i < _capacity; i++)
 					newBlock[i + 1] = this->_data[i];
@@ -172,11 +170,9 @@ namespace ft
 				int len = 0;
 				size_t newCapacity = this->_capacity + count;
 
-				newBlock = _getNewBlock(newCapacity);
-				_Construct(newBlock, newCapacity, value_type());
 				while (current++ != pos)
 					len++;
-				_copyData (this->_data, newBlock, 0, len);
+				newBlock = _ReAllocToInsert(newCapacity, len);
 				for (size_t i = 0; i < count; i++)
 					newBlock[len++] = value;
 				for (size_t i = len - count; i < _size; i++)
@@ -199,11 +195,9 @@ namespace ft
 					count++;
 				size_t newCapacity = this->_capacity + count;
 
-				newBlock = _getNewBlock(newCapacity);
-				_Construct(newBlock, newCapacity, value_type());
 				while (current++ != pos)
 					len++;
-				_copyData (this->_data, newBlock, 0, len);
+				newBlock = _ReAllocToInsert(newCapacity, len);
 				for (temp = first; temp < last; temp++)
 					newBlock[len++] = *temp;
 				for (size_t i = len - count; i < _size; i++)
@@ -332,6 +326,14 @@ namespace ft
 				_clearData();
 				this->_data = newBlock;
 				this->_capacity = newCapacity;
+			}
+			pointer _ReAllocToInsert(size_type newCapacity, int len)
+			{
+				pointer newBlock;
+				newBlock = _getNewBlock(newCapacity);
+				_Construct(newBlock, newCapacity, value_type());
+				_copyData (this->_data, newBlock, 0, len);
+				return (newBlock);
 			}
 
 			pointer _getNewBlock(size_t newCapacity)
