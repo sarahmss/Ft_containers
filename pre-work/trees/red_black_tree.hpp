@@ -6,12 +6,15 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 14:25:53 by smodesto          #+#    #+#             */
-/*   Updated: 2022/12/07 00:16:53 by smodesto         ###   ########.fr       */
+/*   Updated: 2022/12/10 22:29:38 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RED_BLACK_TREE_HPP
 #define RED_BLACK_TREE_HPP
+
+#include <string>
+#include <iostream>
 
 /*
 	-> A red black tree is  a binary search tree with following 5 properties:
@@ -31,7 +34,7 @@
 		- rotation is a transformation technique used to change the structure
 		of bts without changing the order of the elements.
 				a) Left rotation:
-				b)  Right rotation:
+				b)  right rotation:
 		- Recolor: flips the color of a node
 	-> it is called balanced search because its height is always in the order of O(log n)
 
@@ -56,28 +59,41 @@ typedef enum e_color
 }			t_color;
 
 template <typename T>
-struct Node
+class Node
 {
-	T		data;
-	Node	*Parent;
-	Node	*left;
-	Node	*Right;
-	t_color	color;
+	public:
+		typedef T pair_type;
+	public:
+		pair_type	data;
+		Node		*parent;
+		Node		*left;
+		Node		*right;
+		t_color		color;
+	public:
+		Node( void ): parent(NULL), right(NULL), left(NULL) { };
+		Node(pair_type &Data): data(Data), parent(NULL), right(NULL), left(NULL){ };
+		Node (Node const &rhs)
+		{
+			this->data = rhs.data;
+		}
+		~Node(){};
 };
 
 template <typename T>
 class RedBlackTree
 {
-	pubic:
-		typedef Node	*node_ptr;
-		typedef T		value_type;
+	public:
+		typedef T							pair_type;
+		typedef Node<pair_type>				node_type;
+		typedef node_type*					node_ptr;
+
 	private:
 		node_ptr		root;
 		node_ptr		TNULL;
 
 		void initNullNode(node_ptr node, node_ptr parent)
 		{
-			node->data = value_type();
+			node->data = pair_type();
 			node->parent = parent;
 			node->left = NULL;
 			node->right = NULL;
@@ -133,7 +149,7 @@ class RedBlackTree
 					We start the process from the root node and move downward until we find
 					the key we are searching for.
 		*/
-		node_ptr searchTreeAux(node_ptr node, value_type key)
+		node_ptr searchTreeAux(node_ptr node, pair_type key)
 		{
 			if (node == TNULL || key == node->data)
 				return node;
@@ -165,7 +181,7 @@ class RedBlackTree
 			node_ptr u;
 			while (k->parent->color == RED)
 			{
-				if (k-parent == k->parent->parent->right)
+				if (k->parent == k->parent->parent->right)
 				{
 					u = k->parent->parent->left; // uncle
 					if (u->color == RED) {
@@ -219,9 +235,7 @@ class RedBlackTree
 				To delete a node x from a RBT we follow the ordinary BST deletion process.
 				let S be sibling and P parent nodes of x.
 
-				- 3.1: S is red
-
-
+				- 3.1: S is red*/
 		void fixDelete(node_ptr x)
 		{
 			node_ptr s;
@@ -232,50 +246,122 @@ class RedBlackTree
 					s = x->parent->right;
 					if (s->color == RED) // case 3.1
 					{
-
+						s->color = BLACK;
+						x->parent->color = RED;
+						leftRotate(x->parent);
+						s = x->parent->right;
 					}
-				}
-
-		}*/
-
-			void rbTransplant(node_ptr u, node_ptr v)
-			{
-				if (u->parent == NULL)
-					root = v;
-				else if ( u == u->parent->left)
-					u->parent->left = v;
-				else
-					u->parent->right = v;
-				v->parent = u->parent;
-			}
-
-			void printAux(node_ptr root, std::string indent, bool last)
-			{
-				if (root != NULL)
-				{
-						std::cout << indent;
-					if (last)
+					if (s->left->color == BLACK && s->right->color == BLACK) // case 3.2
 					{
-						std::cout << "R----";
-						indent += "     ";
+						s->color = RED;
+						x = x->parent;
 					}
 					else
 					{
-						std::cout << "L----"
-						indent += "|     ";
+						if (s->right->color == BLACK)
+						{
+							s->left->color = BLACK;
+							s->color = RED;
+							rightRotate(s);
+							s = x->parent->right;
+						}
+						s->color = x->parent->color;
+						x->parent->color = BLACK;
+						s->right->color = BLACK;
+						leftRotate(x->parent);
+						x = root;
 					}
-					std::string sColor = root->color ? RED : BLACK;
-					std::cout << root->data << "("sColor")" << std::endl;
-					printAux(root->left, indent, false);
-					printAux(root->right, indent, true);
 				}
 			}
+			x->color = BLACK;
+		}
+		void deleteNodeAux(node_ptr node, pair_type key)
+		{
+			node_ptr z = TNULL;
+			node_ptr x, y;
+			while (node != TNULL)
+			{
+				if (node->data == key)
+					z = node;
+				if (node->data <= key)
+					node = node->right;
+				else
+					node = node->left;
+			}
+			if (z == TNULL)
+					throw std::invalid_argument("\u001b[31m [ft::RedBlackTree::delete] Key not found \u001b[0m");
+			y = z;
+			t_color y_orig_color = y->color;
+			if (z->left == TNULL)
+			{
+				x = z->right;
+				rbTransplant(z, z->right);
+			}
+			else if (z->right == TNULL)
+			{
+				x = z->left;
+				rbTransplant(z, z->left);
+			}
+			else
+			{
+				y = minimum(z->right);
+				y_orig_color = y->color;
+				x = y->right;
+				if (y->parent == z)
+					x->parent = y;
+				else
+				{
+					rbTransplant(y, y->right);
+					y->right = z->right;
+					y->right->parent = y;
+				}
+				rbTransplant(z, y);
+				y->left = z->left;
+				y->left->parent = y;
+				y->color = z->color;
+			}
+			delete z;
+			if (y_orig_color == BLACK)
+				fixDelete(x);
+		}
 
+		void rbTransplant(node_ptr u, node_ptr v)
+		{
+			if (u->parent == NULL)
+				root = v;
+			else if ( u == u->parent->left)
+				u->parent->left = v;
+			else
+				u->parent->right = v;
+			v->parent = u->parent;
+		}
+
+		void printAux(node_ptr root, std::string indent, bool last)
+		{
+			if (root != NULL)
+			{
+					std::cout << indent;
+				if (last)
+				{
+					std::cout << "R----";
+					indent += "     ";
+				}
+				else
+				{
+					std::cout << "L----";
+					indent += "|     ";
+				}
+				std::string sColor = root->color ? "RED" : "BLACK";
+				std::cout << root->data << "("<< sColor <<")" << std::endl;
+				printAux(root->left, indent, false);
+				printAux(root->right, indent, true);
+			}
+		}
 
 	public:
 		RedBlackTree( void )
 		{
-			TNULL = new Node;
+			TNULL = new Node<pair_type>;
 			TNULL->color = BLACK;
 			TNULL->left = NULL;
 			TNULL->right = NULL;
@@ -296,7 +382,7 @@ class RedBlackTree
 			inOrderPrint(this->root);
 		}
 		// find the node with the given key
-		node_ptr searchTree(value_type key) const {
+		node_ptr searchTree(pair_type key) const {
 			return (searchTreeAux(key));
 		}
 		// find the node with the minimum key
@@ -366,14 +452,13 @@ class RedBlackTree
 			x->parent = y;
 		}
 
-
 		/*
 			rotate right at node x
 			(inverse from leftRotate)
 		*/
 		void rightRotate(node_ptr x)
 		{
-			node_ptr y = x->ledt;
+			node_ptr y = x->left;
 			x->left = y->right;
 			if (y->right != TNULL)
 				y->right->parent = x;
@@ -387,31 +472,53 @@ class RedBlackTree
 			y->right = x;
 			x->parent = y;
 		}
+
+		/*
+			insert the key to the tree in its appropriate place then fix the tree
+		*/
+		void insert(pair_type key)
+		{
+			node_ptr node = new Node<pair_type>;
+			node->parent = NULL;
+			node->data = key;
+			node->left = TNULL;
+			node->right = TNULL;
+			node->color = RED;
+
+			node_ptr y = NULL;
+			node_ptr x = this->root;
+			while (x != TNULL)
+			{
+				y = x;
+				if (node->data < x->data)
+					x = x->left;
+				else
+					x = x->right;
+			}
+			node->parent = y;
+			if (y != NULL)
+				root = node;
+			else if (node->data < y->data)
+				y->left = node;
+			else
+				y->right = node;
+			if (node->parent == NULL)
+			{
+				node->color = BLACK;
+				return ;
+			}
+			if (node->parent->parent == NULL)
+				return ;
+			fixInsert(node);
+		}
 		node_ptr getRoot( void ) { return (this->root); }
-		void deleteNode(value_type data) { deleteNodeAux(this->root, data); }
+		void deleteNode(pair_type data) { deleteNodeAux(this->root, data); }
 		void prettyPrint( void )
 		{
 			if (root)
 				printAux(this->root, "", true);
 		}
-}
-int main ()
-{
-	RedBlackTree bst;
-	bst.insert(8);
-	bst.insert(18);
-	bst.insert(5);
-	bst.insert(15);
-	bst.insert(17);
-	bst.insert(25);
-	bst.insert(40);
-	bst.insert(80);
-	bst.deleteNode(25);
-	bst.prettyPrint();
-	return 0;
-}
-
-
+};
 
 #endif //RED_BLACK_TREE_HPP
 
