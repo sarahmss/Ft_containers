@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 21:58:27 by smodesto          #+#    #+#             */
-/*   Updated: 2022/12/10 22:04:42 by smodesto         ###   ########.fr       */
+/*   Updated: 2022/12/12 14:12:54 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int main ()
 {
 	RedBlackTree<int> bst;
-	bst.insert(8);
+/*	bst.insert(8);
 	bst.insert(18);
 	bst.insert(5);
 	bst.insert(15);
@@ -24,6 +24,6 @@ int main ()
 	bst.insert(40);
 	bst.insert(80);
 	bst.deleteNode(25);
-	bst.prettyPrint();
+	bst.prettyPrint();*/
 	return 0;
 }
