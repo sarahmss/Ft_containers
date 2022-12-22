@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mainFT.cpp                                         :+:      :+:    :+:   */
+/*   vector.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 05:24:36 by coder             #+#    #+#             */
-/*   Updated: 2022/11/28 20:38:38 by smodesto         ###   ########.fr       */
+/*   Updated: 2022/12/21 23:38:57 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/tests.hpp"
+#include "./tests.hpp"
 
 static void ft_str_vector_test(void)
 {
@@ -30,3 +30,4 @@ int main(void)
 	ft_str_vector_test();
 	return (0);
 }
+

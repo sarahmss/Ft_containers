@@ -144,7 +144,7 @@ namespace ft {
 	void RBT_CLASS::clear( void )
 	{
 		RbtDestructorAux(root);
-		root = TNUlL;
+		root = TNULL;
 		_size = 0;
 	}
 	template<RBT_TEMPLATE>
@@ -223,7 +223,7 @@ namespace ft {
 	template <RBT_TEMPLATE>
 	typename RBT_CLASS::allocator_type RBT_CLASS::get_allocator( void ) const
 	{
-		returns (_alloc)
+		returns (_alloc);
 	}
 
 	// RbtFunctions
@@ -237,31 +237,31 @@ namespace ft {
 	template <RBT_TEMPLATE>
 	typename RBT_CLASS::node_ptr RBT_CLASS::search(key_type k, node_ptr tree) const
 	{
-		return (RbtSearchAux(_root, k));
+		return (RbtSearchAux(root, k));
 	}
 
 	template <RBT_TEMPLATE>
 	typename RBT_CLASS::node_ptr RBT_CLASS::minimum(node_ptr node) const
 	{
-		return (rbt_node::minimum(node));
+		return (node::minimum(node));
 	}
 
 	template <RBT_TEMPLATE>
 	typename RBT_CLASS::node_ptr RBT_CLASS::maximum(node_ptr node) const
 	{
-		return (rbt_node::maximum(node));
+		return (node::maximum(node));
 	}
 
 	template <RBT_TEMPLATE>
 	typename RBT_CLASS::node_ptr RBT_CLASS::successor(node_ptr x) const
 	{
-		return (rbt_node::successor(x));
+		return (node::successor(x));
 	}
 
 	template <RBT_TEMPLATE>
 	typename RBT_CLASS::node_ptr RBT_CLASS::predecessor(node_ptr x) const
 	{
-		return (rbt_node::predecessor(x));
+		return (node::predecessor(x));
 	}
 
 	template <RBT_TEMPLATE>
