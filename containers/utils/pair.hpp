@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 20:48:38 by smodesto          #+#    #+#             */
-/*   Updated: 2022/11/29 16:51:29 by smodesto         ###   ########.fr       */
+/*   Updated: 2022/12/21 22:37:48 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 namespace ft
 {
-	<template class T1, class T2>
+	template <class T1, class T2>
 	struct pair
 	{
 		public:
@@ -47,7 +47,8 @@ namespace ft
 				this->second = rhs.second;
 				return (*this);
 			}
-	}
+	};
+
 	template <class T1, class T2>
 	bool operator== (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs){
 		return lhs.first==rhs.first && lhs.second==rhs.second;
@@ -79,8 +80,8 @@ namespace ft
 	}
 
 	template < class T1,class T2 >
-	pair<T1, T2> make_pair(T1 x, T2 y) {
-		return ( pair< T1, T2 >(x, y) );
+	ft::pair<T1, T2> make_pair(T1 x, T2 y) {
+		return ( ft::pair< T1, T2 >(x, y) );
 	}
 }
 #endif //PAIR_HPP

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   red_black_tree.tpp                                 :+:      :+:    :+:   */
+/*   RBT.tpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RED_BLACK_TREE_TPP
-#define RED_BLACK_TREE_TPP
+#ifndef RBT_TPP
+#define RBT_TPP
 
-#include "red_black_tree.hpp"
+#include "RBT.hpp"
 
 namespace ft {
 
@@ -299,5 +299,5 @@ namespace ft {
 
 }
 
-#endif //RED_BLACK_TREE_TPP
+#endif //RBT_TPP
 

@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   red_black_tree.hpp                                 :+:      :+:    :+:   */
+/*   RBT.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 14:25:53 by smodesto          #+#    #+#             */
-/*   Updated: 2022/12/13 21:21:18 by smodesto         ###   ########.fr       */
+/*   Updated: 2022/12/21 22:09:23 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RED_BLACK_TREE_HPP
-#define RED_BLACK_TREE_HPP
+#ifndef RBT_HPP
+#define RBT_HPP
 
-#include "./red_black_tree_node.hpp"
-#include "./red_black_tree_iterator.hpp"
-#include "./red_black_tree_reverse_iterator.hpp"
+#include "./RBT_node.hpp"
+#include "./RBT_iterator.hpp"
+#include "./RBT_reverse_iterator.hpp"
 #include <memory>
-
+#include <string>
+#include <iostream>
 /*
 	-> A red black tree is  a binary search tree with following 5 properties:
 		- Every node in T is either RED or BLACK
@@ -53,11 +54,8 @@
 		/  \
 	[N] [N]
 */
-#define RBT_TEMPLATE	typename Key,			\
-						typename Value,			\
-						typename KeyOfValue,	\
-						typename Compare,		\
-						typename Allocator
+#define RBT_TEMPLATE	typename Key, typename Value, typename KeyOfValue,	\
+						typename Compare, typename Allocator
 
 #define RBT_CLASS		RedBlackTree<Key, Value, KeyOfValue, Compare, Allocator>
 
@@ -77,7 +75,7 @@ namespace ft
 			typedef Node<Value>															node;
 			typedef	node*																node_ptr;
 			typedef const node*															const_node_ptr;
-			typedef Compare																key_copare;
+			typedef Compare																key_compare;
 			typedef Key																	key_type;
 			typedef Value																value_type;
 			typedef value_type*															pointer;
@@ -88,8 +86,8 @@ namespace ft
 			typedef ptrdiff_t															diferrence_type;
 			typedef ft::rbt_it<pointer>													iterator;
 			typedef ft::rbt_it<const_pointer>											const_iterator;
-			typedef ft::rbt_rev_it<pointer>												rev_iterator;
-			typedef ft::rbt_rev_it<const_pointer>										const_rev_iterator;
+			typedef ft::rbt_rev_it<pointer>												reverse_iterator;
+			typedef ft::rbt_rev_it<const_pointer>										const_reverse_iterator;
 
 		private:
 			node_ptr		root;
@@ -99,21 +97,26 @@ namespace ft
 			allocator_type	_alloc;
 
 			// Auxiliary functions
-			RbtLeftRotate(node_ptr x);
-			RbtRightRotate(node_ptr x);
-			RbtDestructorAux(node_ptr node);
-			RbtFixInsert (node_ptr k);
-			RbtFixErase(node_ptr x);
-			RbtTransplant(node_ptr u, node_ptr v);
-			RbtSearchTreeAux(node_ptr node, Key key) const;
-			RbtNewNode(value_type data, t_color color) const;
-			RbtEraseAux(node_ptr node, value_type data);
-			RbtInsertAux(value_type data);
-			RbtCopy(node_ptr node);
-		public:
+			void		RbtLeftRotate(node_ptr x);
+			void		RbtRightRotate(node_ptr x);
+			void		RbtDestructorAux(node_ptr node);
+			void		RbtFixInsert (node_ptr k);
+			iterator	RbtInsertAux(value_type data);
+			void		RbtFixErase(node_ptr x);
+			void		RbtEraseAux(node_ptr node, value_type data);
+			void		RbtTransplant(node_ptr u, node_ptr v);
+			void		RbtCopy(node_ptr node);
+			node_ptr	RbtSearchTreeAux(node_ptr node, Key key) const;
+			node_ptr	RbtNewNode(value_type data, t_color color) const;
+			void		preOrderPrint(node_ptr node);
+			void		postOrderPrint(node_ptr node);
+			void		inOrderPrint(node_ptr node);
+			void		printAux(node_ptr root, std::string indent, bool last);
 
+		public:
 			// RbtFunctions
-			RedBlackTree(const key_compare& comp, const allocator_type& allocator );
+			explicit RedBlackTree(const key_compare& comp = key_compare(),
+						const allocator_type& allocator = allocator_type());
 			RedBlackTree(const RedBlackTree& rhs);
 			~RedBlackTree( void );
 			RedBlackTree& operator=(const RedBlackTree& rhs);
@@ -127,6 +130,10 @@ namespace ft
 			node_ptr	minimum(node_ptr node) const;
 			node_ptr	search(key_type k, node_ptr tree) const;
 			node_ptr	search(key_type k) const;
+			void		prettyPrint( void );
+			void		preOrder( void );
+			void		postOrder( void );
+			void		inOrder( void );
 
 			// containers functions
 			allocator_type	get_allocator( void ) const;

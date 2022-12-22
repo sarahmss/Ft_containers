@@ -6,12 +6,14 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 19:20:48 by smodesto          #+#    #+#             */
-/*   Updated: 2022/11/16 00:22:19 by smodesto         ###   ########.fr       */
+/*   Updated: 2022/12/21 22:25:08 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ITERATOR_TRAITS_HPP
 #define ITERATOR_TRAITS_HPP
+
+#include <iterator>
 
 /*
 	Iterator traits class defining properties of iterators.

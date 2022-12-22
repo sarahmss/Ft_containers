@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   red_black_tree_aux.tpp                             :+:      :+:    :+:   */
+/*   RBT_aux.tpp                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 15:01:47 by smodesto          #+#    #+#             */
-/*   Updated: 2022/12/13 20:51:32 by smodesto         ###   ########.fr       */
+/*   Updated: 2022/12/21 14:59:04 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RED_BLACK_TREE_AUX_TPP
-#define RED_BLACK_TREE_AUX_TPP
+#ifndef RBT_AUX_TPP
+#define RBT_AUX_TPP
 
-#include "./red_black_tree.hpp"
+#include "./RBT.hpp"
 
 namespace ft
 {
+	// Tree base
 	template <RBT_TEMPLATE>
 	void RBT_CLASS::RbtLeftRotate(node_ptr x)
 	{
 		node_ptr y = x->right;
 
 		x->right = y->left;
-		if (y->left != node->leaf)
+		if (y->left != x->leaf)
 			y->left->parent = x;
 		y->parent = x->parent;
 		if (x->parent == NULL)
@@ -41,7 +42,7 @@ namespace ft
 	{
 		node_ptr y = x->left;
 		x->left = y->right;
-		if (y->right != node->leaf)
+		if (y->right != x->leaf)
 			y->right->parent = x;
 		y->parent = x->parent;
 		if (x->parent == NULL)
@@ -122,21 +123,16 @@ namespace ft
 	}
 
 	template <RBT_TEMPLATE>
-	typename  RBT_CLASS::iterator RBT_CLASS::RbtInsertAux(value_type data)
+	typename RBT_CLASS::iterator RBT_CLASS::RbtInsertAux(value_type data)
 	{
-		node_ptr node = RbtNewNode(value_type(), RED);
-		node->parent = NULL;
-		node->data = key;
-		node->left = TNULL;
-		node->right = TNULL;
-		node->color = RED;
+		node_ptr node = RbtNewNode(data, RED);
 
 		node_ptr y = NULL;
 		node_ptr x = this->root;
 		while (x != TNULL)
 		{
 			y = x;
-			if (_comp(KeyofValue()(node->data), (KeyofValue()(x->data))))
+			if (_comp(KeyOfValue()(node->data), (KeyOfValue()(x->data))))
 				x = x->left;
 			else
 				x = x->right;
@@ -144,19 +140,19 @@ namespace ft
 		node->parent = y;
 		if (y != NULL)
 			root = node;
-		else if (_comp(KeyofValue()(node->data), (KeyofValue()(y->data))))
+		else if (_comp(KeyOfValue()(node->data), (KeyOfValue()(y->data))))
 			y->left = node;
 		else
 			y->right = node;
 		if (node->parent == NULL)
 		{
 			node->color = BLACK;
-			return ;
+			return (NULL);
 		}
 		if (node->parent->parent == NULL)
-			return ;
+			return (NULL);
 		RbtFixInsert(node);
-		return (iterator(z));
+		return (iterator(node));
 	}
 
 	template <RBT_TEMPLATE>
@@ -207,9 +203,9 @@ namespace ft
 		node_ptr x, y;
 		while (node != TNULL)
 		{
-			if (node->data == key)
+			if (node->data == data)
 				z = node;
-			if (node->data <= key)
+			if (node->data <= data)
 				node = node->right;
 			else
 				node = node->left;
@@ -280,9 +276,9 @@ namespace ft
 	template <RBT_TEMPLATE>
 	typename RBT_CLASS::node_ptr RBT_CLASS::RbtSearchTreeAux(node_ptr node, Key key) const
 	{
-		if (node == TNULL || (!_comp(key, KeyofValue()(node->data))) && (!_comp(KeyofValue()(node->data)), key))
+		if (node == TNULL || (!_comp(key, KeyOfValue()(node->data))) && (!_comp(KeyOfValue()(node->data)), key))
 			return node;
-		if ((_comp(key, KeyofValue()(node->data))))
+		if ((_comp(key, KeyOfValue()(node->data))))
 			return (searchTreeAux(node->left, key));
 		return (searchTreeAux(node->right, key));
 	}
@@ -291,10 +287,84 @@ namespace ft
 	typename RBT_CLASS::node_ptr RBT_CLASS::RbtNewNode(value_type data, t_color color) const
 	{
 		node_ptr newNode = _alloc.allocate(1);
-		_alloc.construct(newNode, Node(data, root, TNULL, TNULL, TNULL, TNULL, color))
+		_alloc.construct(newNode, node(data, root, TNULL, TNULL, TNULL, TNULL, color));
 		return newNode;
+	}
+
+	// Print tree functions
+
+	template <RBT_TEMPLATE>
+	void RBT_CLASS::preOrder( void ) const { preOrderPrint(this->root); }
+
+	template <RBT_TEMPLATE>
+	void RBT_CLASS::postOrder( void ) const { postOrderPrint(this->root); }
+
+	template <RBT_TEMPLATE>
+	void RBT_CLASS::inOrder( void ) const { inOrderPrint(this->root); }
+
+	template <RBT_TEMPLATE>
+	void RBT_CLASS::preOrderPrint(node_ptr node)
+	{
+		if (node != TNULL)
+		{
+			std::cout << node->data << " ";
+			preOrderPrint(node->left);
+			preOrderPrint(node->right);
+		}
+	}
+
+	template <RBT_TEMPLATE>
+	void RBT_CLASS::inOrderPrint(node_ptr node)
+	{
+		if (node != TNULL)
+		{
+			postOrderPrint(node->left);
+			std::cout << node->data << " ";
+			postOrderPrint(node->right);
+		}
+	}
+
+	template <RBT_TEMPLATE>
+	void RBT_CLASS::postOrderPrint(node_ptr node)
+	{
+		if (node != TNULL)
+		{
+			postOrderPrint(node->left);
+			postOrderPrint(node->right);
+			std::cout << node->data << " ";
+		}
+	}
+
+	template <RBT_TEMPLATE>
+	void RBT_CLASS::printAux(node_ptr root, std::string indent, bool last)
+	{
+		if (root != NULL)
+		{
+				std::cout << indent;
+			if (last)
+			{
+				std::cout << "R----";
+				indent += "     ";
+			}
+			else
+			{
+				std::cout << "L----";
+				indent += "|     ";
+			}
+			std::string sColor = root->color ? "RED" : "BLACK";
+			std::cout << root->data << "("<< sColor <<")" << std::endl;
+			printAux(root->left, indent, false);
+			printAux(root->right, indent, true);
+		}
+	}
+
+	template <RBT_TEMPLATE>
+	void RBT_CLASS::prettyPrint( void ) const
+	{
+		if (root)
+			printAux(this->root, "", true);
 	}
 
 }
 
-#endif //RED_BLACK_TREE_AUX_TPP
+#endif //RBT_AUX_TPP

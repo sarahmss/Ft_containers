@@ -6,58 +6,34 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 21:58:27 by smodesto          #+#    #+#             */
-/*   Updated: 2022/12/21 22:11:38 by smodesto         ###   ########.fr       */
+/*   Updated: 2022/12/21 22:40:36 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./RBT.hpp"
+#include "../../utils/pair.hpp"
 
-template <typename Key, typename Value>
-class person
-{
-	private:
-		Key		name;
-		Value	age;
-	public:
-		person(Key name, Value age) : name(name), age(age) {};
-		~person() {};
-};
+#define KEY		std::string
+#define VALUE	int
+#define KEYOF	ft::pair<KEY, VALUE>
+#define COMPARE	std::less<KEY>
+
 
 template <typename T>
-struct NameKey
+struct keyofvalue
 {
-	std::string operator()(const T &p) const
+	KEY operator()(const T& v) const
 	{
-		return (p.name);
+		return (v.first);
 	}
 };
 
-template <typename T>
-struct AgeKey
+int main( void )
 {
-	int operator()(const T &p) const
-	{
-		return (p.age);
-	}
-};
+	ft::RedBlackTree<KEY, KEYOF, keyofvalue<KEYOF>, COMPARE> tree;
 
-int main ( void )
-{
-	ft::RedBlackTree<	std::string,						\
-						person<std::string, int>,			\
-						NameKey<person<std::string, int> >, \
-						std::less<std::string> > tree;
-
-	tree.insert(person<std::string, int>("Ana", 23), tree.get_root());
-
-/*	bst.insert(18);
-	bst.insert(5);
-	bst.insert(15);
-	bst.insert(17);
-	bst.insert(25);
-	bst.insert(40);
-	bst.insert(80);
-	bst.deleteNode(25);
-	bst.prettyPrint();*/
-	return 0;
+	tree.insert(KEYOF("Lisa", 22), tree.get_root());
 }
+
+
+

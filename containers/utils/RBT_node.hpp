@@ -1,17 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   red_black_tree_node.hpp                            :+:      :+:    :+:   */
+/*   RBT_node.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 14:25:53 by smodesto          #+#    #+#             */
-/*   Updated: 2022/12/13 21:00:04 by smodesto         ###   ########.fr       */
+/*   Updated: 2022/12/21 15:16:51 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TREE_NODE_HPP
 #define TREE_NODE_HPP
+
+#include <cstddef>
 
 namespace ft
 {
@@ -37,21 +39,10 @@ namespace ft
 		node_ptr			right;
 		t_color				color;
 
-		explicit Node(const data_type& Data,
-						node_ptr Root,
-						node_ptr Leaf,
-						node_ptr Parent = NULL,
-						node_ptr Left = NULL,
-						node_ptr Right = NULL,
-						node_ptr Color = BLACK):
-						data(Data),
-						root(Root),
-						leaf(Leaf),
-						parent(Parent),
-						left(Left),
-						right(Right),
-						color(Color) {}
-
+		explicit Node(const data_type& Data, node_ptr Root, node_ptr Leaf, node_ptr Parent = NULL,
+						node_ptr Left = NULL, node_ptr Right = NULL, node_ptr Color = BLACK):
+						data(Data), root(Root), leaf(Leaf), parent(Parent),
+						left(Left), right(Right), color(Color) {}
 
 		node_ptr minimum(node_ptr node)	// find the node with the minimum key
 		 {
@@ -65,11 +56,8 @@ namespace ft
 				node = node->right;
 			return node;
 		}
-		/*
-			find the successor of a given node
-				left most element in right_subtree
-		*/
-		node_ptr successor(node_ptr x)
+
+		node_ptr successor(node_ptr x)	// left most element in right_subtree
 		{
 			if (x == x->leaf)
 				return (maximum(get_root(x)));
@@ -83,11 +71,8 @@ namespace ft
 			}
 			return y;
 		}
-		/*
-			find the predecessor of a given node
-				right most element in left_subtree
-		*/
-		node_ptr predecessor(node_ptr x)
+
+		node_ptr predecessor(node_ptr x)	// right most element in left_subtree
 		{
 			if (x == x->leaf)
 				return (maximum(get_root(x)));

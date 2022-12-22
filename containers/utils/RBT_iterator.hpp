@@ -10,29 +10,29 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RED_BLACK_TREE_ITERATOR_HPP
-#define RED_BLACK_TREE_ITERATOR_HPP
+#ifndef RBT_ITERATOR_HPP
+#define RBT_ITERATOR_HPP
 
-#include "red_black_tree.hpp"
+#include "RBT.hpp"
 #include "iteratorTraits.hpp"
 
 namespace ft
 {
-	template<typename It>
-	class rbt_it : public iterator<std::bidirectionla_iterator_tag, It>
+	template<typename Iterator>
+	class rbt_it : public std::iterator<std::bidirectional_iterator_tag, Iterator>
 	{
 		public:
-			typedef	It															iterator_type;
-			typedef typename iterator_traits<It>::value_type					value_type;
-			typedef typename iterator_traits<It>::difference_type				difference_type;
-			typedef typename iterator_traits<It>::pointer						pointer;
-			typedef typename iterator_traits<It>::reference						reference;
-			typedef Node<value_type>											rbt_node;
-			typedef rbt_node*													rbt_node_ptr;
-			typedef const rbt_node*												const_rbt_node_ptr;
+			typedef	Iterator													iterator_type;
+			typedef typename iterator_traits<iterator_type>::value_type			value_type;
+			typedef typename iterator_traits<iterator_type>::difference_type	difference_type;
+			typedef typename iterator_traits<iterator_type>::pointer			pointer;
+			typedef typename iterator_traits<iterator_type>::reference			reference;
+			typedef Node<value_type>											node;
+			typedef node*														node_ptr;
+			typedef const node*													const_node_ptr;
 
 		protected:
-			rbt_node_ptr														_node;
+			node_ptr														_node;
 		public:
 			rbt_it( void ): _node(NULL){}
 			rbt_it( pointer ptr ): _node(ptr){}
@@ -49,7 +49,7 @@ namespace ft
 				return (*this);
 			}
 
-			reference operator*( void )												// return rvalue (value where point the pointer)
+			reference operator*( void )		// return rvalue (value where point the pointer)
 			{
 				return (_node->data);
 			}
@@ -58,27 +58,27 @@ namespace ft
 
 			rbt_it& operator++( void )								// pre increment
 			{
-				_node = rbt_node::sucessor(_node);
+				_node = node::sucessor(_node);
 				return (*this);
 			}
 
 			rbt_it operator++( int )							// post increment
 			{
 				node_ptr tmp = _node;
-				_node = rbt_node::sucessor(_node);
+				_node = node::sucessor(_node);
 				return (rbt_it(tmp));
 			}
 
 			rbt_it& operator--( void )					// pre decrement
 			{
-				_node = rbt_node::predecessor(_node);
+				_node = node::predecessor(_node);
 				return (*this);
 			}
 
 			rbt_it operator--( int )						// post decrement
 			{
 				node_ptr tmp = _node;
-				_node = rbt_node::predecessor(_node);
+				_node = node::predecessor(_node);
 				return (rbt_it(tmp));
 			}
 	};
@@ -107,4 +107,4 @@ namespace ft
 }
 
 
-#endif //RED_BLACK_TREE_ITERATOR_HPP
+#endif //RBT_ITERATOR_HPP
