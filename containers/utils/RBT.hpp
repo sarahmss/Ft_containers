@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 14:25:53 by smodesto          #+#    #+#             */
-/*   Updated: 2022/12/21 22:58:51 by smodesto         ###   ########.fr       */
+/*   Updated: 2022/12/22 23:42:22 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@
 #include <memory>
 #include <string>
 #include <iostream>
+
+#define RBT_TEMPLATE	typename Key, typename Value, typename KeyOfValue,	\
+						typename Compare, typename Allocator
+
+#define RBT_CLASS		RedBlackTree<Key, Value, KeyOfValue, Compare, Allocator>
+
 /*
 	-> A red black tree is  a binary search tree with following 5 properties:
 		- Every node in T is either RED or BLACK
@@ -54,11 +60,6 @@
 		/  \
 	[N] [N]
 */
-#define RBT_TEMPLATE	typename Key, typename Value, typename KeyOfValue,	\
-						typename Compare, typename Allocator
-
-#define RBT_CLASS		RedBlackTree<Key, Value, KeyOfValue, Compare, Allocator>
-
 namespace ft
 {
 	template	<typename Key,
@@ -107,7 +108,7 @@ namespace ft
 			void		RbtTransplant(node_ptr u, node_ptr v);
 			void		RbtCopy(node_ptr node);
 			node_ptr	RbtSearchTreeAux(node_ptr node, Key key) const;
-			node_ptr	RbtNewNode(value_type data, t_color color) const;
+			node_ptr	RbtNewNode(value_type data, t_color color);
 			void		preOrderPrint(node_ptr node);
 			void		postOrderPrint(node_ptr node);
 			void		inOrderPrint(node_ptr node);
@@ -158,6 +159,10 @@ namespace ft
 
 	};
 }
+
+#include "./RBT.tpp"
+#include "./RBT_aux.tpp"
+
 #endif //TREE_N
 
 

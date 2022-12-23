@@ -60,8 +60,8 @@ namespace ft
 	{
 		if (node != TNULL)
 		{
-			destructorAux(node->left);
-			destructorAux(node->right);
+			RbtDestructorAux(node->left);
+			RbtDestructorAux(node->right);
 			_alloc.destroy(node);
 			_alloc.deallocate(node, 1);
 		}
@@ -243,7 +243,7 @@ namespace ft
 			y->color = z->color;
 		}
 		_alloc.destroy(z);
-		_alloc.deallocate(z);
+		_alloc.deallocate(z, 1);
 		if (y_orig_color == BLACK)
 			RbtFixErase(x);
 		TNULL->root = root;
@@ -276,18 +276,20 @@ namespace ft
 	template <RBT_TEMPLATE>
 	typename RBT_CLASS::node_ptr RBT_CLASS::RbtSearchTreeAux(node_ptr node, Key key) const
 	{
-		if (node == TNULL || (!_comp(key, KeyOfValue()(node->data))) && (!_comp(KeyOfValue()(node->data)), key))
+		if (node == TNULL || (!_comp(key, KeyOfValue()(node->data))
+							&& !_comp(KeyOfValue()(node->data), key)))
 			return node;
 		if ((_comp(key, KeyOfValue()(node->data))))
-			return (searchTreeAux(node->left, key));
-		return (searchTreeAux(node->right, key));
+			return (RbtSearchTreeAux(node->left, key));
+		return (RbtSearchTreeAux(node->right, key));
 	}
 
 	template <RBT_TEMPLATE>
-	typename RBT_CLASS::node_ptr RBT_CLASS::RbtNewNode(value_type data, t_color color) const
+	typename RBT_CLASS::node_ptr RBT_CLASS::RbtNewNode(value_type data, t_color color)
 	{
-		node_ptr newNode = _alloc.allocate(1);
-		_alloc.construct(newNode, node(data, root, TNULL, TNULL, TNULL, TNULL, color));
+		node_ptr	newNode = _alloc.allocate(1);
+		node		n = node(data, root, TNULL, TNULL, TNULL, TNULL, color);
+		_alloc.construct(newNode, n);
 		return newNode;
 	}
 

@@ -6,7 +6,7 @@
 #    By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/11 17:02:33 by smodesto          #+#    #+#              #
-#    Updated: 2022/12/21 23:55:38 by smodesto         ###   ########.fr        #
+#    Updated: 2022/12/23 00:20:21 by smodesto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,39 +16,37 @@ SRC_PATH		= ./
 INCLUDES_PATH	= ./
 OBJS_PATH		= ./objects/
 
-SRCS_FILES =	main.cpp			\
-				utils/RBT_aux.cpp	\
-				utils/RBT.cpp
+SRCS_FILES =	main.cpp
 
 SRCS = $(addprefix $(SRC_PATH), $(SRCS_FILES))
 
 OBJS_FILES	= $(patsubst %.cpp, %.o, $(SRCS_FILES))
 OBJS = $(addprefix $(OBJS_PATH), $(OBJS_FILES))
 
-HEADER_FILES	=	./vector.hpp									\
-					./utils/randomAccessIterator.hpp				\
-					./utils/reverseIterator.hpp						\
-					./utils/iteratorTraits.hpp						\
-					./utils/equal.hpp								\
-					./utils/lexicographicalCompare.hpp				\
-					./utils/RBT_iterator.hpp						\
-					./utils/RBT_node.hpp							\
-					./utils/RBT_reverse_iterator.hpp				\
-					./utils/RBT.hpp									\
-					./tests/vector/tests.hpp						\
-					./tests/vector/capacity.hpp						\
-					./tests/vector/modifiers.hpp					\
-					./tests/vector/iterators.hpp					\
-					./tests/vector/utils.hpp						\
-					./tests/vector/memberFunctions.hpp				\
-					./tests/vector/elementAccess.hpp				\
-					./tests/vector/operators.hpp
+HEADER_FILES	=	vector.hpp									\
+					utils/randomAccessIterator.hpp				\
+					utils/reverseIterator.hpp					\
+					utils/iteratorTraits.hpp					\
+					utils/equal.hpp								\
+					utils/lexicographicalCompare.hpp			\
+					utils/RBT_iterator.hpp						\
+					utils/RBT_node.hpp							\
+					utils/RBT_reverse_iterator.hpp				\
+					utils/RBT.hpp								\
+					utils/RBT.tpp								\
+					utils/RBT_aux.tpp							\
+					tests/vector/tests.hpp						\
+					tests/vector/capacity.hpp					\
+					tests/vector/modifiers.hpp					\
+					tests/vector/iterators.hpp					\
+					tests/vector/utils.hpp						\
+					tests/vector/memberFunctions.hpp			\
+					tests/vector/elementAccess.hpp				\
+					tests/vector/operators.hpp
 
 HEADERS = $(addprefix $(INCLUDES_PATH), $(HEADER_FILES))
 
-RED_BLACK_TREE_1		=	./tests/red_black_tree/red_black_tree.cpp	\
-							./utils/RBT_aux.cpp							\
-							./utils/RBT.cpp
+RED_BLACK_TREE_1		=	./tests/red_black_tree/red_black_tree.cpp
 
 VECTOR_1				=	./tests/vector/vector.cpp
 
@@ -58,7 +56,7 @@ INCLUDES	= -I$(INCLUDES_PATH)
 
 all:		$(NAME)
 
-$(NAME):	$(OBJS)
+$(NAME):	$(OBJS) $(HEADERS)
 			$(CC) $(OBJS) $(FLAGS) $(INCLUDES) -o $(NAME)
 
 $(OBJS_PATH)%.o : $(SRC_PATH)%.cpp $(HEADERS)
@@ -68,7 +66,7 @@ $(OBJS_PATH)%.o : $(SRC_PATH)%.cpp $(HEADERS)
 
 RedBlackTree1:
 				$(CC) $(FLAGS) $(RED_BLACK_TREE_1) -o RedBlackTree1
-				./RedBlackTree1
+#				./RedBlackTree1
 
 
 Vector1:		$(HEADERS)

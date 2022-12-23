@@ -231,19 +231,19 @@ namespace ft {
 	template <RBT_TEMPLATE>
 	typename RBT_CLASS::node_ptr RBT_CLASS::search(key_type k) const
 	{
-		return (RbtSearchAux(root, k));
+		return (RbtSearchTreeAux(root, k));
 	}
 
 	template <RBT_TEMPLATE>
 	typename RBT_CLASS::node_ptr RBT_CLASS::search(key_type k, node_ptr tree) const
 	{
-		return (RbtSearchAux(root, k));
+		return (RbtSearchTreeAux(tree, k));
 	}
 
 	template <RBT_TEMPLATE>
 	typename RBT_CLASS::node_ptr RBT_CLASS::minimum(node_ptr node) const
 	{
-		return (node::minimum(node));
+		return (node->minimum(node));
 	}
 
 	template <RBT_TEMPLATE>
@@ -269,7 +269,7 @@ namespace ft {
 	{
 		node_ptr z = search(KeyOfValue()(data));
 		if (z != TNULL)
-			RbtEraseAux(z);
+			RbtEraseAux(this->root, z->data);
 		RbtInsertAux(data);
 	}
 
@@ -278,7 +278,7 @@ namespace ft {
 	{
 		node_ptr z = search(KeyOfValue()(data), tree);
 		if (z != TNULL)
-			RbtEraseAux(z);
+			RbtEraseAux(this->root, z->data);
 		RbtInsertAux(data);
 	}
 
@@ -288,7 +288,7 @@ namespace ft {
 		node_ptr z = search(key);
 		if (z == TNULL)
 			return ;
-		RbtEraseAux(z);
+		RbtEraseAux(this->root, z->data);
 	}
 
 	template <RBT_TEMPLATE>
