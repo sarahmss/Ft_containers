@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 12:27:30 by smodesto          #+#    #+#             */
-/*   Updated: 2023/01/24 19:20:12 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/01/24 20:50:54 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ namespace ft
 			allocator_type	_alloc;
 
 		public:
-		explicit RedBlackTree(const key_compare& comp = key_compare(),
+	/***************************** Source functions *******************************************/
+		explicit	RedBlackTree(const key_compare& comp = key_compare(),
 						const allocator_type& allocator = allocator_type())
 		{
 			_alloc = allocator;
@@ -68,7 +69,7 @@ namespace ft
 			root = TNULL;
 			std::cout << "Tree constructor called" << std::endl;
 		}
-		RedBlackTree(const RedBlackTree& rhs)
+					RedBlackTree(const RedBlackTree& rhs)
 		{
 			_alloc = rhs._alloc;
 			TNULL = RbtNewNode(value_type(), BLACK);
@@ -78,8 +79,7 @@ namespace ft
 			_comp = rhs._comp;
 			std::cout << "Tree copy constructor called" << std::endl;
 		}
-
-		~RedBlackTree( void )
+					~RedBlackTree( void )
 		{
 			RbtDestructorAux(root);
 			_alloc.destroy(TNULL);
@@ -87,23 +87,88 @@ namespace ft
 			_size = 0;
 			std::cout << "Tree destructor called" << std::endl;
 		}
-
-		node_ptr get_root( void ) { return (root); }
-
-		void insert(value_type data, node_ptr tree)
+		node_ptr	get_root( void ) { return (root); }
+		void		insert(value_type data)
 		{
-			node_ptr z = search(KeyOfValue()(data), tree);
+			node_ptr z = search(KeyOfValue()(data));
 			if (z != TNULL)
 				RbtEraseAux(this->root, z->data);
 			RbtInsertAux(data);
 		}
-
-		node_ptr search(key_type k, node_ptr tree) const
+		void		insert(value_type data, node_ptr tree)
+	{
+		node_ptr z = search(KeyOfValue()(data), tree);
+		if (z != TNULL)
+			RbtEraseAux(this->root, z->data);
+		RbtInsertAux(data);
+	}
+		node_ptr	search(key_type k, node_ptr tree) const
 		{
 			return (RbtSearchTreeAux(tree, k));
 		}
+		node_ptr	search(key_type k) const
+		{
+			return (RbtSearchTreeAux(root, k));
+		}
+	/***************************** Print functions *******************************************/
+		void	preOrder( void ) const { preOrderPrint(this->root); }
+		void	postOrder( void ) const { postOrderPrint(this->root); }
+		void	inOrder( void ) const { inOrderPrint(this->root); }
+		void	prettyPrint( void ) const
+		{
+			if (root)
+				printAux(root, "", true);
+		}
 
-		private:
+	private:
+	/************************ Auxiliar functions *******************************************/
+		void		preOrderPrint(node_ptr node) const
+		{
+			if (node != TNULL)
+			{
+				std::cout << KeyOfValue()(node->data) << " ";
+				preOrderPrint(node->left);
+				preOrderPrint(node->right);
+			}
+		}
+		void		inOrderPrint(node_ptr node) const
+		{
+			if (node != TNULL)
+			{
+				postOrderPrint(node->left);
+				std::cout << KeyOfValue()(node->data) << " ";
+				postOrderPrint(node->right);
+			}
+		}
+		void		postOrderPrint(node_ptr node) const
+		{
+			if (node != TNULL)
+			{
+				postOrderPrint(node->left);
+				postOrderPrint(node->right);
+				std::cout << KeyOfValue()(node->data) << " ";
+			}
+		}
+		void		printAux(node_ptr root, std::string indent, bool last) const
+		{
+			if (root != NULL)
+			{
+				std::cout << indent;
+				if (last)
+				{
+					std::cout << "R----";
+					indent += "     ";
+				}
+				else
+				{
+					std::cout << "L----";
+					indent += "|     ";
+				}
+				std::cout << KeyOfValue()(root->data) << std::endl;
+				printAux(root->left, indent, false);
+				printAux(root->right, indent, true);
+			}
+		}
 		void		RbtDestructorAux(node_ptr node)
 		{
 			if (node != TNULL)
@@ -114,7 +179,6 @@ namespace ft
 				_alloc.deallocate(node, 1);
 			}
 		}
-
 		node_ptr	RbtNewNode(value_type data, t_color color)
 		{
 			node_ptr	newNode = _alloc.allocate(1);
@@ -122,7 +186,6 @@ namespace ft
 			_alloc.construct(newNode, n);
 			return newNode;
 		}
-
 		node_ptr	RbtSearchTreeAux(node_ptr node, Key key) const
 		{
 			if (node == TNULL || (!_comp(key, KeyOfValue()(node->data))
@@ -132,7 +195,6 @@ namespace ft
 				return (RbtSearchTreeAux(node->left, key));
 			return (RbtSearchTreeAux(node->right, key));
 		}
-
 		void 		RbtCopy(node_ptr node)
 		{
 			if (node != node->leaf)
@@ -142,7 +204,6 @@ namespace ft
 				RbtCopy(node->right);
 			}
 		}
-
 		void		RbtLeftRotate(node_ptr x)
 		{
 			node_ptr y = x->right;
@@ -160,7 +221,6 @@ namespace ft
 			y->left = x;
 			x->parent = y;
 		}
-
 		void 		RbtRightRotate(node_ptr x)
 		{
 			node_ptr y = x->left;
@@ -177,7 +237,6 @@ namespace ft
 			y->right = x;
 			x->parent = y;
 		}
-
 		void		RbtFixInsert (node_ptr k)
 		{
 			node_ptr u;
@@ -229,12 +288,11 @@ namespace ft
 			}
 			root->color = BLACK;
 		}
-
 		iterator	RbtInsertAux(value_type data)
 		{
 			node_ptr z = RbtNewNode(data, RED);
 
-			node_ptr y = NULL;
+			node_ptr y = TNULL;
 			node_ptr x = this->root;
 			while (x != TNULL)
 			{
@@ -245,7 +303,7 @@ namespace ft
 					x = x->right;
 			}
 			z->parent = y;
-			if (y == NULL)
+			if (y == TNULL)
 				root = z;
 			else if (_comp(KeyOfValue()(z->data), (KeyOfValue()(y->data))))
 				y->left = z;
@@ -260,6 +318,115 @@ namespace ft
 			TNULL->root = root;
 			_size++;
 			return (iterator(z));
+		}
+		void		RbtFixErase(node_ptr x)
+	{
+		node_ptr s;
+		while (x != root && x->color == BLACK)
+		{
+			if (x == x->parent->left)
+			{
+				s = x->parent->right;
+				if (s->color == RED) // case 3.1
+				{
+					s->color = BLACK;
+					x->parent->color = RED;
+					RbtLeftRotate(x->parent);
+					s = x->parent->right;
+				}
+				if (s->left->color == BLACK && s->right->color == BLACK) // case 3.2
+				{
+					s->color = RED;
+					x = x->parent;
+				}
+				else
+				{
+					if (s->right->color == BLACK)
+					{
+						s->left->color = BLACK;
+						s->color = RED;
+						RbtRightRotate(s);
+						s = x->parent->right;
+					}
+					s->color = x->parent->color;
+					x->parent->color = BLACK;
+					s->right->color = BLACK;
+					RbtLeftRotate(x->parent);
+					x = root;
+				}
+			}
+		}
+		x->color = BLACK;
+	}
+		void		RbtEraseAux(node_ptr node, value_type data)
+	{
+		node_ptr z = TNULL;
+		node_ptr x, y;
+		while (node != TNULL)
+		{
+			if (node->data == data)
+				z = node;
+			if (node->data <= data)
+				node = node->right;
+			else
+				node = node->left;
+		}
+		if (z == TNULL)
+				throw std::invalid_argument(" [ft::RedBlackTree::Erase] Key not found");
+		y = z;
+		t_color y_orig_color = y->color;
+		if (z->left == TNULL)
+		{
+			x = z->right;
+			RbtTransplant(z, z->right);
+		}
+		else if (z->right == TNULL)
+		{
+			x = z->left;
+			RbtTransplant(z, z->left);
+		}
+		else
+		{
+			y = minimum(z->right);
+			y_orig_color = y->color;
+			x = y->right;
+			if (y->parent == z)
+				x->parent = y;
+			else
+			{
+				RbtTransplant(y, y->right);
+				y->right = z->right;
+				y->right->parent = y;
+			}
+			RbtTransplant(z, y);
+			y->left = z->left;
+			y->left->parent = y;
+			y->color = z->color;
+		}
+		_alloc.destroy(z);
+		_alloc.deallocate(z, 1);
+		if (y_orig_color == BLACK)
+			RbtFixErase(x);
+		TNULL->root = root;
+		_size--;
+	}
+		void		RbtTransplant(node_ptr u, node_ptr v)
+	{
+		if (u->parent == TNULL)
+			root = v;
+		else if ( u == u->parent->left)
+			u->parent->left = v;
+		else
+			u->parent->right = v;
+		v->parent = u->parent;
+	}
+		node_ptr	minimum(node_ptr node) const
+		{
+			return (node->minimum(node));
+		}
+		node_ptr	maximum(node_ptr node) const
+		{
+			return (node::maximum(node));
 		}
 	};
 }

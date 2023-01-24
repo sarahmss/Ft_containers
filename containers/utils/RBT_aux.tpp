@@ -288,7 +288,7 @@ namespace ft
 	typename RBT_CLASS::node_ptr RBT_CLASS::RbtNewNode(value_type data, t_color color)
 	{
 		node_ptr	newNode = _alloc.allocate(1);
-		node		n = node(data, root, TNULL, TNULL, TNULL, TNULL, color);
+		node		n = node(data, root, newNode, newNode, newNode, newNode, color);
 		_alloc.construct(newNode, n);
 		return newNode;
 	}
