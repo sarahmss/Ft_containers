@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   tests.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 17:02:46 by smodesto          #+#    #+#             */
-/*   Updated: 2022/11/21 23:00:23 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/01/24 15:27:48 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TESTS_HPP
 #define TESTS_HPP
 
-#define FALSE "\u001b[31m False \u001b[0m"
-#define TRUE "\u001b[32m True \u001b[0m"
+#define FALSE "False"
+#define TRUE "True"
 
 #include <iostream>
 #include <string>

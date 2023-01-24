@@ -211,7 +211,7 @@ namespace ft
 				node = node->left;
 		}
 		if (z == TNULL)
-				throw std::invalid_argument("\u001b[31m [ft::RedBlackTree::Erase] Key not found \u001b[0m");
+				throw std::invalid_argument(" [ft::RedBlackTree::Erase] Key not found");
 		y = z;
 		t_color y_orig_color = y->color;
 		if (z->left == TNULL)

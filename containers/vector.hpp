@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 05:36:46 by coder             #+#    #+#             */
-/*   Updated: 2022/11/29 17:30:14 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/01/24 15:28:39 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,7 +206,7 @@ namespace ft
 				difference_type i = pos - ItBegin;
 
 				if (_size == 0 || pos >= ItEnd || pos < ItBegin)
-					throw std::out_of_range("\u001b[31m ft::vector::erase \u001b[0m");
+					throw std::out_of_range(" ft::vector::erase" );
 				for (; (size_t)i < (_size - 1); ++i)
 					_data[i] = _data[i + 1];
 				_alloc.destroy(_data + _size - 1);
@@ -221,7 +221,7 @@ namespace ft
 				difference_type i = first - ItBegin;
 
 				if (_size == 0 || last > ItEnd || first < ItBegin || range < 0)
-					throw std::out_of_range("\u001b[31m ft::vector::erase \u001b[0m");
+					throw std::out_of_range(" ft::vector::erase ");
 				for (; (_data + i + range) != (_data + _size); ++i)
 				{
 					_alloc.destroy(_data + i);
@@ -291,7 +291,7 @@ namespace ft
 				if (new_cap <= _capacity)
 					return ;
 				if (new_cap > this->max_size())
-					throw std::out_of_range("\u001b[31m Out of bounds exception \u001b[0m");
+					throw std::out_of_range(" Out of bounds exception" );
 				_ReAlloc(new_cap);
 			}
 									/* Iterators */
@@ -340,13 +340,13 @@ namespace ft
 			reference at(size_type index)
 			{
 				if (index >= _size || index < 0)
-					throw std::out_of_range("\u001b[31m Out of bounds exception \u001b[0m");
+					throw std::out_of_range(" Out of bounds exception" );
 				return (this->data[index]);
 			}
 			const_reference at(size_type index) const
 			{
 				if (index >= _size || index < 0)
-					throw std::out_of_range("\u001b[31m Out of bounds exception \u001b[0m");
+					throw std::out_of_range(" Out of bounds exception" );
 				return (this->_data[index]);
 			}
 			reference front( void )
