@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 14:25:53 by smodesto          #+#    #+#             */
-/*   Updated: 2022/12/21 15:16:51 by smodesto         ###   ########.fr       */
+/*   Updated: 2022/12/23 00:10:12 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ namespace ft
 	struct Node
 	{
 		typedef T						data_type;
-		typedef Node<data_type>			node;
+		typedef Node<T>					node;
 		typedef node*					node_ptr;
 		typedef const node*				const_node_ptr;
 
@@ -40,7 +40,7 @@ namespace ft
 		t_color				color;
 
 		explicit Node(const data_type& Data, node_ptr Root, node_ptr Leaf, node_ptr Parent = NULL,
-						node_ptr Left = NULL, node_ptr Right = NULL, node_ptr Color = BLACK):
+						node_ptr Left = NULL, node_ptr Right = NULL, t_color Color = BLACK):
 						data(Data), root(Root), leaf(Leaf), parent(Parent),
 						left(Left), right(Right), color(Color) {}
 

@@ -6,7 +6,7 @@
 #    By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/11 17:02:33 by smodesto          #+#    #+#              #
-#    Updated: 2022/12/23 00:20:21 by smodesto         ###   ########.fr        #
+#    Updated: 2023/01/24 18:57:20 by smodesto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,8 @@ RED_BLACK_TREE_1		=	./tests/red_black_tree/red_black_tree.cpp
 
 VECTOR_1				=	./tests/vector/vector.cpp
 
+PAIR_1					=	./tests/pair/pair.cpp
+
 CC			= c++
 FLAGS		= -Wall -Wextra -Werror -g -std=c++98
 INCLUDES	= -I$(INCLUDES_PATH)
@@ -73,12 +75,16 @@ Vector1:		$(HEADERS)
 				$(CC) $(FLAGS) $(VECTOR_1) -o Vector1
 				./Vector1
 
+Pair1:
+				$(CC) $(FLAGS) $(PAIR_1) -o Pair1
+				./Pair1
 
 clean:
 			@rm -f $(OBJS)
 			@rm -rf $(OBJS_PATH)
 			@rm -rf Vector1
 			@rm -rf RedBlackTree1
+			@rm -rf Pair1
 			@echo cleaned!
 
 fclean:		clean

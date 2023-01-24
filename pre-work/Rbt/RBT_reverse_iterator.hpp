@@ -13,7 +13,6 @@
 #ifndef RBT_REVERSE_ITERATOR_HPP
 #define RBT_REVERSE_ITERATOR_HPP
 
-
 #include "RBT.hpp"
 #include "iteratorTraits.hpp"
 
