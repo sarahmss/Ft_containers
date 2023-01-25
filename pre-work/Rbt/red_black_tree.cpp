@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 21:58:27 by smodesto          #+#    #+#             */
-/*   Updated: 2023/01/24 20:58:10 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/01/25 17:13:14 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,19 @@ struct valueofvalue
 int main( void )
 {
 	ft::RedBlackTree<KEY, KEYOF, keyofvalue<KEYOF>, COMPARE> tree1;
-	ft::RedBlackTree<KEY, KEYOF, keyofvalue<KEYOF>, COMPARE> tree2(tree1);
+//	ft::RedBlackTree<KEY, KEYOF, keyofvalue<KEYOF>, COMPARE> tree2(tree1);
 
 	tree1.insert(KEYOF("Lisa", 23), tree1.get_root());
-//	tree1.insert(KEYOF("Carlo", 24), tree1.get_root());
-//	tree1.insert(KEYOF("Ana", 25), tree1.get_root());
+	tree1.insert(KEYOF("Carlo", 24), tree1.get_root());
+	tree1.insert(KEYOF("Ana", 25), tree1.get_root());
 
+	std::cout << "Pre Order: ";
 	tree1.preOrder();
+	std::cout << "Post Order: ";
+	tree1.postOrder();
+	std::cout << "In Order: ";
+	tree1.inOrder();
+
 	return (0);
 }
 

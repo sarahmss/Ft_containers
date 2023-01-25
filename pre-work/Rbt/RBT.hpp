@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 12:27:30 by smodesto          #+#    #+#             */
-/*   Updated: 2023/01/24 20:50:54 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/01/25 17:11:44 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 #include <memory>
 #include <string>
 #include <iostream>
+#define CONSTRUCT 0
+#define NEWNODE 1
 
 namespace ft
 {
@@ -65,19 +67,19 @@ namespace ft
 			_alloc = allocator;
 			_size = 0;
 			_comp = comp;
-			TNULL = RbtNewNode(value_type(), BLACK);
+			root = NULL;
+			TNULL = RbtNewNode(value_type(), BLACK, CONSTRUCT);
 			root = TNULL;
-			std::cout << "Tree constructor called" << std::endl;
+			TNULL->root = root;
 		}
 					RedBlackTree(const RedBlackTree& rhs)
 		{
 			_alloc = rhs._alloc;
-			TNULL = RbtNewNode(value_type(), BLACK);
+			TNULL = RbtNewNode(value_type(), BLACK, CONSTRUCT);
 			root = TNULL;
 			RbtCopy(rhs.root);
 			_size = rhs._size;
 			_comp = rhs._comp;
-			std::cout << "Tree copy constructor called" << std::endl;
 		}
 					~RedBlackTree( void )
 		{
@@ -85,7 +87,6 @@ namespace ft
 			_alloc.destroy(TNULL);
 			_alloc.deallocate(TNULL, 1);
 			_size = 0;
-			std::cout << "Tree destructor called" << std::endl;
 		}
 		node_ptr	get_root( void ) { return (root); }
 		void		insert(value_type data)
@@ -111,9 +112,21 @@ namespace ft
 			return (RbtSearchTreeAux(root, k));
 		}
 	/***************************** Print functions *******************************************/
-		void	preOrder( void ) const { preOrderPrint(this->root); }
-		void	postOrder( void ) const { postOrderPrint(this->root); }
-		void	inOrder( void ) const { inOrderPrint(this->root); }
+		void	preOrder( void ) const
+		{
+			preOrderPrint(this->root);
+			std::cout << std::endl;
+		}
+		void	postOrder( void ) const
+		{
+			postOrderPrint(this->root);
+			std::cout << std::endl;
+		}
+		void	inOrder( void ) const
+		{
+			inOrderPrint(this->root);
+			std::cout << std::endl;
+		}
 		void	prettyPrint( void ) const
 		{
 			if (root)
@@ -179,10 +192,12 @@ namespace ft
 				_alloc.deallocate(node, 1);
 			}
 		}
-		node_ptr	RbtNewNode(value_type data, t_color color)
+		node_ptr	RbtNewNode(value_type data, t_color color, int flag)
 		{
-			node_ptr	newNode = _alloc.allocate(1);
-			node		n = node(data, root, newNode, newNode, newNode, newNode, color);
+			node_ptr newNode = _alloc.allocate(1);
+			node n = node(data, root, TNULL, TNULL, TNULL, TNULL, color);
+			if (flag == CONSTRUCT)
+				n = node(data, root, newNode, newNode, newNode, newNode, color);
 			_alloc.construct(newNode, n);
 			return newNode;
 		}
@@ -209,10 +224,10 @@ namespace ft
 			node_ptr y = x->right;
 
 			x->right = y->left;
-			if (y->left != x->leaf)
+			if (y->left != TNULL)
 				y->left->parent = x;
 			y->parent = x->parent;
-			if (x->parent == NULL)
+			if (x->parent == TNULL)
 				this->root = y;
 			else if (x == x->parent->left)
 				x->parent->left = y;
@@ -225,11 +240,11 @@ namespace ft
 		{
 			node_ptr y = x->left;
 			x->left = y->right;
-			if (y->right != x->leaf)
+			if (y->right != TNULL)
 				y->right->parent = x;
 			y->parent = x->parent;
-			if (x->parent == NULL)
-				this->root = y;
+			if (x->parent == TNULL)
+				root = y;
 			else if (x == x->parent->right)
 				x->parent->right = y;
 			else
@@ -290,7 +305,7 @@ namespace ft
 		}
 		iterator	RbtInsertAux(value_type data)
 		{
-			node_ptr z = RbtNewNode(data, RED);
+			node_ptr z = RbtNewNode(data, RED, NEWNODE);
 
 			node_ptr y = TNULL;
 			node_ptr x = this->root;
