@@ -6,12 +6,15 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 21:58:27 by smodesto          #+#    #+#             */
-/*   Updated: 2023/01/25 18:37:49 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/01/25 19:41:55 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../utils/RBT.hpp"
 #include "../../utils/pair.hpp"
+#include <iomanip>
+#include <iostream>
+#include <string>
 /*
 	Covering:
 
@@ -35,7 +38,7 @@ struct keyofvalue
 	}
 };
 
-int main( void )
+void SourceFunctions( void )
 {
 	std::cout << "------ Instanciating a default red black tree ---------" << std::endl;
 	ft::RedBlackTree<KEY, KEYOF, keyofvalue<KEYOF>, COMPARE> tree1;
@@ -67,7 +70,44 @@ int main( void )
 	std::cout << "------------ Deleting Ana in tree2--------------" << std::endl;
 	tree2.erase("Ana");
 	tree2.prettyPrint();
-	return (0);
+	return ;
+}
+
+void CapacityFunctions( void )
+{
+	ft::RedBlackTree<KEY, KEYOF, keyofvalue<KEYOF>, COMPARE> tree1;
+	std::cout << "----- Capacity ------" << std::endl;
+	std::cout	<< " | Size:     " << tree1.size()
+				<< "    |\n | Empty:  " << (tree1.empty() ? "TRUE" : "FALSE")
+				<< " |\n | Capacity: " << tree1.max_size() << "    |" << std::endl;
+	return ;
+}
+
+void IteratorsFunctions( void )
+{
+	ft::RedBlackTree<KEY, KEYOF, keyofvalue<KEYOF>, COMPARE> tree1;
+	tree1.insert(KEYOF("Lisa", 23), tree1.get_root());
+	tree1.insert(KEYOF("Carlo", 24), tree1.get_root());
+	std::cout	<< "------ Iterators -----\n"
+			<< " | begin:"		<< std::setw(9) << tree1.begin()->first
+			<< " |\n | end:"	<< std::setw(8) << tree1.end()->first
+			<< " |\n | rbegin:"	<< std::setw(11) << tree1.rbegin()->first
+	//		<< " |\n | rend:"	<< std::setw(10) << tree1.rend()->first
+			<< " | " << std::endl;
+	return ;
+}
+
+void ModifiersFunctions( void )
+{
+	return ;
+}
+
+int main(void)
+{
+//	SourceFunctions();
+//	CapacityFunctions();
+	IteratorsFunctions();
+	ModifiersFunctions();
 }
 
 

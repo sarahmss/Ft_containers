@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 14:25:53 by smodesto          #+#    #+#             */
-/*   Updated: 2023/01/25 18:49:21 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/01/25 19:46:08 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,24 +147,26 @@ namespace ft
 			key_compare		key_comp( void ) const;
 			void			clear( void );
 			void			swap(RedBlackTree& other);
+			reverse_iterator		rend( void );
+			const_reverse_iterator	rend( void ) const;
+			reverse_iterator		rbegin( void );
+			const_reverse_iterator	rbegin( void ) const;*/
 			iterator				begin( void );
 			const_iterator			begin( void ) const;
 			iterator				end( void );
 			const_iterator			end( void ) const;
-			reverse_iterator		rbegin( void );
-			const_reverse_iterator	rbegin( void ) const;
-			reverse_iterator		rend( void );
-			const_reverse_iterator	rend( void ) const;
 			bool					empty( void ) const;
 			size_type				size( void ) const;
 			size_type				max_size( void ) const;
-		*/
+
 	};
 }
 
 #include "./RBT.tpp"
+#include "./RBT_capacity.tpp"
 #include "./RBT_print.tpp"
 #include "./RBT_private.tpp"
+#include "./RBT_iterator.tpp"
 
 #endif //RBT_HPP
 

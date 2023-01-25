@@ -41,9 +41,13 @@ namespace ft
 				node_ptr														_node;
 			public:
 				rbt_rev_it( void ): _node(NULL){}
-				rbt_rev_it( pointer ptr ): _node(ptr){}
-				rbt_rev_it( iterator_type x ){ _node = x.base(); }
+				explicit rbt_rev_it( node_ptr ptr ): _node(ptr){}
+				explicit rbt_rev_it( iterator_type x ){ _node = x.base(); }
 				rbt_rev_it( const rbt_rev_it& rhs ){ _node = rhs._node; }
+
+				template <typename It>
+				rbt_rev_it( const rbt_rev_it<It> & x): _node(x.base()) {}
+
 				~rbt_rev_it( void ){}
 
 				const pointer base() const { return _node; }
@@ -58,7 +62,7 @@ namespace ft
 
 				reference operator*( void )	const // return rvalue (value where point the pointer)
 				{
-					node_ptr tmp = node::sucessor(_node);
+					node_ptr tmp = _node->successor(_node);
 					return (tmp->data);
 				}
 
@@ -66,27 +70,27 @@ namespace ft
 
 				rbt_rev_it& operator++( void )								// pre increment
 				{
-					_node = node::predecessor(_node);
+					_node = _node->predecessor(_node);
 					return (*this);
 				}
 
 				rbt_rev_it operator++( int )							// post increment
 				{
 					node_ptr tmp = _node;
-					_node = node::predecessor(_node);
+					_node = _node->predecessor(_node);
 					return (rbt_rev_it(tmp));
 				}
 
 				rbt_rev_it& operator--( void )					// pre decrement
 				{
-					_node = node::sucessor(_node);
+					_node = _node->successor(_node);
 					return (*this);
 				}
 
 				rbt_rev_it operator--( int )						// post decrement
 				{
 					node_ptr tmp = _node;
-					_node = node::sucessor(_node);
+					_node = _node->successor(_node);
 					return (rbt_rev_it(tmp));
 				}
 		};

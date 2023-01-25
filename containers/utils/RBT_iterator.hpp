@@ -54,31 +54,31 @@ namespace ft
 				return (_node->data);
 			}
 
-			pointer operator->( void ) const { return (&(operator*())); }
+			pointer operator->( void ) { return (&(operator*())); }
 
 			rbt_it& operator++( void )								// pre increment
 			{
-				_node = node::sucessor(_node);
+				_node = _node->successor(_node);
 				return (*this);
 			}
 
 			rbt_it operator++( int )							// post increment
 			{
 				node_ptr tmp = _node;
-				_node = node::sucessor(_node);
+				_node = _node->successor(_node);
 				return (rbt_it(tmp));
 			}
 
 			rbt_it& operator--( void )					// pre decrement
 			{
-				_node = node::predecessor(_node);
+				_node = _node->predecessor(_node);
 				return (*this);
 			}
 
 			rbt_it operator--( int )						// post decrement
 			{
 				node_ptr tmp = _node;
-				_node = node::predecessor(_node);
+				_node = _node->predecessor(_node);
 				return (rbt_it(tmp));
 			}
 	};
