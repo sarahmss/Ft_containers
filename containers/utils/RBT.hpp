@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 14:25:53 by smodesto          #+#    #+#             */
-/*   Updated: 2022/12/22 23:42:22 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/01/25 18:49:21 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@
 						typename Compare, typename Allocator
 
 #define RBT_CLASS		RedBlackTree<Key, Value, KeyOfValue, Compare, Allocator>
+
+#define CONSTRUCT 0
+
+#define NEWNODE 1
 
 /*
 	-> A red black tree is  a binary search tree with following 5 properties:
@@ -97,7 +101,6 @@ namespace ft
 			key_compare		_comp;
 			allocator_type	_alloc;
 
-			// Auxiliary functions
 			void		RbtLeftRotate(node_ptr x);
 			void		RbtRightRotate(node_ptr x);
 			void		RbtDestructorAux(node_ptr node);
@@ -108,11 +111,11 @@ namespace ft
 			void		RbtTransplant(node_ptr u, node_ptr v);
 			void		RbtCopy(node_ptr node);
 			node_ptr	RbtSearchTreeAux(node_ptr node, Key key) const;
-			node_ptr	RbtNewNode(value_type data, t_color color);
-			void		preOrderPrint(node_ptr node);
-			void		postOrderPrint(node_ptr node);
-			void		inOrderPrint(node_ptr node);
-			void		printAux(node_ptr root, std::string indent, bool last);
+			node_ptr	RbtNewNode(value_type data, t_color color, int flag);
+			void		preOrderPrint(node_ptr node) const;
+			void		postOrderPrint(node_ptr node) const;
+			void		inOrderPrint(node_ptr node) const;;
+			void		printAux(node_ptr root, std::string indent, bool last) const;
 
 		public:
 			// RbtFunctions
@@ -136,8 +139,7 @@ namespace ft
 			void		postOrder( void ) const;
 			void		inOrder( void ) const;
 
-			// containers functions
-			allocator_type	get_allocator( void ) const;
+		/*	allocator_type	get_allocator( void ) const;
 			const_iterator	upper_bound( const key_type &k) const;
 			iterator		upper_bound( const key_type &k);
 			const_iterator	lower_bound( const key_type &k) const;
@@ -156,13 +158,14 @@ namespace ft
 			bool					empty( void ) const;
 			size_type				size( void ) const;
 			size_type				max_size( void ) const;
-
+		*/
 	};
 }
 
 #include "./RBT.tpp"
-#include "./RBT_aux.tpp"
+#include "./RBT_print.tpp"
+#include "./RBT_private.tpp"
 
-#endif //TREE_N
+#endif //RBT_HPP
 
 

@@ -17,17 +17,16 @@
 
 namespace ft
 {
-	// Tree base
 	template <RBT_TEMPLATE>
 	void RBT_CLASS::RbtLeftRotate(node_ptr x)
 	{
 		node_ptr y = x->right;
 
 		x->right = y->left;
-		if (y->left != x->leaf)
+		if (y->left != TNULL)
 			y->left->parent = x;
 		y->parent = x->parent;
-		if (x->parent == NULL)
+		if (x->parent == TNULL)
 			this->root = y;
 		else if (x == x->parent->left)
 			x->parent->left = y;
@@ -42,11 +41,11 @@ namespace ft
 	{
 		node_ptr y = x->left;
 		x->left = y->right;
-		if (y->right != x->leaf)
+		if (y->right != TNULL)
 			y->right->parent = x;
 		y->parent = x->parent;
-		if (x->parent == NULL)
-			this->root = y;
+		if (x->parent == TNULL)
+			root = y;
 		else if (x == x->parent->right)
 			x->parent->right = y;
 		else
@@ -73,32 +72,10 @@ namespace ft
 		node_ptr u;
 		while (k->parent->color == RED)
 		{
-			if (k->parent == k->parent->parent->right)
+			if (k->parent == k->parent->parent->left)
 			{
-				u = k->parent->parent->left; // uncle
+				u = k->parent->parent->right; // uncle
 				if (u->color == RED) {
-					u->color = BLACK;
-					k->parent->color = BLACK;
-					k->parent->parent->color = RED;
-					k = k->parent->parent;
-				}
-				else
-				{
-					if (k == k->parent->left)
-					{
-						k = k->parent;
-						RbtRightRotate(k);
-					}
-					k->parent->color = BLACK;
-					k->parent->parent->color = RED;
-					RbtLeftRotate(k->parent->parent);
-				}
-			}
-			else
-			{
-				u = u->parent->parent->right;
-				if (u->color == RED)
-				{
 					u->color = BLACK;
 					k->parent->color = BLACK;
 					k->parent->parent->color = RED;
@@ -116,8 +93,28 @@ namespace ft
 					RbtRightRotate(k->parent->parent);
 				}
 			}
-			if (k == root)
-				break;
+			else
+			{
+				u = k->parent->parent->left;
+				if (u->color == RED)
+				{
+					u->color = BLACK;
+					k->parent->color = BLACK;
+					k->parent->parent->color = RED;
+					k = k->parent->parent;
+				}
+				else
+				{
+					if (k == k->parent->left)
+					{
+						k = k->parent;
+						RbtRightRotate(k);
+					}
+					k->parent->color = BLACK;
+					k->parent->parent->color = RED;
+					RbtLeftRotate(k->parent->parent);
+				}
+			}
 		}
 		root->color = BLACK;
 	}
@@ -125,34 +122,34 @@ namespace ft
 	template <RBT_TEMPLATE>
 	typename RBT_CLASS::iterator RBT_CLASS::RbtInsertAux(value_type data)
 	{
-		node_ptr node = RbtNewNode(data, RED);
+		node_ptr z = RbtNewNode(data, RED, NEWNODE);
 
-		node_ptr y = NULL;
+		node_ptr y = TNULL;
 		node_ptr x = this->root;
 		while (x != TNULL)
 		{
 			y = x;
-			if (_comp(KeyOfValue()(node->data), (KeyOfValue()(x->data))))
+			if (_comp(KeyOfValue()(z->data), (KeyOfValue()(x->data))))
 				x = x->left;
 			else
 				x = x->right;
 		}
-		node->parent = y;
-		if (y != NULL)
-			root = node;
-		else if (_comp(KeyOfValue()(node->data), (KeyOfValue()(y->data))))
-			y->left = node;
+		z->parent = y;
+		if (y == TNULL)
+			root = z;
+		else if (_comp(KeyOfValue()(z->data), (KeyOfValue()(y->data))))
+			y->left = z;
 		else
-			y->right = node;
-		if (node->parent == NULL)
 		{
-			node->color = BLACK;
-			return (NULL);
+			y->right = z;
+			z->left = TNULL;
+			z->right = TNULL;
+			z->color = RED;
 		}
-		if (node->parent->parent == NULL)
-			return (NULL);
-		RbtFixInsert(node);
-		return (iterator(node));
+		RbtFixInsert(z);
+		TNULL->root = root;
+		_size++;
+		return (iterator(z));
 	}
 
 	template <RBT_TEMPLATE>
@@ -195,10 +192,9 @@ namespace ft
 		}
 		x->color = BLACK;
 	}
-
 	template <RBT_TEMPLATE>
 	void RBT_CLASS::RbtEraseAux(node_ptr node, value_type data)
-	{
+{
 		node_ptr z = TNULL;
 		node_ptr x, y;
 		while (node != TNULL)
@@ -285,88 +281,15 @@ namespace ft
 	}
 
 	template <RBT_TEMPLATE>
-	typename RBT_CLASS::node_ptr RBT_CLASS::RbtNewNode(value_type data, t_color color)
+	typename RBT_CLASS::node_ptr RBT_CLASS::RbtNewNode(value_type data, t_color color, int flag)
 	{
-		node_ptr	newNode = _alloc.allocate(1);
-		node		n = node(data, root, newNode, newNode, newNode, newNode, color);
+		node_ptr newNode = _alloc.allocate(1);
+		node n = node(data, root, TNULL, TNULL, TNULL, TNULL, color);
+		if (flag == CONSTRUCT)
+			n = node(data, root, newNode, newNode, newNode, newNode, color);
 		_alloc.construct(newNode, n);
 		return newNode;
 	}
-
-	// Print tree functions
-
-	template <RBT_TEMPLATE>
-	void RBT_CLASS::preOrder( void ) const { preOrderPrint(this->root); }
-
-	template <RBT_TEMPLATE>
-	void RBT_CLASS::postOrder( void ) const { postOrderPrint(this->root); }
-
-	template <RBT_TEMPLATE>
-	void RBT_CLASS::inOrder( void ) const { inOrderPrint(this->root); }
-
-	template <RBT_TEMPLATE>
-	void RBT_CLASS::preOrderPrint(node_ptr node)
-	{
-		if (node != TNULL)
-		{
-			std::cout << node->data << " ";
-			preOrderPrint(node->left);
-			preOrderPrint(node->right);
-		}
-	}
-
-	template <RBT_TEMPLATE>
-	void RBT_CLASS::inOrderPrint(node_ptr node)
-	{
-		if (node != TNULL)
-		{
-			postOrderPrint(node->left);
-			std::cout << node->data << " ";
-			postOrderPrint(node->right);
-		}
-	}
-
-	template <RBT_TEMPLATE>
-	void RBT_CLASS::postOrderPrint(node_ptr node)
-	{
-		if (node != TNULL)
-		{
-			postOrderPrint(node->left);
-			postOrderPrint(node->right);
-			std::cout << node->data << " ";
-		}
-	}
-
-	template <RBT_TEMPLATE>
-	void RBT_CLASS::printAux(node_ptr root, std::string indent, bool last)
-	{
-		if (root != NULL)
-		{
-				std::cout << indent;
-			if (last)
-			{
-				std::cout << "R----";
-				indent += "     ";
-			}
-			else
-			{
-				std::cout << "L----";
-				indent += "|     ";
-			}
-			std::string sColor = root->color ? "RED" : "BLACK";
-			std::cout << root->data << "("<< sColor <<")" << std::endl;
-			printAux(root->left, indent, false);
-			printAux(root->right, indent, true);
-		}
-	}
-
-	template <RBT_TEMPLATE>
-	void RBT_CLASS::prettyPrint( void ) const
-	{
-		if (root)
-			printAux(this->root, "", true);
-	}
-
 }
 
 #endif //RBT_AUX_TPP

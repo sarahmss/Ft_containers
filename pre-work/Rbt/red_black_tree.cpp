@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 21:58:27 by smodesto          #+#    #+#             */
-/*   Updated: 2023/01/25 18:06:53 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/01/25 18:37:25 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,3 @@ int main( void )
 	tree2.prettyPrint();
 	return (0);
 }
-
-
-

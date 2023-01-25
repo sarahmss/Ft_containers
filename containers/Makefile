@@ -6,7 +6,7 @@
 #    By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/11 17:02:33 by smodesto          #+#    #+#              #
-#    Updated: 2023/01/24 18:57:20 by smodesto         ###   ########.fr        #
+#    Updated: 2023/01/25 18:41:08 by smodesto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,8 @@ HEADER_FILES	=	vector.hpp									\
 					utils/RBT_reverse_iterator.hpp				\
 					utils/RBT.hpp								\
 					utils/RBT.tpp								\
-					utils/RBT_aux.tpp							\
+					utils/RBT_private.tpp						\
+					utils/RBT_print.tpp							\
 					tests/vector/tests.hpp						\
 					tests/vector/capacity.hpp					\
 					tests/vector/modifiers.hpp					\

@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 12:27:30 by smodesto          #+#    #+#             */
-/*   Updated: 2023/01/25 17:59:43 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/01/25 18:39:05 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,19 @@ namespace ft
 			_alloc.deallocate(TNULL, 1);
 			_size = 0;
 		}
+		RedBlackTree &operator=(const RedBlackTree& rhs)
+		{
+			if (this != &rhs)
+			{
+				_alloc = rhs._alloc;
+				_size = rhs._size;
+				_comp = rhs._comp;
+				TNULL = RbtNewNode(value_type(), BLACK, CONSTRUCT);
+				root = TNULL;
+				RbtCopy(rhs.root);
+			}
+		}
+
 		node_ptr	get_root( void ) { return (root); }
 		void		erase(key_type key)
 		{
@@ -457,7 +470,7 @@ namespace ft
 		}
 		node_ptr	maximum(node_ptr node) const
 		{
-			return (node::maximum(node));
+			return (node->maximum(node));
 		}
 	};
 }

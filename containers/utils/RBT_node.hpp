@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 14:25:53 by smodesto          #+#    #+#             */
-/*   Updated: 2022/12/23 00:10:12 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/01/25 18:32:42 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ namespace ft
 		node_ptr successor(node_ptr x)	// left most element in right_subtree
 		{
 			if (x == x->leaf)
-				return (maximum(get_root(x)));
+				return (maximum(getRoot(x)));
 			if (x->right != x->leaf)
 				return minimum(x->right);
 			node_ptr y = x->parent;
@@ -75,7 +75,7 @@ namespace ft
 		node_ptr predecessor(node_ptr x)	// right most element in left_subtree
 		{
 			if (x == x->leaf)
-				return (maximum(get_root(x)));
+				return (maximum(getRoot(x)));
 			if (x->left != x->leaf)
 				return maximum(x->left);
 			node_ptr y = x->parent;
@@ -87,6 +87,8 @@ namespace ft
 			return y;
 		}
 		node_ptr getRoot( void ) { return (this->root); }
+		node_ptr getRoot( node_ptr x ) { return (x->root); }
+
 	};
 }
 #endif /**** TREE_NODE_HPP *****/

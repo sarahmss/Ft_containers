@@ -17,25 +17,27 @@
 
 namespace ft {
 
-	// member functions
+	/***************************** Source functions *******************************************/
 	template <RBT_TEMPLATE>
 	RBT_CLASS::RedBlackTree(const key_compare& comp, const allocator_type& allocator )
 	{
 		_alloc = allocator;
 		_size = 0;
 		_comp = comp;
-		TNULL = RbtNewNode(value_type(), BLACK);
+		root = NULL;
+		TNULL = RbtNewNode(value_type(), BLACK, CONSTRUCT);
 		root = TNULL;
+		TNULL->root = root;
 	}
 	template <RBT_TEMPLATE>
 	RBT_CLASS::RedBlackTree(const RedBlackTree& rhs)
 	{
 		_alloc = rhs._alloc;
+		TNULL = RbtNewNode(value_type(), BLACK, CONSTRUCT);
+		root = TNULL;
+		RbtCopy(rhs.root);
 		_size = rhs._size;
 		_comp = rhs._comp;
-		TNULL = RbtNewNode(value_type(), BLACK);
-		RbtCopy(rhs.root);
-		root = TNULL;
 	}
 	template <RBT_TEMPLATE>
 	RBT_CLASS::~RedBlackTree( void )
@@ -53,217 +55,24 @@ namespace ft {
 			_alloc = rhs._alloc;
 			_size = rhs._size;
 			_comp = rhs._comp;
-			TNULL = RbtNewNode(value_type(), BLACK);
+			TNULL = RbtNewNode(value_type(), BLACK, CONSTRUCT);
 			root = TNULL;
 			RbtCopy(rhs.root);
 		}
 	}
-
-	// Iterators
 	template <RBT_TEMPLATE>
-	typename RBT_CLASS::iterator RBT_CLASS::begin( void )
+	typename RBT_CLASS::node_ptr RBT_CLASS::get_root( void )
 	{
-		return (iterator(minimum(root)));
+		return (root);
 	}
 	template <RBT_TEMPLATE>
-	typename RBT_CLASS::const_iterator RBT_CLASS::begin( void ) const
+	void RBT_CLASS::erase(key_type key)
 	{
-		return (const_iterator(minimum(root)));
+		node_ptr z = search(key);
+		if (z == TNULL)
+			return ;
+		RbtEraseAux(this->root, z->data);
 	}
-	template <RBT_TEMPLATE>
-	typename RBT_CLASS::iterator RBT_CLASS::end( void )
-	{
-		return (iterator(TNULL));
-	}
-	template <RBT_TEMPLATE>
-	typename RBT_CLASS::const_iterator RBT_CLASS::end( void ) const
-	{
-		return (const_iterator(TNULL));
-	}
-	template <RBT_TEMPLATE>
-	typename RBT_CLASS::reverse_iterator RBT_CLASS::rbegin( void )
-	{
-		return (reverse_iterator(end()));
-	}
-	template <RBT_TEMPLATE>
-	typename RBT_CLASS::const_reverse_iterator RBT_CLASS::rbegin( void ) const
-	{
-		return (const_reverse_iterator(end()));
-	}
-	template <RBT_TEMPLATE>
-	typename RBT_CLASS::reverse_iterator RBT_CLASS::rend( void )
-	{
-		return (reverse_iterator(begin()));
-	}
-	template <RBT_TEMPLATE>
-	typename RBT_CLASS::const_reverse_iterator RBT_CLASS::rend( void ) const
-	{
-		return (const_reverse_iterator(begin()));
-	}
-
-	// Capacity
-	template <RBT_TEMPLATE>
-	bool RBT_CLASS::empty( void ) const
-	{
-		return (_size == 0);
-	}
-		template <RBT_TEMPLATE>
-	typename RBT_CLASS::size_type RBT_CLASS::size( void ) const
-	{
-		return (_size);
-	}
-	template <RBT_TEMPLATE>
-	typename RBT_CLASS::size_type RBT_CLASS::max_size( void ) const
-	{
-		return (_alloc.max_size());
-	}
-
-	// modifiers
-	template <RBT_TEMPLATE>
-	void RBT_CLASS::swap(RedBlackTree& other)
-	{
-		allocator_type tmpAlloc = other._alloc;
-		node_ptr tmpRoot = other.root;
-		node_ptr tmpTNULL = other.TNULL;
-		size_type tmpSize = other._size;
-		key_compare tmpComp = other._comp;
-
-		other._alloc = this->_alloc;
-		other._size = this->_size;
-		other.root = this->_root;
-		other.TNULL = this->_TNULL;
-		other._comp = this->_comp;
-
-		this->_alloc = tmpAlloc;
-		this->root = tmpRoot;
-		this->_size = tmpSize;
-		this->_comp = tmpComp;
-		this->TNULL = tmpTNULL;
-	}
-	template<RBT_TEMPLATE>
-	void RBT_CLASS::clear( void )
-	{
-		RbtDestructorAux(root);
-		root = TNULL;
-		_size = 0;
-	}
-	template<RBT_TEMPLATE>
-	typename RBT_CLASS::key_compare RBT_CLASS::key_comp( void ) const
-	{
-		return (_comp);
-	}
-	template<RBT_TEMPLATE>
-	typename RBT_CLASS::iterator RBT_CLASS::lower_bound( const key_type &k)
-	{
-		node_ptr x = root;
-		node_ptr y = TNULL;
-		while(x != TNULL)
-		{
-			if (!_comp(KeyOfValue()(x->data), k))
-			{
-				y = x;
-				x = x->left;
-			}
-			else
-				x = x->right;
-		}
-		return (iterator(y));
-	}
-	template<RBT_TEMPLATE>
-	typename RBT_CLASS:: const_iterator RBT_CLASS::lower_bound( const key_type &k) const
-	{
-		node_ptr x = root;
-		node_ptr y = TNULL;
-		while(x != TNULL)
-		{
-			if (!_comp(KeyOfValue()(x->data), k))
-			{
-				y = x;
-				x = x->left;
-			}
-			else
-				x = x->right;
-		}
-		return (iterator(y));
-	}
-	template<RBT_TEMPLATE>
-	typename RBT_CLASS::iterator RBT_CLASS::upper_bound( const key_type &k)
-	{
-		node_ptr x = root;
-		node_ptr y = TNULL;
-		while(x != TNULL)
-		{
-			if (!_comp(k, KeyOfValue()(x->data)))
-			{
-				y = x;
-				x = x->left;
-			}
-			else
-				x = x->right;
-		}
-		return (iterator(y));
-	}
-	template<RBT_TEMPLATE>
-	typename RBT_CLASS::const_iterator RBT_CLASS::upper_bound( const key_type &k) const
-	{
-		node_ptr x = root;
-		node_ptr y = TNULL;
-		while(x != TNULL)
-		{
-			if (!_comp(k, KeyOfValue()(x->data)))
-			{
-				y = x;
-				x = x->left;
-			}
-			else
-				x = x->right;
-		}
-		return (iterator(y));
-	}
-	template <RBT_TEMPLATE>
-	typename RBT_CLASS::allocator_type RBT_CLASS::get_allocator( void ) const
-	{
-		returns (_alloc);
-	}
-
-	// RbtFunctions
-
-	template <RBT_TEMPLATE>
-	typename RBT_CLASS::node_ptr RBT_CLASS::search(key_type k) const
-	{
-		return (RbtSearchTreeAux(root, k));
-	}
-
-	template <RBT_TEMPLATE>
-	typename RBT_CLASS::node_ptr RBT_CLASS::search(key_type k, node_ptr tree) const
-	{
-		return (RbtSearchTreeAux(tree, k));
-	}
-
-	template <RBT_TEMPLATE>
-	typename RBT_CLASS::node_ptr RBT_CLASS::minimum(node_ptr node) const
-	{
-		return (node->minimum(node));
-	}
-
-	template <RBT_TEMPLATE>
-	typename RBT_CLASS::node_ptr RBT_CLASS::maximum(node_ptr node) const
-	{
-		return (node::maximum(node));
-	}
-
-	template <RBT_TEMPLATE>
-	typename RBT_CLASS::node_ptr RBT_CLASS::successor(node_ptr x) const
-	{
-		return (node::successor(x));
-	}
-
-	template <RBT_TEMPLATE>
-	typename RBT_CLASS::node_ptr RBT_CLASS::predecessor(node_ptr x) const
-	{
-		return (node::predecessor(x));
-	}
-
 	template <RBT_TEMPLATE>
 	void RBT_CLASS::insert(value_type data)
 	{
@@ -281,22 +90,40 @@ namespace ft {
 			RbtEraseAux(this->root, z->data);
 		RbtInsertAux(data);
 	}
-
 	template <RBT_TEMPLATE>
-	void RBT_CLASS::erase(key_type key)
+	typename RBT_CLASS::node_ptr RBT_CLASS::search(key_type k) const
 	{
-		node_ptr z = search(key);
-		if (z == TNULL)
-			return ;
-		RbtEraseAux(this->root, z->data);
+		return (RbtSearchTreeAux(root, k));
+	}
+	template <RBT_TEMPLATE>
+	typename RBT_CLASS::node_ptr RBT_CLASS::search(key_type k, node_ptr tree) const
+	{
+		return (RbtSearchTreeAux(tree, k));
 	}
 
 	template <RBT_TEMPLATE>
-	typename RBT_CLASS::node_ptr RBT_CLASS::get_root( void )
+	typename RBT_CLASS::node_ptr RBT_CLASS::minimum(node_ptr node) const
 	{
-		return (root);
+		return (node->minimum(node));
 	}
 
+	template <RBT_TEMPLATE>
+	typename RBT_CLASS::node_ptr RBT_CLASS::maximum(node_ptr node) const
+	{
+		return (node->maximum(node));
+	}
+
+	template <RBT_TEMPLATE>
+	typename RBT_CLASS::node_ptr RBT_CLASS::successor(node_ptr x) const
+	{
+		return (x->successor(x));
+	}
+
+	template <RBT_TEMPLATE>
+	typename RBT_CLASS::node_ptr RBT_CLASS::predecessor(node_ptr x) const
+	{
+		return (x->predecessor(x));
+	}
 }
 
 #endif //RBT_TPP
