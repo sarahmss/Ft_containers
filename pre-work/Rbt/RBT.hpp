@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 12:27:30 by smodesto          #+#    #+#             */
-/*   Updated: 2023/01/25 17:11:44 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/01/25 17:59:43 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,13 @@ namespace ft
 			_size = 0;
 		}
 		node_ptr	get_root( void ) { return (root); }
+		void		erase(key_type key)
+		{
+			node_ptr z = search(key);
+			if (z == TNULL)
+				return ;
+			RbtEraseAux(this->root, z->data);
+		}
 		void		insert(value_type data)
 		{
 			node_ptr z = search(KeyOfValue()(data));
@@ -111,6 +118,15 @@ namespace ft
 		{
 			return (RbtSearchTreeAux(root, k));
 		}
+		node_ptr	successor(node_ptr x) const
+		{
+			return (x->successor(x));
+		}
+		node_ptr	predecessor(node_ptr x) const
+		{
+			return (x->predecessor(x));
+		}
+
 	/***************************** Print functions *******************************************/
 		void	preOrder( void ) const
 		{
@@ -164,7 +180,7 @@ namespace ft
 		}
 		void		printAux(node_ptr root, std::string indent, bool last) const
 		{
-			if (root != NULL)
+			if (root != TNULL)
 			{
 				std::cout << indent;
 				if (last)
