@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   red_black_tree.cpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 21:58:27 by smodesto          #+#    #+#             */
-/*   Updated: 2023/01/26 02:30:59 by coder            ###   ########.fr       */
+/*   Updated: 2023/01/25 23:09:04 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,13 +99,23 @@ void IteratorsFunctions( void )
 
 void ModifiersFunctions( void )
 {
+	std::cout << "------ Instanciating a default red black tree ---------" << std::endl;
+	ft::RedBlackTree<KEY, KEYOF, keyofvalue<KEYOF>, COMPARE> tree1;
+	tree1.insert(KEYOF("Lisa", 23), tree1.get_root());
+	tree1.insert(KEYOF("Carlo", 24), tree1.get_root());
+	tree1.insert(KEYOF("Ana", 25));
+	tree1.insert(KEYOF("Julia", 12));
+
+	std::cout << "lower bound of Lisa:" << tree1.lower_bound("Lisa")->first;
+	std::cout << "\nupper bound of Lisa:" << tree1.upper_bound("Lisa")->first;
+	tree1.clear();
 	return ;
 }
 
 int main(void)
 {
-//	SourceFunctions();
-//	CapacityFunctions();
+	SourceFunctions();
+	CapacityFunctions();
 	IteratorsFunctions();
 	ModifiersFunctions();
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RBT.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 14:25:53 by smodesto          #+#    #+#             */
-/*   Updated: 2023/01/26 02:31:16 by coder            ###   ########.fr       */
+/*   Updated: 2023/01/25 22:56:35 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,14 +139,14 @@ namespace ft
 			void		postOrder( void ) const;
 			void		inOrder( void ) const;
 
-		/*	allocator_type	get_allocator( void ) const;
+			allocator_type	get_allocator( void ) const;
 			const_iterator	upper_bound( const key_type &k) const;
 			iterator		upper_bound( const key_type &k);
 			const_iterator	lower_bound( const key_type &k) const;
 			iterator		lower_bound( const key_type &k);
 			key_compare		key_comp( void ) const;
 			void			clear( void );
-			void			swap(RedBlackTree& other);*/
+			void			swap(RedBlackTree& other);
 			reverse_iterator		rbegin( void );
 			const_reverse_iterator	rbegin( void ) const;
 			reverse_iterator		rend( void );
@@ -166,7 +166,8 @@ namespace ft
 #include "./RBT_capacity.tpp"
 #include "./RBT_print.tpp"
 #include "./RBT_private.tpp"
-#include "./RBT_iterator.tpp"
+#include "./RBT_iterator.tpp" // awkward rev it
+#include "./RBT_modifiers.tpp"
 
 #endif //RBT_HPP
 

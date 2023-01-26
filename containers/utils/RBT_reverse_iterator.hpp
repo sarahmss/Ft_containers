@@ -49,7 +49,7 @@ namespace ft
 
 				~rbt_rev_it( void ){}
 
-				const node_ptr base() const { return _node; }
+				node_ptr base() const { return _node; }
 
 				rbt_rev_it& operator=( const rbt_rev_it& rhs) // assignment operator
 				{
