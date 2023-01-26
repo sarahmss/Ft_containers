@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 14:25:53 by smodesto          #+#    #+#             */
-/*   Updated: 2023/01/26 13:36:00 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/01/26 17:13:24 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ namespace ft
 			typedef value_type&															reference;
 			typedef const value_type&													const_reference;
 			typedef size_t																size_type;
-			typedef ptrdiff_t															diferrence_type;
+			typedef ptrdiff_t															difference_type;
 			typedef ft::rbt_it<pointer>													iterator;
 			typedef ft::rbt_it<const_pointer>											const_iterator;
 			typedef ft::rbt_rev_it<iterator>											reverse_iterator;

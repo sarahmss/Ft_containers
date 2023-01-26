@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 20:48:38 by smodesto          #+#    #+#             */
-/*   Updated: 2022/12/21 22:37:48 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/01/26 16:37:14 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ namespace ft
 
 			pair  &operator=(const pair &rhs)
 			{
-				this->first = rhs.first;
-				this->second = rhs.second;
+				first = rhs.first;
+				second = rhs.second;
 				return (*this);
 			}
 	};

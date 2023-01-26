@@ -92,7 +92,8 @@ namespace ft {
 	}
 
 	template <RBT_TEMPLATE>
-	void RBT_CLASS::simple_insert(value_type data, node_ptr tree) { return (RbtInsertAux(data)); }
+	typename RBT_CLASS::iterator RBT_CLASS::simple_insert(value_type data)
+	{ return (RbtInsertAux(data)); }
 
 	template <RBT_TEMPLATE>
 	typename RBT_CLASS::node_ptr RBT_CLASS::search(key_type k) const

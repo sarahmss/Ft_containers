@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 13:59:57 by smodesto          #+#    #+#             */
-/*   Updated: 2023/01/26 14:39:39 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/01/26 17:22:39 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,54 +17,55 @@
 
 namespace ft
 {
-	template <class T, class Container = ft::vectro<T>>
+	template <class T, class Container = ft::vector<T> >
 	class stack
 	{
 		public:
-			typedef Container								container_type
+			typedef Container								container_type;
 			typedef typename Container::value_type			value_type;
 			typedef typename Container::size_type			size_type;
 			typedef typename Container::reference			reference;
 			typedef typename Container::const_reference		const_reference;
 		protected:
-			Container _c;
+			Container c;
 
 		public:
 			/********************* Member Functions **********************/
-			explicit stack(const container_type& container = Container()) : _c(container){}
-			stack(const stack &other) : _c(other._c) {}
+			explicit stack(const container_type& container = Container()) : c(container){}
+			stack(const stack &other) : c(other.c) {}
 			~stack( void ){}
 			stack &operator=(const stack &other)
 			{
-				_containter = other._c;
+				c = other.c;
 				return (*this);
 			}
 			/********************* Element access **********************/
-			reference	top( void ) { return (_c.back()); }
-			reference	top( void ) const { return (_c.back()); }
+			reference	top( void ) { return (c.back()); }
+			reference	top( void ) const { return (c.back()); }
 			/********************* Capacity **********************/
-			bool		empty( void )  const { return (_c.empty());}
-			size_type	size( void ) const { return (_c.size()) };
+			bool		empty( void )  const { return (c.empty());}
+			size_type	size( void ) const { return (c.size()); }
 			/********************* Modifiers **********************/
-			void		push( const value_type& value ) { _c.push_back(value); }
-			void		pop( void ) { _c.pop_back(); }
-	}
+			void		push( const value_type& value ) { c.push_back(value); }
+			void		pop( void ) { c.pop_back(); }
+	};
 			/********************* operators **********************/
 			template <class T, class Container>
 			bool operator==(const stack<T, Container>& lhs,
-							const stack<T, Container>& rhs ) { return (lhs._c == rhs._c); }
-						template <class T, class Container>
+							const stack<T, Container>& rhs ) { return (lhs.c == rhs.c); }
+			template <class T, class Container>
 			bool operator!=(const stack<T, Container>& lhs,
 							const stack<T, Container>& rhs ) { return (!(lhs == rhs)); }
-						template <class T, class Container>
+			template <class T, class Container>
 			bool operator<(const stack<T, Container>& lhs,
-							const stack<T, Container>& rhs ) { return (lhs._c < rhs._c); }
-						template <class T, class Container>
+							const stack<T, Container>& rhs ) { return (lhs.c < rhs.c); }
+			template <class T, class Container>
 			bool operator<=(const stack<T, Container>& lhs,
 							const stack<T, Container>& rhs ) { return (!(rhs < lhs)); }
+			template <class T, class Container>
 			bool operator>(const stack<T, Container>& lhs,
 							const stack<T, Container>& rhs ) { return ( rhs < lhs); }
-						template <class T, class Container>
+			template <class T, class Container>
 			bool operator>=(const stack<T, Container>& lhs,
 							const stack<T, Container>& rhs ) { return (!(lhs < rhs)); }
 }

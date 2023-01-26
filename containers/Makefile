@@ -6,7 +6,7 @@
 #    By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/11 17:02:33 by smodesto          #+#    #+#              #
-#    Updated: 2023/01/25 19:07:22 by smodesto         ###   ########.fr        #
+#    Updated: 2023/01/26 18:34:41 by smodesto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,9 @@ OBJS_FILES	= $(patsubst %.cpp, %.o, $(SRCS_FILES))
 OBJS = $(addprefix $(OBJS_PATH), $(OBJS_FILES))
 
 HEADER_FILES	=	vector.hpp									\
+					map.hpp										\
+					stack.hpp									\
+					tests/minunit.h								\
 					utils/randomAccessIterator.hpp				\
 					utils/reverseIterator.hpp					\
 					utils/iteratorTraits.hpp					\
@@ -37,15 +40,7 @@ HEADER_FILES	=	vector.hpp									\
 					utils/RBT_private.tpp						\
 					utils/RBT_capacity.tpp						\
 					utils/RBT_iterator.tpp						\
-					utils/RBT_print.tpp							\
-					tests/vector/tests.hpp						\
-					tests/vector/capacity.hpp					\
-					tests/vector/modifiers.hpp					\
-					tests/vector/iterators.hpp					\
-					tests/vector/utils.hpp						\
-					tests/vector/memberFunctions.hpp			\
-					tests/vector/elementAccess.hpp				\
-					tests/vector/operators.hpp
+					utils/RBT_print.tpp
 
 HEADERS = $(addprefix $(INCLUDES_PATH), $(HEADER_FILES))
 
@@ -57,7 +52,7 @@ PAIR_1					=	./tests/pair/pair.cpp
 
 CC			= c++
 FLAGS		= -Wall -Wextra -Werror -g -std=c++98
-INCLUDES	= -I$(INCLUDES_PATH)
+INCLUDES	= -lrt -lm -I$(INCLUDES_PATH)
 
 all:		$(NAME)
 
@@ -71,8 +66,7 @@ $(OBJS_PATH)%.o : $(SRC_PATH)%.cpp $(HEADERS)
 
 RedBlackTree1:	$(HEADERS)
 				$(CC) $(FLAGS) $(RED_BLACK_TREE_1) -o RedBlackTree1
-#				./RedBlackTree1
-
+				./RedBlackTree1
 
 Vector1:		$(HEADERS)
 				$(CC) $(FLAGS) $(VECTOR_1) -o Vector1

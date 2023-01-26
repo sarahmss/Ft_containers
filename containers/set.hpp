@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 14:41:08 by smodesto          #+#    #+#             */
-/*   Updated: 2023/01/26 14:58:55 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/01/26 17:13:24 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ namespace ft
 				class Allocator = std::allocator<ft::pair<const Key, T> >
 	> class set
 	{
-		template <typename T>
+		template <typename V>
 		struct keyofvalue
 		{
-			KEY operator()(const T& v) const
+			Key operator()(const V& v) const
 			{
 				return (v.first);
 			}
@@ -52,11 +52,11 @@ namespace ft
 
 		public:
 			typedef typename rbt_type::size_type					size_type;
-			typedef typename rbt_type::diferrence_type				diferrence_type;
+			typedef typename rbt_type::difference_type				difference_type;
 			typedef typename rbt_type::allocator_type				allocator_type;
 			typedef typename rbt_type::iterator						iterator;
 			typedef typename rbt_type::const_iterator				const_iterator;
-			typedef typename rbt_type::reverse_iterator				iterator;
+			typedef typename rbt_type::reverse_iterator				reverse_iterator;
 			typedef typename rbt_type::const_reverse_iterator		const_reverse_iterator;
 
 		public:
@@ -64,8 +64,6 @@ namespace ft
 
 		explicit set(const key_compare& comp, const Allocator &alloc = Allocator())
 					: _tree(comp, alloc) { return; }
-		set ( void ): _tree(Compare(), Allocator()){ return; }
-
 		template <class InputIt>
 		set ( InputIt first, InputIt last,
 			const key_compare& comp = Compare(),
@@ -82,7 +80,7 @@ namespace ft
 
 		~set ( void ){ clear(); }
 
-		&set operator=(const set &other)
+		set &operator=(const set &other)
 		{
 			_tree = other._tree;
 			return (*this);
@@ -94,7 +92,7 @@ namespace ft
 		iterator				begin( void ) { return (_tree->begin()); }
 		const_iterator			begin( void ) const { return (_tree->begin()); }
 		iterator				end( void ) { return (_tree->end()); }
-		const_iterato			rend( void ) const { return (_tree->end()); }
+		const_iterato			end( void ) const { return (_tree->end()); }
 		reverse_iterator		rbegin( void ) { return (_tree->rbegin()); }
 		const_reverse_iterator	rbegin( void ) const { return (_tree->rbegin()); }
 		reverse_iterator		rend( void ) { return (_tree->rend()); }
@@ -166,10 +164,6 @@ namespace ft
 			return (element);
 		}
 		const_iterator			find(const value_type& value) const {return(const_tree.find(value));}
-		{
-			const_iterator element(_tree.search(value));
-			return (element);
-		}
 		ft::pair<iterator, iterator> equal_range(const value_type& value)
 		{
 			iterator	upper = upper_bound(value);

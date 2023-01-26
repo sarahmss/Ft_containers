@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 05:36:46 by coder             #+#    #+#             */
-/*   Updated: 2023/01/24 15:28:39 by coder            ###   ########.fr       */
+/*   Updated: 2023/01/26 20:35:36 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,13 @@
 
 namespace ft
 {
-	template <class T, class Alloc = std::allocator<T> >
+	template <class T, class Allocator = std::allocator<T> >
 	class vector
 	{
 		public:
 			/*--------- Member types -------------*/
 			typedef	T															value_type;
-			typedef	Alloc														allocator_type;
+			typedef	Allocator														allocator_type;
 			typedef typename allocator_type::size_type							size_type;
 			typedef typename allocator_type::reference							reference;
 			typedef typename allocator_type::const_reference					const_reference;
@@ -63,13 +63,24 @@ namespace ft
 		public:
 
 			/*------------ Member Functions ---------*/
-			vector( void ) :	_data(NULL),
-								_size(0),
-								_capacity(0),
-								_alloc(allocator_type())
+			vector( void ) :	_data(NULL), _size(0),
+								_capacity(0), _alloc(allocator_type()) { _ReAlloc(2); }
+
+			explicit vector( const Allocator& alloc ):	_data(NULL), _size(0),
+								_capacity(0), _alloc(alloc) { _ReAlloc(2); }
+
+			explicit vector( size_type count, const T& value = T(),
+							const Allocator& alloc = allocator_type())
 			{
-				_ReAlloc(2);
+				_capacity = 0;
+				_size = 0;
+				_alloc = alloc;
+				assign(count, value);
 			}
+
+			template< class InputIt >
+			vector( InputIt first, InputIt last, const Allocator& alloc = Allocator()) {}
+
 			~vector( void )
 			{
 				this->clear();
@@ -421,40 +432,40 @@ namespace ft
 		};
 		/*---------------- Non member functions ----------------*/
 
-		template<class T, class Alloc>
-		void swap(vector<T, Alloc> &lhs, vector<T, Alloc> &rhs)
+		template<class T, class Allocator>
+		void swap(vector<T, Allocator> &lhs, vector<T, Allocator> &rhs)
 		{
 			lhs.swap(rhs);
 		}
-		template<class T, class Alloc>
-		bool operator==(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs)
+		template<class T, class Allocator>
+		bool operator==(const vector<T, Allocator> &lhs, const vector<T, Allocator> &rhs)
 		{
 			if (lhs.size()!= rhs.size())
 				return (false);
 			return (ft::equal(lhs.begin(), rhs.begin(), rhs.end()));
 		}
-		template<class T, class Alloc>
-		bool operator!=(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs)
+		template<class T, class Allocator>
+		bool operator!=(const vector<T, Allocator> &lhs, const vector<T, Allocator> &rhs)
 		{
 			return (!(lhs==rhs));
 		}
-		template<class T, class Alloc>
-		bool operator<(const vector<T, Alloc> &lhs, const vector<T,Alloc> &rhs)
+		template<class T, class Allocator>
+		bool operator<(const vector<T, Allocator> &lhs, const vector<T,Allocator> &rhs)
 		{
 			return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
 		}
-		template<class T, class Alloc>
-		bool operator>(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs)
+		template<class T, class Allocator>
+		bool operator>(const vector<T, Allocator> &lhs, const vector<T, Allocator> &rhs)
 		{
 			return (ft::lexicographical_compare(rhs.begin(), rhs.end(), lhs.begin(), lhs.end()));
 		}
-		template<class T, class Alloc>
-		bool operator<=(const vector<T, Alloc> &lhs, const vector<T,Alloc> &rhs)
+		template<class T, class Allocator>
+		bool operator<=(const vector<T, Allocator> &lhs, const vector<T,Allocator> &rhs)
 		{
 			return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
 		}
-		template<class T, class Alloc>
-		bool operator>=(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs)
+		template<class T, class Allocator>
+		bool operator>=(const vector<T, Allocator> &lhs, const vector<T, Allocator> &rhs)
 		{
 			return (ft::lexicographical_compare(rhs.begin(), rhs.end(), lhs.begin(), lhs.end()));
 		}
