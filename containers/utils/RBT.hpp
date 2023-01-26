@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 14:25:53 by smodesto          #+#    #+#             */
-/*   Updated: 2023/01/25 22:56:35 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/01/26 13:36:00 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ namespace ft
 			void		erase(key_type key);
 			void		insert(value_type data, node_ptr tree);
 			void		insert(value_type data);
+			iterator	simple_insert(value_type data);
 			node_ptr	predecessor(node_ptr x) const;
 			node_ptr	successor(node_ptr x) const;
 			node_ptr	maximum(node_ptr node) const;
