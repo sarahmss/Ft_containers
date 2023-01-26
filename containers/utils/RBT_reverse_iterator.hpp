@@ -41,16 +41,15 @@ namespace ft
 				node_ptr														_node;
 			public:
 				rbt_rev_it( void ): _node(NULL){}
+				explicit rbt_rev_it( iterator_type it ): _node(it.base()) {}
 				explicit rbt_rev_it( node_ptr ptr ): _node(ptr){}
-				explicit rbt_rev_it( iterator_type x ){ _node = x.base(); }
 				rbt_rev_it( const rbt_rev_it& rhs ){ _node = rhs._node; }
-
 				template <typename It>
 				rbt_rev_it( const rbt_rev_it<It> & x): _node(x.base()) {}
 
 				~rbt_rev_it( void ){}
 
-				const pointer base() const { return _node; }
+				const node_ptr base() const { return _node; }
 
 				rbt_rev_it& operator=( const rbt_rev_it& rhs) // assignment operator
 				{

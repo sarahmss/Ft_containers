@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RBT.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 14:25:53 by smodesto          #+#    #+#             */
-/*   Updated: 2023/01/25 19:46:08 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/01/26 02:31:16 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,8 @@ namespace ft
 			typedef ptrdiff_t															diferrence_type;
 			typedef ft::rbt_it<pointer>													iterator;
 			typedef ft::rbt_it<const_pointer>											const_iterator;
-			typedef ft::rbt_rev_it<pointer>												reverse_iterator;
-			typedef ft::rbt_rev_it<const_pointer>										const_reverse_iterator;
+			typedef ft::rbt_rev_it<iterator>											reverse_iterator;
+			typedef ft::rbt_rev_it<const_iterator>										const_reverse_iterator;
 
 		private:
 			node_ptr		root;
@@ -146,11 +146,11 @@ namespace ft
 			iterator		lower_bound( const key_type &k);
 			key_compare		key_comp( void ) const;
 			void			clear( void );
-			void			swap(RedBlackTree& other);
+			void			swap(RedBlackTree& other);*/
+			reverse_iterator		rbegin( void );
+			const_reverse_iterator	rbegin( void ) const;
 			reverse_iterator		rend( void );
 			const_reverse_iterator	rend( void ) const;
-			reverse_iterator		rbegin( void );
-			const_reverse_iterator	rbegin( void ) const;*/
 			iterator				begin( void );
 			const_iterator			begin( void ) const;
 			iterator				end( void );

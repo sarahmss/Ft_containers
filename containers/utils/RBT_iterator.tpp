@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RBT_iterator.tpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 18:29:58 by smodesto          #+#    #+#             */
-/*   Updated: 2023/01/25 19:46:30 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/01/26 02:31:41 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ namespace ft {
 	{
 		return (const_iterator(TNULL));
 	}
-	/*template <RBT_TEMPLATE>
+	template <RBT_TEMPLATE>
 	typename RBT_CLASS::reverse_iterator RBT_CLASS::rbegin( void )
 	{
 		return (reverse_iterator(end()));
@@ -56,6 +56,6 @@ namespace ft {
 	typename RBT_CLASS::const_reverse_iterator RBT_CLASS::rend( void ) const
 	{
 		return (const_reverse_iterator(begin()));
-	}*/
+	}
 }
 #endif

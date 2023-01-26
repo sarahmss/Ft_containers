@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   red_black_tree.cpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 21:58:27 by smodesto          #+#    #+#             */
-/*   Updated: 2023/01/25 19:41:55 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/01/26 02:30:59 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void IteratorsFunctions( void )
 			<< " | begin:"		<< std::setw(9) << tree1.begin()->first
 			<< " |\n | end:"	<< std::setw(8) << tree1.end()->first
 			<< " |\n | rbegin:"	<< std::setw(11) << tree1.rbegin()->first
-	//		<< " |\n | rend:"	<< std::setw(10) << tree1.rend()->first
+			<< " |\n | rend:"	<< std::setw(10) << tree1.rend()->first
 			<< " | " << std::endl;
 	return ;
 }

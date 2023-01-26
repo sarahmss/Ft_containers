@@ -69,7 +69,7 @@ $(OBJS_PATH)%.o : $(SRC_PATH)%.cpp $(HEADERS)
 			@mkdir -p objects/utils
 			$(CC) $(FLAGS) -c $(INCLUDES) $< -o $@
 
-RedBlackTree1:
+RedBlackTree1:	$(HEADERS)
 				$(CC) $(FLAGS) $(RED_BLACK_TREE_1) -o RedBlackTree1
 #				./RedBlackTree1
 

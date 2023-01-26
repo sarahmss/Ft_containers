@@ -39,7 +39,7 @@ namespace ft
 			rbt_it( const rbt_it& rhs ){ *this = rhs; }
 			~rbt_it( void ){}
 
-			pointer base() const { return _node; }
+			node_ptr base() const { return _node; }
 
 			rbt_it& operator=( const rbt_it& rhs) // assignment operator
 			{
