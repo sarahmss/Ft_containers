@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: coder <coder@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/11 17:02:33 by smodesto          #+#    #+#              #
-#    Updated: 2023/01/26 18:34:41 by smodesto         ###   ########.fr        #
+#    Updated: 2023/02/10 14:07:10 by coder            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,7 @@ PAIR_1					=	./tests/pair/pair.cpp
 
 CC			= c++
 FLAGS		= -Wall -Wextra -Werror -g -std=c++98
-INCLUDES	= -lrt -lm -I$(INCLUDES_PATH)
+INCLUDES	=  -I$(INCLUDES_PATH) -lrt -lm
 
 all:		$(NAME)
 
@@ -62,7 +62,7 @@ $(NAME):	$(OBJS) $(HEADERS)
 $(OBJS_PATH)%.o : $(SRC_PATH)%.cpp $(HEADERS)
 			@mkdir -p objects
 			@mkdir -p objects/utils
-			$(CC) $(FLAGS) -c $(INCLUDES) $< -o $@
+			$(CC) $(FLAGS) -c  $< -o $@
 
 RedBlackTree1:	$(HEADERS)
 				$(CC) $(FLAGS) $(RED_BLACK_TREE_1) -o RedBlackTree1

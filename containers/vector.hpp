@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 05:36:46 by coder             #+#    #+#             */
-/*   Updated: 2023/01/26 20:35:36 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/02/10 14:43:12 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,11 @@ namespace ft
 							const Allocator& alloc = allocator_type())
 			{
 				_capacity = 0;
-				_size = 0;
+				_size = count;
 				_alloc = alloc;
+				_data = NULL;
 				assign(count, value);
 			}
-
-			template< class InputIt >
-			vector( InputIt first, InputIt last, const Allocator& alloc = Allocator()) {}
 
 			~vector( void )
 			{
@@ -427,7 +425,8 @@ namespace ft
 			{
 				for (size_t i = 0; i < this->_capacity; ++i)
 					_alloc.destroy(this->_data + i);
-				_alloc.deallocate(this->_data, this->_capacity);
+				if (this->_data != NULL)
+					_alloc.deallocate(this->_data, this->_capacity);
 			}
 		};
 		/*---------------- Non member functions ----------------*/

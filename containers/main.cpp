@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:59:58 by smodesto          #+#    #+#             */
-/*   Updated: 2023/01/26 20:35:10 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/02/10 14:27:17 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 #include <iostream>
 #include <iomanip>
 
-#if 0 //CREATE A REAL STL EXAMPLE
+#if  0//CREATE A REAL STL EXAMPLE
 	#include <vector>
 	namespace ft = std;
 #else
-	#include <vector.hpp>
+	#include "./vector.hpp"
 #endif
 
 #define KO "\033[1;31mKO\033[0m"
@@ -48,6 +48,7 @@ void vector_size_constr( void )
 	int				size = v.size();
 	bool			test_result = true;
 	bool			test_result1 = (size == 5);
+
 
 	for (int i = 0; i < 5 && test_result == true; i++)
 		test_result = (v[i] == 0 ? true : false);
