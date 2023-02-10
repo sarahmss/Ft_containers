@@ -6,7 +6,7 @@
 /*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:59:58 by smodesto          #+#    #+#             */
-/*   Updated: 2023/02/10 14:27:17 by coder            ###   ########.fr       */
+/*   Updated: 2023/02/10 15:38:08 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #else
 	#include "./vector.hpp"
 #endif
-
+#define T	ft::vector<int>
 #define KO "\033[1;31mKO\033[0m"
 #define OK "\033[1;32mOK\033[0m"
 
@@ -59,7 +59,7 @@ void vector_size_constr( void )
 	mu_assert(test_result1, "error, wrong size");
 	mu_assert(test_result, "error, wrong contet");
 }
-/*
+
 void test_vector_size_value_constr( void )
 {
 	ft::vector<int> v(5, 10);
@@ -75,7 +75,28 @@ void test_vector_size_value_constr( void )
 		print_test("Instanciating size(5) value(10) constructor: ", true);
 	mu_assert(test_result1, "error, wrong size");
 	mu_assert(test_result, "error, wrong contet");
-}*/
+}
+/*
+void test_assignment_operator( void )
+{
+	ft::vector<int> v(5, 10);
+	ft::vector<int> v2 = v;
+	bool			test_result = (v == v2);
+
+	print_test("assinegment operator: ", true);
+	mu_assert(test_result, "error, wrong contet");
+}
+
+
+void vector_get_allocator( void )
+{
+	ft::vector<int>		v;
+	std::allocator<T>	alloc = v.get_allocator();
+
+	print_test("Testing get_alocator(): ", test_result);
+	mu_assert(test_result == true, "error, get_allocator");
+}
+*/
 
 MU_TEST_SUITE(vector_constructor_tests)
 {
@@ -83,7 +104,9 @@ MU_TEST_SUITE(vector_constructor_tests)
 				<< "\033[1;34m[RUNNING VECTOR CONSTRUCTOR TESTS]\033[0m" << std::endl;
 	MU_RUN_TEST(vector_default_constr);
 	MU_RUN_TEST(vector_size_constr);
-//	MU_RUN_TEST(test_vector_size_value_constr);
+	MU_RUN_TEST(test_vector_size_value_constr);
+//	MU_RUN_TEST(test_assignment_operator);
+
 }
 
 int main(void) {

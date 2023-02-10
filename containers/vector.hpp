@@ -6,7 +6,7 @@
 /*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 05:36:46 by coder             #+#    #+#             */
-/*   Updated: 2023/02/10 14:43:12 by coder            ###   ########.fr       */
+/*   Updated: 2023/02/10 14:58:30 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ namespace ft
 		public:
 			/*--------- Member types -------------*/
 			typedef	T															value_type;
-			typedef	Allocator														allocator_type;
+			typedef	Allocator													allocator_type;
 			typedef typename allocator_type::size_type							size_type;
 			typedef typename allocator_type::reference							reference;
 			typedef typename allocator_type::const_reference					const_reference;
