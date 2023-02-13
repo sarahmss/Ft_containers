@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 18:17:29 by smodesto          #+#    #+#             */
-/*   Updated: 2022/11/16 00:41:51 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/02/13 17:12:43 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,20 +67,20 @@ namespace ft
 
 			reverse_iterator& operator++( void )					// pre increment
 			{
-				_current--;
+				this->_current--;
 				return (*this);
 			}
 
 			reverse_iterator operator++( int )						// post increment
 			{
 				reverse_iterator it = *this;
-				--(*this);
+				this->_current--;
 				return (it);
 			}
 
 			reverse_iterator& operator--( void )					// pre decrement
 			{
-				_current++;
+				this->_current++;
 				return (*this);
 			}
 

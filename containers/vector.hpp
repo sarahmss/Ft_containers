@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 05:36:46 by coder             #+#    #+#             */
-/*   Updated: 2023/02/13 12:33:10 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/02/13 16:47:40 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -334,7 +334,8 @@ namespace ft
 			}
 			reverse_iterator rbegin( void )
 			{
-				return (reverse_iterator(this->end() - 1));
+				reverse_iterator it = reverse_iterator(this->end() - 1);
+				return (it);
 			}
 			const_reverse_iterator rbegin( void ) const
 			{

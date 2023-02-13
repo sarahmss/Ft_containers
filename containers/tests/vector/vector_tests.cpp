@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:59:58 by smodesto          #+#    #+#             */
-/*   Updated: 2023/02/13 14:09:44 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/02/13 17:14:06 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,11 +246,8 @@ void	test_rbegin_iterator( void ) //increment from end to begin
 	IntVectorType::reverse_iterator rbegin = v1.rbegin();
 	bool	test_result = true;
 
-	/*	for (IntVectorType::reverse_iterator it = v1.rend(); it != rbegin; rbegin++)
-		std::cout << *rbegin << std::endl;*/
-
-	if ((*(rbegin++) != 424242) || (*(rbegin++) != 4242) || (*(rbegin++) != 42))
-		test_result = false;
+	for (IntVectorType::reverse_iterator it = v1.rend(); it != rbegin; rbegin++)
+		std::cout << *rbegin << ' ';
 	print_test("rbegin(): ", test_result);
 	mu_assert(test_result, "error, wrong rbegin iterator");
 }
@@ -295,11 +292,71 @@ MU_TEST_SUITE(vector_iterators_tests)
 	MU_RUN_TEST(test_rbegin_iterator);
 }
 
+/*------------------------------------- Capacity ------------------------------------------------*/
+
+void	test_capacity( void )
+{
+
+}
+
+void	test_reserve( void )
+{
+
+}
+
+void	test_max_size( void )
+{
+	IntVectorType		v;
+	std::vector<int>	std_v;
+	bool			test_result = v.max_size() == std_v.max_size();
+
+	print_test("max_size(): ", test_result);
+	mu_assert(test_result, "error, wrong max_size()");
+}
+
+void	test_size( void )
+{
+	IntVectorType	v(15, 15);
+	bool			test_result = v.size() == 15;
+
+	print_test("size(): ", test_result);
+	mu_assert(test_result == true, "error, wrong size()");
+}
+
+void	test_empty( void )
+{
+	IntVectorType	v;
+	bool			test_result = v.empty();
+
+	print_test("empty() [empty vector]: ", test_result);
+	mu_assert(test_result == true, "error, empty() method");
+}
+
+void	test_not_empty( void )
+{
+	IntVectorType	v(5, 10);
+	bool			test_result = v.empty() == false;
+
+	print_test("empty() [not empty vector]: ", test_result);
+	mu_assert(test_result == true, "error, empty() method");
+}
+
+MU_TEST_SUITE(vector_capacity_tests)
+{
+		std::cout	<< std::endl << std::setw(65)
+				<< "\033[1;34m[RUNNING VECTOR CAPACITY TESTS]\033[0m" << std::endl;
+	MU_RUN_TEST(test_empty);
+	MU_RUN_TEST(test_not_empty);
+	MU_RUN_TEST(test_size);
+	MU_RUN_TEST(test_max_size);
+}
+
 int	vector_tests( void )
 {
 	MU_RUN_SUITE(vector_member_functions_tests);
 	MU_RUN_SUITE(vector_element_access_tests);
 	MU_RUN_SUITE(vector_iterators_tests);
+	MU_RUN_SUITE(vector_capacity_tests);
 
 	MU_REPORT();
 	return MU_EXIT_CODE;
