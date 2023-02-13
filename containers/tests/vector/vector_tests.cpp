@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:59:58 by smodesto          #+#    #+#             */
-/*   Updated: 2023/02/13 17:14:06 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/02/13 17:25:36 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,7 +237,7 @@ void	test_begin_iterator( void ) // increment from begin to end
 	mu_assert(test_result, "error, wrong begin iterator");
 }
 
-void	test_rbegin_iterator( void ) //increment from end to begin
+void	test_rbegin_iterator( void ) //increment from end to begin0.00054603
 {
 	IntVectorType	v1;
 	v1.push_back(42);
@@ -246,8 +246,8 @@ void	test_rbegin_iterator( void ) //increment from end to begin
 	IntVectorType::reverse_iterator rbegin = v1.rbegin();
 	bool	test_result = true;
 
-	for (IntVectorType::reverse_iterator it = v1.rend(); it != rbegin; rbegin++)
-		std::cout << *rbegin << ' ';
+	if ((*rbegin++ != 424242) || (*rbegin++ != 4242) || (*rbegin != 42))
+		test_result = false;
 	print_test("rbegin(): ", test_result);
 	mu_assert(test_result, "error, wrong rbegin iterator");
 }
@@ -294,14 +294,38 @@ MU_TEST_SUITE(vector_iterators_tests)
 
 /*------------------------------------- Capacity ------------------------------------------------*/
 
+
 void	test_capacity( void )
 {
+	IntVectorType	v1(5, 10);
 
+	bool	test_result = v1.capacity() == v1.size();
+
+	print_test("capacity(): ", test_result);
+	mu_assert(test_result, "error, capacity() failed");
+}
+
+void	test_capacity_reserved_memory( void )
+{
+	IntVectorType	v1;
+	v1.reserve(100);
+	v1.push_back(42);
+	v1.push_back(4242);
+	v1.push_back(424242);
+	bool	test_result = v1.capacity() > v1.size();
+
+	print_test("capacity(): ", test_result);
+	mu_assert(test_result, "error, capacity() failed");
 }
 
 void	test_reserve( void )
 {
+	IntVectorType v1;
+	v1.reserve(100);
+	bool test_result = v1.capacity() == 100;
 
+	print_test("reserve(): ", test_result);
+	mu_assert(test_result, "error, reserve failed");
 }
 
 void	test_max_size( void )
@@ -349,6 +373,9 @@ MU_TEST_SUITE(vector_capacity_tests)
 	MU_RUN_TEST(test_not_empty);
 	MU_RUN_TEST(test_size);
 	MU_RUN_TEST(test_max_size);
+	MU_RUN_TEST(test_reserve);
+	MU_RUN_TEST(test_capacity);
+	MU_RUN_TEST(test_capacity_reserved_memory);
 }
 
 int	vector_tests( void )

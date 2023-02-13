@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 05:36:46 by coder             #+#    #+#             */
-/*   Updated: 2023/02/13 16:47:40 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/02/13 17:18:34 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -308,7 +308,6 @@ namespace ft
 			}
 			void		reserve( size_type new_cap )
 			{
-				size_type oldCapacity = this->_capacity;
 				if (new_cap <= _capacity)
 					return ;
 				if (new_cap > this->max_size())
