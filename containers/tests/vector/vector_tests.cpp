@@ -6,18 +6,11 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:59:58 by smodesto          #+#    #+#             */
-/*   Updated: 2023/02/13 00:45:05 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/02/13 01:19:50 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minunit.h"
-#include <iostream>
-#include <iomanip>
-#define T	ft::vector<int>
-#define KO "\033[1;31mKO\033[0m"
-#define OK "\033[1;32mOK\033[0m"
-
-/************************************ Vector Tests ************************************************/
+#include "./vector_tests.hpp"
 
 void	print_test(std::string test_name, bool test_result)
 {
@@ -26,18 +19,18 @@ void	print_test(std::string test_name, bool test_result)
 				<< " | " << std::endl;
 }
 
-void vector_default_constr( void )
+void	test_vector_default_constr( void )
 {
-	ft::vector<int>	v;
+	IntVectorType	v;
 	bool			test_result = v.empty();
 
 	print_test("Instanciating default constructor: ", test_result);
 	mu_assert(test_result == true, "error, vector_default_constr");
 }
 
-void vector_size_constr( void )
+void	test_vector_size_constr( void )
 {
-	ft::vector<int>	v(5);
+	IntVectorType	v(5);
 	int				size = v.size();
 	bool			test_result = true;
 	bool			test_result1 = (size == 5);
@@ -53,9 +46,9 @@ void vector_size_constr( void )
 	mu_assert(test_result, "error, wrong contet");
 }
 
-void test_vector_size_value_constr( void )
+void	test_vector_size_value_constr( void )
 {
-	ft::vector<int> v(5, 10);
+	IntVectorType v(5, 10);
 	int				size = v.size();
 	bool			test_result = true;
 	bool			test_result1 = (size == 5);
@@ -70,29 +63,29 @@ void test_vector_size_value_constr( void )
 	mu_assert(test_result, "error, wrong contet");
 }
 
-void test_assignment_operator( void )
+void	test_assignment_operator( void )
 {
-	ft::vector<int>	v1(5, 10);
-	ft::vector<int>	v2(5, 7);
+	IntVectorType	v1(5, 10);
+	IntVectorType	v2(5, 7);
 	v1 = v2;
 	bool			test_result = (v1 == v2);
 	print_test("assinegment operator (both existing): ", test_result);
 	mu_assert(test_result, "error, invalid assignment");
 }
 
-void test_copy_constructor( void )
+void	test_copy_constructor( void )
 {
-	ft::vector<int> v1(5, 10);
-	ft::vector<int> v2 = v1;
+	IntVectorType v1(5, 10);
+	IntVectorType v2 = v1;
 	bool test_result = (v1 == v2);
 	print_test("copy constructor: ", test_result);
 	mu_assert(test_result, "error, unable to copy instance");
 }
 
-void test_get_allocator()
+void	test_get_allocator()
 {
-	ft::vector<int> v(10, 10);
-	ft::vector<int>::allocator_type alloc = v.get_allocator();
+	IntVectorType v(10, 10);
+	IntVectorType::allocator_type alloc = v.get_allocator();
 	bool			test_result = typeid(alloc) == typeid(std::allocator<int>);
 
 	print_test("get_allocator(): ", test_result);
@@ -103,10 +96,17 @@ MU_TEST_SUITE(vector_member_functions_tests)
 {
 	std::cout	<< std::endl << std::setw(65)
 				<< "\033[1;34m[RUNNING VECTOR MEMBER FUNCTIONS TESTS]\033[0m" << std::endl;
-	MU_RUN_TEST(vector_default_constr);
-	MU_RUN_TEST(vector_size_constr);
+	MU_RUN_TEST(test_vector_default_constr);
+	MU_RUN_TEST(test_vector_size_constr);
 	MU_RUN_TEST(test_vector_size_value_constr);
 	MU_RUN_TEST(test_copy_constructor);
 	MU_RUN_TEST(test_assignment_operator);
 	MU_RUN_TEST(test_get_allocator);
+}
+
+int	vector_tests( void )
+{
+	MU_RUN_SUITE(vector_member_functions_tests);
+	MU_REPORT();
+	return MU_EXIT_CODE;
 }

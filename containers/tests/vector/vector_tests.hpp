@@ -1,17 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   vector_tests.hpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/26 18:59:58 by smodesto          #+#    #+#             */
-/*   Updated: 2023/02/13 01:26:56 by smodesto         ###   ########.fr       */
+/*   Created: 2023/02/13 01:19:58 by smodesto          #+#    #+#             */
+/*   Updated: 2023/02/13 01:20:00 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	vector_tests( void );
+#ifndef VECTOR_TESTS_HPP
+#define VECTOR_TESTS_HPP
 
-int main(void) {
-	vector_tests();
-}
+#include "./../minunit.h"
+#include <typeinfo>
+#include <iostream>
+#include <iomanip>
+
+#if 0//CREATE A REAL STL EXAMPLE
+	#include <vector>
+	namespace ft = std;
+#else
+	#include "../../vector.hpp"
+#endif
+
+#define IntVectorType	ft::vector<int>
+#define KO "\033[1;31mKO\033[0m"
+#define OK "\033[1;32mOK\033[0m"
+
+#endif //VECTOR_TESTS_HPP

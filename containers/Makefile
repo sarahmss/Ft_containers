@@ -6,7 +6,7 @@
 #    By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/11 17:02:33 by smodesto          #+#    #+#              #
-#    Updated: 2023/02/12 23:49:45 by smodesto         ###   ########.fr        #
+#    Updated: 2023/02/13 01:21:49 by smodesto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ SRC_PATH		= ./
 INCLUDES_PATH	= ./
 OBJS_PATH		= ./objects/
 
-SRCS_FILES =	main.cpp
+SRCS_FILES =	main.cpp	\
+				tests/vector/vector_tests.cpp
 
 SRCS = $(addprefix $(SRC_PATH), $(SRCS_FILES))
 
@@ -27,6 +28,7 @@ HEADER_FILES	=	vector.hpp									\
 					map.hpp										\
 					stack.hpp									\
 					tests/minunit.h								\
+					tests/vector/vector_tests.hpp				\
 					utils/randomAccessIterator.hpp				\
 					utils/reverseIterator.hpp					\
 					utils/iteratorTraits.hpp					\
@@ -62,6 +64,7 @@ $(NAME):	$(OBJS) $(HEADERS)
 $(OBJS_PATH)%.o : $(SRC_PATH)%.cpp $(HEADERS)
 			@mkdir -p objects
 			@mkdir -p objects/utils
+			@mkdir -p objects/tests/vector
 			$(CC) $(FLAGS) -c  $< -o $@
 
 RedBlackTree1:	$(HEADERS)
