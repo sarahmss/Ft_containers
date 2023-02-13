@@ -6,11 +6,12 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:59:58 by smodesto          #+#    #+#             */
-/*   Updated: 2023/02/13 00:29:24 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/02/13 00:47:17 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./tests/minunit.h"
+#include <typeinfo>
 #include <iostream>
 #include <iomanip>
 
@@ -20,6 +21,8 @@
 #else
 	#include "./vector.hpp"
 #endif
+
+
 #define T	ft::vector<int>
 #define KO "\033[1;31mKO\033[0m"
 #define OK "\033[1;32mOK\033[0m"
@@ -96,30 +99,30 @@ void test_copy_constructor( void )
 	mu_assert(test_result, "error, unable to copy instance");
 }
 
-/*
-void vector_get_allocator( void )
+void test_get_allocator()
 {
-	ft::vector<int>		v;
-	std::allocator<T>	alloc = v.get_allocator();
+	ft::vector<int> v(10, 10);
+	ft::vector<int>::allocator_type alloc = v.get_allocator();
+	bool			test_result = typeid(alloc) == typeid(std::allocator<int>);
 
-	print_test("Testing get_alocator(): ", test_result);
-	mu_assert(test_result == true, "error, get_allocator");
+	print_test("get_allocator(): ", test_result);
+	mu_assert(test_result, "error, incorrect allocator type");
 }
-*/
 
-MU_TEST_SUITE(vector_constructor_tests)
+MU_TEST_SUITE(vector_member_functions_tests)
 {
-	std::cout	<< std::endl << std::setw(60)
-				<< "\033[1;34m[RUNNING VECTOR CONSTRUCTOR TESTS]\033[0m" << std::endl;
+	std::cout	<< std::endl << std::setw(65)
+				<< "\033[1;34m[RUNNING VECTOR MEMBER FUNCTIONS TESTS]\033[0m" << std::endl;
 	MU_RUN_TEST(vector_default_constr);
 	MU_RUN_TEST(vector_size_constr);
 	MU_RUN_TEST(test_vector_size_value_constr);
 	MU_RUN_TEST(test_copy_constructor);
 	MU_RUN_TEST(test_assignment_operator);
+	MU_RUN_TEST(test_get_allocator);
 }
 
 int main(void) {
-	MU_RUN_SUITE(vector_constructor_tests);
+	MU_RUN_SUITE(vector_member_functions_tests);
 	MU_REPORT();
 	return MU_EXIT_CODE;
 }
