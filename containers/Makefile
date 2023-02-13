@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: coder <coder@student.42.fr>                +#+  +:+       +#+         #
+#    By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/11 17:02:33 by smodesto          #+#    #+#              #
-#    Updated: 2023/02/10 14:07:10 by coder            ###   ########.fr        #
+#    Updated: 2023/02/12 23:49:45 by smodesto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,8 +51,8 @@ VECTOR_1				=	./tests/vector/vector.cpp
 PAIR_1					=	./tests/pair/pair.cpp
 
 CC			= c++
-FLAGS		= -Wall -Wextra -Werror -g -std=c++98
-INCLUDES	=  -I$(INCLUDES_PATH) -lrt -lm
+FLAGS		= -Wall -Wextra -Werror -g -fPIE -std=c++98
+INCLUDES	= -I $(INCLUDES_PATH) -lrt -lm
 
 all:		$(NAME)
 

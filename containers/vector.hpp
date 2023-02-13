@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 05:36:46 by coder             #+#    #+#             */
-/*   Updated: 2023/02/10 14:58:30 by coder            ###   ########.fr       */
+/*   Updated: 2023/02/13 00:26:40 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,17 @@ namespace ft
 			vector( void ) :	_data(NULL), _size(0),
 								_capacity(0), _alloc(allocator_type()) { _ReAlloc(2); }
 
+			vector( const vector& other)
+			{
+				pointer	newBlock = _getNewBlock(other._capacity);
+				_Construct(newBlock, other._capacity, value_type());
+				_copyData(other._data, newBlock, 0, other._size);
+				this->_data = newBlock;
+				this->_capacity = other._capacity;
+				this->_size = other._size;
+				this->_alloc = other._alloc;
+			}
+
 			explicit vector( const Allocator& alloc ):	_data(NULL), _size(0),
 								_capacity(0), _alloc(alloc) { _ReAlloc(2); }
 
@@ -77,6 +88,7 @@ namespace ft
 				_alloc = alloc;
 				_data = NULL;
 				assign(count, value);
+				_capacity = count;
 			}
 
 			~vector( void )
@@ -441,7 +453,7 @@ namespace ft
 		{
 			if (lhs.size()!= rhs.size())
 				return (false);
-			return (ft::equal(lhs.begin(), rhs.begin(), rhs.end()));
+			return (ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
 		}
 		template<class T, class Allocator>
 		bool operator!=(const vector<T, Allocator> &lhs, const vector<T, Allocator> &rhs)

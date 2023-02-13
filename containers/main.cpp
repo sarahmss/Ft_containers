@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
+/*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:59:58 by smodesto          #+#    #+#             */
-/*   Updated: 2023/02/10 15:38:08 by coder            ###   ########.fr       */
+/*   Updated: 2023/02/13 00:29:24 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <iostream>
 #include <iomanip>
 
-#if  0//CREATE A REAL STL EXAMPLE
+#if 0//CREATE A REAL STL EXAMPLE
 	#include <vector>
 	namespace ft = std;
 #else
@@ -53,9 +53,9 @@ void vector_size_constr( void )
 	for (int i = 0; i < 5 && test_result == true; i++)
 		test_result = (v[i] == 0 ? true : false);
 	if (test_result == false || test_result1 == false)
-		print_test("Instanciating size(5) value(10) constructor: ", false);
+		print_test("Instanciating size(5) constructor: ", false);
 	else
-		print_test("Instanciating size(5) value(10) constructor: ", true);
+		print_test("Instanciating size(5) constructor: ", true);
 	mu_assert(test_result1, "error, wrong size");
 	mu_assert(test_result, "error, wrong contet");
 }
@@ -76,18 +76,27 @@ void test_vector_size_value_constr( void )
 	mu_assert(test_result1, "error, wrong size");
 	mu_assert(test_result, "error, wrong contet");
 }
-/*
+
 void test_assignment_operator( void )
 {
-	ft::vector<int> v(5, 10);
-	ft::vector<int> v2 = v;
-	bool			test_result = (v == v2);
-
-	print_test("assinegment operator: ", true);
-	mu_assert(test_result, "error, wrong contet");
+	ft::vector<int>	v1(5, 10);
+	ft::vector<int>	v2(5, 7);
+	v1 = v2;
+	bool			test_result = (v1 == v2);
+	print_test("assinegment operator (both existing): ", test_result);
+	mu_assert(test_result, "error, invalid assignment");
 }
 
+void test_copy_constructor( void )
+{
+	ft::vector<int> v1(5, 10);
+	ft::vector<int> v2 = v1;
+	bool test_result = (v1 == v2);
+	print_test("copy constructor: ", test_result);
+	mu_assert(test_result, "error, unable to copy instance");
+}
 
+/*
 void vector_get_allocator( void )
 {
 	ft::vector<int>		v;
@@ -105,8 +114,8 @@ MU_TEST_SUITE(vector_constructor_tests)
 	MU_RUN_TEST(vector_default_constr);
 	MU_RUN_TEST(vector_size_constr);
 	MU_RUN_TEST(test_vector_size_value_constr);
-//	MU_RUN_TEST(test_assignment_operator);
-
+	MU_RUN_TEST(test_copy_constructor);
+	MU_RUN_TEST(test_assignment_operator);
 }
 
 int main(void) {
