@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 01:19:58 by smodesto          #+#    #+#             */
-/*   Updated: 2023/02/13 13:21:45 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/02/13 14:09:52 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include <iostream>
 #include <iomanip>
 
-#if 1//CREATE A REAL STL EXAMPLE
+#if 0//CREATE A REAL STL EXAMPLE
 	#include <vector>
 	namespace ft = std;
 #else

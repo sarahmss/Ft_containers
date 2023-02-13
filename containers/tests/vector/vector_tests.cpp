@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:59:58 by smodesto          #+#    #+#             */
-/*   Updated: 2023/02/13 13:21:31 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/02/13 14:09:44 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,10 +220,87 @@ MU_TEST_SUITE(vector_element_access_tests)
 	MU_RUN_TEST(test_data_method);
 }
 
+/*------------------------------- Iterators ------------------------------------------------*/
+
+void	test_begin_iterator( void ) // increment from begin to end
+{
+	IntVectorType	v1;
+	v1.push_back(42);
+	v1.push_back(4242);
+	v1.push_back(424242);
+	IntVectorType::iterator begin = v1.begin();
+	bool	test_result = true;
+
+	if ((*begin++ != 42) || (*begin++ != 4242) || (*begin != 424242))
+		test_result = false;
+	print_test("begin(): ", test_result);
+	mu_assert(test_result, "error, wrong begin iterator");
+}
+
+void	test_rbegin_iterator( void ) //increment from end to begin
+{
+	IntVectorType	v1;
+	v1.push_back(42);
+	v1.push_back(4242);
+	v1.push_back(424242);
+	IntVectorType::reverse_iterator rbegin = v1.rbegin();
+	bool	test_result = true;
+
+	/*	for (IntVectorType::reverse_iterator it = v1.rend(); it != rbegin; rbegin++)
+		std::cout << *rbegin << std::endl;*/
+
+	if ((*(rbegin++) != 424242) || (*(rbegin++) != 4242) || (*(rbegin++) != 42))
+		test_result = false;
+	print_test("rbegin(): ", test_result);
+	mu_assert(test_result, "error, wrong rbegin iterator");
+}
+
+void	test_end_iterator( void ) // decrement from end to begin
+{
+	IntVectorType	v1;
+	v1.push_back(42);
+	v1.push_back(4242);
+	v1.push_back(424242);
+	IntVectorType::iterator end = v1.end();
+	bool	test_result = true;
+
+	if ((*(--end) != 424242) || (*(--end) != 4242) || (*(--end) != 42))
+		test_result = false;
+	print_test("end(): ", test_result);
+	mu_assert(test_result, "error, wrong end iterator");
+}
+
+void	test_rend_iterator( void ) // decrement form begin to endend
+{
+	IntVectorType	v1;
+	v1.push_back(42);
+	v1.push_back(4242);
+	v1.push_back(424242);
+	IntVectorType::reverse_iterator rend = v1.rend();
+	bool	test_result = true;
+
+	if ((*(--rend) != 42) || (*(--rend) != 4242) || (*(--rend) != 424242))
+		test_result = false;
+	print_test("rend(): ", test_result);
+	mu_assert(test_result, "error, wrong rend iterator");
+}
+
+MU_TEST_SUITE(vector_iterators_tests)
+{
+	std::cout	<< std::endl << std::setw(65)
+				<< "\033[1;34m[RUNNING VECTOR ITERATORS TESTS]\033[0m" << std::endl;
+	MU_RUN_TEST(test_begin_iterator);
+	MU_RUN_TEST(test_end_iterator);
+	MU_RUN_TEST(test_rend_iterator);
+	MU_RUN_TEST(test_rbegin_iterator);
+}
+
 int	vector_tests( void )
 {
 	MU_RUN_SUITE(vector_member_functions_tests);
 	MU_RUN_SUITE(vector_element_access_tests);
+	MU_RUN_SUITE(vector_iterators_tests);
+
 	MU_REPORT();
 	return MU_EXIT_CODE;
 }
