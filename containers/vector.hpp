@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 05:36:46 by coder             #+#    #+#             */
-/*   Updated: 2023/02/13 00:26:40 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/02/13 12:33:10 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -362,7 +362,7 @@ namespace ft
 			{
 				if (index >= _size || index < 0)
 					throw std::out_of_range(" Out of bounds exception" );
-				return (this->data[index]);
+				return (this->_data[index]);
 			}
 			const_reference at(size_type index) const
 			{
