@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:59:58 by smodesto          #+#    #+#             */
-/*   Updated: 2023/02/13 17:25:36 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/02/15 20:23:41 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -294,7 +294,6 @@ MU_TEST_SUITE(vector_iterators_tests)
 
 /*------------------------------------- Capacity ------------------------------------------------*/
 
-
 void	test_capacity( void )
 {
 	IntVectorType	v1(5, 10);
@@ -378,12 +377,85 @@ MU_TEST_SUITE(vector_capacity_tests)
 	MU_RUN_TEST(test_capacity_reserved_memory);
 }
 
+/*------------------------------------- Modifiers ------------------------------------------------*/
+
+void	test_insert_pos_value( void )
+{
+	IntVectorType	v;
+	bool			test_result = true;
+
+	for (int i = 0; i < 10; i++)
+		v.insert(v.end(), 42 + i);
+	for (int i = 0; i < 10; i++)
+		if (v[i] != 42 + i)
+			test_result = false;
+	print_test("insert(pos, value): ", test_result);
+	mu_assert(test_result == true, "error, insert(pos, value) method");
+}
+
+void	test_insert_pos_count_value( void )
+{
+	IntVectorType	v;
+	bool			test_result = true;
+
+	for (int i = 0; i < 10; i++)
+		v.insert(v.begin(), 42, 42);
+	for (int i = 0; i < 42; i++)
+		if (v[i] != 42)
+			test_result = false;
+	print_test("insert(pos, count, value): ", test_result);
+	mu_assert(test_result == true, "error, insert(pos, count, value) method");
+}
+
+/*
+	-> Enable_if condition is added as a fourth template parameter to the insert method,
+		checking if InputIt is not an integral type.
+	-> If InputIt is an integral type, the enable_if condition evaluates to false,
+		causing a compiler error. If InputIt is not an integral type,
+		the enable_if condition evaluates to true, allowing the method to execute normally.
+	->
+*/
+void	test_insert_pos_first_last( void )
+{
+	IntVectorType	v;
+	IntVectorType	v2;
+	bool			test_result = true;
+
+	for (int i = 0; i < 10; i++)
+		v.insert(v.end(), 42 + i);
+	v2.insert(v2.begin(), v.begin(), v.end());
+	print_test("insert(pos, first, last): ", test_result);
+	mu_assert(test_result == true, "error, insert iterators method");
+}
+
+void	test_clear( void )
+{
+	IntVectorType	v(5, 10);
+	v.clear();
+	bool			test_result = v.empty();
+
+	print_test("clear(): ", test_result);
+	mu_assert(test_result == true, "error, clear() method");
+}
+
+MU_TEST_SUITE(vector_modifiers_tests)
+{
+		std::cout	<< std::endl << std::setw(65)
+				<< "\033[1;34m[RUNNING VECTOR MODIFIERS TESTS]\033[0m" << std::endl;
+	MU_RUN_TEST(test_clear);
+	MU_RUN_TEST(test_insert_pos_value);
+	MU_RUN_TEST(test_insert_pos_count_value);
+	MU_RUN_TEST(test_insert_pos_first_last);
+}
+
 int	vector_tests( void )
 {
 	MU_RUN_SUITE(vector_member_functions_tests);
 	MU_RUN_SUITE(vector_element_access_tests);
 	MU_RUN_SUITE(vector_iterators_tests);
 	MU_RUN_SUITE(vector_capacity_tests);
+	MU_RUN_SUITE(vector_modifiers_tests);
+
 
 	MU_REPORT();
 	return MU_EXIT_CODE;

@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 05:36:46 by coder             #+#    #+#             */
-/*   Updated: 2023/02/13 17:18:34 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/02/15 20:17:42 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include "utils/iteratorTraits.hpp"
 # include "utils/reverseIterator.hpp"
 # include "utils/equal.hpp"
+# include "utils/is_integral.hpp"
+# include "utils/enable_if.hpp"
 # include "utils/lexicographicalCompare.hpp"
 
 /*
@@ -63,9 +65,6 @@ namespace ft
 		public:
 
 			/*------------ Member Functions ---------*/
-			vector( void ) :	_data(NULL), _size(0),
-								_capacity(0), _alloc(allocator_type()) { _ReAlloc(2); }
-
 			vector( const vector& other)
 			{
 				pointer	newBlock = _getNewBlock(other._capacity);
@@ -77,7 +76,7 @@ namespace ft
 				this->_alloc = other._alloc;
 			}
 
-			explicit vector( const Allocator& alloc ):	_data(NULL), _size(0),
+			explicit vector( const Allocator& alloc=allocator_type() ):	_data(NULL), _size(0),
 								_capacity(0), _alloc(alloc) { _ReAlloc(2); }
 
 			explicit vector( size_type count, const T& value = T(),
@@ -90,7 +89,15 @@ namespace ft
 				assign(count, value);
 				_capacity = count;
 			}
-
+			template <class InputIt>
+			vector (InputIt first, InputIt last, const allocator_type& alloc = allocator_type(),
+					typename ft::enable_if<!ft::is_integral<InputIt>::value>::type * = 0):
+			_capacity(last - first),
+			_size(this->_capacity),
+			_alloc(alloc)
+			{
+				_ReAlloc(this->_capacity);
+			}
 			~vector( void )
 			{
 				this->clear();
@@ -136,8 +143,10 @@ namespace ft
 					_Construct(_data, count, value);
 				}
 			}
+			// Replaces the contents with copies of those in the range [first, last)
 			template<class InputIt>
-			void assign(InputIt first, InputIt last)	// Replaces the contents with copies of those in the range [first, last)
+			void assign(InputIt first, InputIt last,
+				typename ft::enable_if<!ft::is_integral<InputIt>::value, bool>::type = false)
 			{
 				pointer newBlock;
 				size_type count = last - first;
@@ -184,7 +193,8 @@ namespace ft
 				_size++;
 				return (iterator(this->_data + len));
 			}
-			iterator insert( const_iterator pos, size_type count, const T& value )	// inserts count copies of the value before pos
+
+			iterator insert( const_iterator pos, size_type count, const T& value)	// inserts count copies of the value before pos
 			{
 				pointer newBlock;
 				difference_type len = pos - this->begin();
@@ -201,8 +211,10 @@ namespace ft
 				_size += count;
 				return (iterator(this->_data + len));
 			}
+			// inserts elements from range [first, last) before pos
 			template< class InputIt >
-			iterator insert( const_iterator pos, InputIt first, InputIt last )		// inserts elements from range [first, last) before pos
+			iterator insert( const_iterator pos, InputIt first, InputIt last,
+				typename ft::enable_if<!ft::is_integral<InputIt>::value>::type * = 0)
 			{
 				pointer newBlock;
 				difference_type len = pos - this->begin();
@@ -210,8 +222,8 @@ namespace ft
 				size_t newCapacity = this->_size + count;
 
 				newBlock = _ReAllocToInsert(newCapacity, len);
-				for (InputIt temp = first; temp < last; temp++)
-					newBlock[len++] = *temp;
+				for (; first < last; first++)
+					newBlock[len++] = *first;
 				for (size_t i = len - count; i < _size; i++)
 					newBlock[i + count] = this->_data[i];
 				_clearData();
