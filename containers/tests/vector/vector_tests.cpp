@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:59:58 by smodesto          #+#    #+#             */
-/*   Updated: 2023/02/15 20:23:41 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/02/15 20:46:29 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -379,6 +379,38 @@ MU_TEST_SUITE(vector_capacity_tests)
 
 /*------------------------------------- Modifiers ------------------------------------------------*/
 
+void	test_erase_pos( void )
+{
+	IntVectorType				v1(10, 42);
+	v1[5] = 24;
+	IntVectorType::iterator		it = v1.begin();
+	bool			test_result = true;
+
+	for (; it != v1.end(); it++)
+		if (*it == 24)
+			v1.erase(it);
+	if (v1.size() != 9)
+		test_result = false;
+	print_test("erase(pos): ", test_result);
+	mu_assert(test_result, "error, erase(pos) method");
+}
+
+void	test_erase_first_last( void )
+{
+	IntVectorType				v1(10, 42);
+	bool						test_result = true;
+	IntVectorType::iterator it = v1.begin();
+
+	v1[5] = 24;
+	while (*it != 24)
+		it++;
+	v1.erase(v1.begin(), it);
+	if (v1.size() != 5)
+		test_result = false;
+	print_test("erase(first, last): ", test_result);
+	mu_assert(test_result, "error, erase(first, last) method");
+}
+
 void	test_insert_pos_value( void )
 {
 	IntVectorType	v;
@@ -413,7 +445,6 @@ void	test_insert_pos_count_value( void )
 	-> If InputIt is an integral type, the enable_if condition evaluates to false,
 		causing a compiler error. If InputIt is not an integral type,
 		the enable_if condition evaluates to true, allowing the method to execute normally.
-	->
 */
 void	test_insert_pos_first_last( void )
 {
@@ -446,6 +477,10 @@ MU_TEST_SUITE(vector_modifiers_tests)
 	MU_RUN_TEST(test_insert_pos_value);
 	MU_RUN_TEST(test_insert_pos_count_value);
 	MU_RUN_TEST(test_insert_pos_first_last);
+	MU_RUN_TEST(test_erase_pos);
+	MU_RUN_TEST(test_erase_first_last);
+
+
 }
 
 int	vector_tests( void )
