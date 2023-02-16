@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:59:58 by smodesto          #+#    #+#             */
-/*   Updated: 2023/02/16 14:08:49 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/02/16 14:23:02 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,30 @@ void	test_map_range_constr( void )
 	ft::pair<int, int> p2(3, 4);
 	ft::pair<int, int> p3(5, 6);
 
-	ft::map<int, int> m1;
+	IntMapType m1;
 	m1.insert(p1);
 	m1.insert(p2);
 	m1.insert(p3);
 
-	ft::map<int, int> m2(m1.begin(), m1.end());
+	IntMapType m2(m1.begin(), m1.end());
 	bool	test_result = m1 == m2;
 
 	print_test("Instanciating range constructor: ", test_result);
 	mu_assert(test_result == true, "error, map_range_constr");
+}
+
+void	test_map_copy_constructor( void )
+{
+	IntMapType m1;
+	m1[1] = 2;
+	m1[3] = 4;
+	m1[5] = 6;
+
+	IntMapType m2(m1);
+	bool	test_result = m1 == m2;
+
+	print_test("Instanciating copy constructor: ", test_result);
+	mu_assert(test_result == true, "error, map_copy_constr");
 }
 
 /*
@@ -94,9 +108,8 @@ MU_TEST_SUITE(map_member_functions_tests)
 				<< "\033[1;34m[RUNNING MAP MEMBER FUNCTIONS TESTS]\033[0m" << std::endl;
 	MU_RUN_TEST(test_map_default_constr);
  	MU_RUN_TEST(test_map_range_constr);
-/*	MU_RUN_TEST(test_map_size_value_constr);
-	MU_RUN_TEST(test_copy_constructor);
-	MU_RUN_TEST(test_assignment_operator);
+	MU_RUN_TEST(test_map_copy_constructor);
+/*	MU_RUN_TEST(test_assignment_operator);
 	MU_RUN_TEST(test_get_allocator); */
 }
 

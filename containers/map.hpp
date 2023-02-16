@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 16:53:05 by smodesto          #+#    #+#             */
-/*   Updated: 2023/02/16 14:16:24 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/02/16 14:24:02 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ namespace ft
 			if (element == this->end())
 				this->insert(ft::make_pair(key, mapped_type()));
 			element = this->find(key);
-			return ((*element)->second);
+			return ((*element).second);
 		}
 
 		/********************* Iterators **********************/
