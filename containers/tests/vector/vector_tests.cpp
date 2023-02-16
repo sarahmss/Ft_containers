@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:59:58 by smodesto          #+#    #+#             */
-/*   Updated: 2023/02/15 20:59:33 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/02/15 21:28:02 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -379,6 +379,38 @@ MU_TEST_SUITE(vector_capacity_tests)
 
 /*------------------------------------- Modifiers ------------------------------------------------*/
 
+void	test_resize_greater( void )
+{
+	IntVectorType	v1;
+	bool			test_result = true;
+
+	v1.push_back(42);
+	v1.push_back(4242);
+
+	v1.resize(4, 24);
+	if (v1.size() != 4 || v1[0] != 42 || v1[1] != 4242 || v1[2] != 24 || v1[3] != 24)
+		test_result = false;
+	print_test("resize() greater[2 -> 4]: ", test_result);
+	mu_assert(test_result, "error, resize() failed to expand the vector size or insert elements");
+}
+
+void	test_resize_smaller( void )
+{
+	IntVectorType	v1;
+	bool			test_result = true;
+
+	v1.push_back(42);
+	v1.push_back(4242);
+	v1.push_back(424242);
+	v1.push_back(42424242);
+
+	v1.resize(3);
+	if (v1.size() != 3 || v1[0] != 42 || v1[1] != 4242 || v1[2] != 424242)
+		test_result = false;
+	print_test("resize() smaller[4 -> 3]: ", test_result);
+	mu_assert(test_result, "error, resize() failed to shrink the vector size or preserv elements");
+}
+
 void	test_pop_back( void )
 {
 	IntVectorType	v1(5, 42);
@@ -507,7 +539,8 @@ MU_TEST_SUITE(vector_modifiers_tests)
 	MU_RUN_TEST(test_erase_first_last);
 	MU_RUN_TEST(test_push_back);
 	MU_RUN_TEST(test_pop_back);
-
+	MU_RUN_TEST(test_resize_smaller);
+	MU_RUN_TEST(test_resize_greater);
 }
 
 int	vector_tests( void )
