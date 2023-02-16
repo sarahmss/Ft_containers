@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 16:53:05 by smodesto          #+#    #+#             */
-/*   Updated: 2023/02/16 14:24:02 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/02/16 14:46:23 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ namespace ft
 			typedef T												mapped_type;
 			typedef ft::pair<key_type, mapped_type>					value_type;
 			typedef Compare											key_compare;
+			typedef Allocator										allocator_type;
 			typedef typename Allocator::reference					reference;
 			typedef typename Allocator::const_reference				const_reference;
 			typedef typename Allocator::pointer						pointer;
@@ -52,11 +53,11 @@ namespace ft
 									key_compare,
 									Allocator>						rbt_type;
 			rbt_type	_tree;
+			allocator_type	_alloc;
 
 		public:
 			typedef typename rbt_type::size_type					size_type;
 			typedef typename rbt_type::difference_type				difference_type;
-			typedef typename rbt_type::allocator_type				allocator_type;
 			typedef typename rbt_type::iterator						iterator;
 			typedef typename rbt_type::const_iterator				const_iterator;
 			typedef typename rbt_type::reverse_iterator				reverse_iterator;
@@ -103,7 +104,7 @@ namespace ft
 			return (*this);
 		}
 
-		allocator_type get_allocator( void ) const { return (_tree.get_allocator()); }
+		allocator_type get_allocator( void ) const { return (_alloc); }
 		/********************* Element access **********************/
 
 		mapped_type				&at( const key_type& key)

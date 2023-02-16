@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:59:58 by smodesto          #+#    #+#             */
-/*   Updated: 2023/02/16 14:23:02 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/02/16 14:48:30 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,52 +55,31 @@ void	test_map_copy_constructor( void )
 	mu_assert(test_result == true, "error, map_copy_constr");
 }
 
-/*
-void	test_map_size_value_constr( void )
+void	test_map_assignment_operator( void )
 {
-	IntMapType m(5, 10);
-	int				size = v.size();
-	bool			test_result = true;
-	bool			test_result1 = (size == 5);
+	IntMapType m1;
+	m1[1] = 2;
+	m1[3] = 4;
+	m1[5] = 6;
 
-	for (int i = 0; i < 5 && test_result == true; i++)
-		test_result = (v[i] == 10 ? true : false);
-	if (test_result == false || test_result1 == false)
-		print_test("Instanciating size(5) value(10) constructor: ", false);
-	else
-		print_test("Instanciating size(5) value(10) constructor: ", true);
-	mu_assert(test_result1, "error, wrong size");
-	mu_assert(test_result, "error, wrong contet");
-}
-
-void	test_assignment_operator( void )
-{
-	IntMapType	m1(5, 10);
-	IntMapType	m2(5, 7);
-	m1 = m2;
-	bool			test_result = (m1 == m2);
-	print_test("assinegment operator (both existing): ", test_result);
-	mu_assert(test_result, "error, invalid assignment");
-}
-
-void	test_copy_constructor( void )
-{
-	IntMapType m1(5, 10);
 	IntMapType m2 = m1;
-	bool test_result = (m1 == m2);
-	print_test("copy constructor: ", test_result);
-	mu_assert(test_result, "error, unable to copy instance");
+	bool	test_result = m1 == m2;
+
+	print_test("operator=(): ", test_result);
+	mu_assert(test_result == true, "error, operator=()");
 }
 
-void	test_get_allocator( void )
+void	test_map_get_allocator( void )
 {
-	IntMapType m1(10, 10);
-	IntMapType::allocator_type alloc = m1.get_allocator();
-	bool			test_result = typeid(alloc) == typeid(std::allocator<int>);
+	ft::map<int, int>		m1;
+	std::map<int, int>		m2;
 
+	ft::map<int, int>::allocator_type alloc1 = m1.get_allocator();
+
+	bool	test_result = typeid(alloc1) == typeid(std::allocator<ft::pair<int const, int> >);
 	print_test("get_allocator(): ", test_result);
 	mu_assert(test_result, "error, incorrect allocator type");
-} */
+}
 
 MU_TEST_SUITE(map_member_functions_tests)
 {
@@ -109,8 +88,8 @@ MU_TEST_SUITE(map_member_functions_tests)
 	MU_RUN_TEST(test_map_default_constr);
  	MU_RUN_TEST(test_map_range_constr);
 	MU_RUN_TEST(test_map_copy_constructor);
-/*	MU_RUN_TEST(test_assignment_operator);
-	MU_RUN_TEST(test_get_allocator); */
+	MU_RUN_TEST(test_map_assignment_operator);
+	MU_RUN_TEST(test_map_get_allocator);
 }
 
 int	map_tests( void )

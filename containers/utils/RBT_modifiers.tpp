@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 18:28:40 by smodesto          #+#    #+#             */
-/*   Updated: 2023/01/25 22:55:04 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/02/16 14:37:03 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ namespace ft {
 	template <RBT_TEMPLATE>
 	typename RBT_CLASS::allocator_type RBT_CLASS::get_allocator( void ) const
 	{
-		returns (_alloc);
+		return (_alloc);
 	}
 }
 #endif
