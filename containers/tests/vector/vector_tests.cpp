@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:59:58 by smodesto          #+#    #+#             */
-/*   Updated: 2023/02/15 21:38:44 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/02/15 22:07:14 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -379,10 +379,10 @@ MU_TEST_SUITE(vector_capacity_tests)
 
 /*------------------------------------- Modifiers ------------------------------------------------*/
 
-void test_swap( void )
+void test_swap_method( void )
 {
-	std::vector<int> v1;
-	std::vector<int> v2;
+	IntVectorType v1;
+	IntVectorType v2;
 	bool test_result = false;
 
 	v1.push_back(1);
@@ -396,7 +396,7 @@ void test_swap( void )
 	if (v1.size() == 3 && v1[0] == 4 && v1[1] == 5 && v1[2] == 6
 		&& v2.size() == 3 && v2[0] == 1 && v2[1] == 2 && v2[2] == 3)
 		test_result = true;
-	print_test("swap(): ", test_result);
+	print_test("swap() [method]: ", test_result);
 	mu_assert(test_result, "error, Something failed in Swapping");
 }
 
@@ -562,11 +562,159 @@ MU_TEST_SUITE(vector_modifiers_tests)
 	MU_RUN_TEST(test_pop_back);
 	MU_RUN_TEST(test_resize_smaller);
 	MU_RUN_TEST(test_resize_greater);
-	MU_RUN_TEST(test_swap);
+	MU_RUN_TEST(test_swap_method);
 }
 
 /*------------------------------------- No Member Functions -------------------------------------*/
 
+void test_swap_no_member( void )
+{
+	IntVectorType v1;
+	IntVectorType v2;
+	bool test_result = false;
+
+	v1.push_back(1);
+	v1.push_back(2);
+	v1.push_back(3);
+	v2.push_back(4);
+	v2.push_back(5);
+	v2.push_back(6);
+
+	ft::swap(v1, v2);
+	if (v1.size() == 3 && v1[0] == 4 && v1[1] == 5 && v1[2] == 6
+		&& v2.size() == 3 && v2[0] == 1 && v2[1] == 2 && v2[2] == 3)
+		test_result = true;
+	print_test("swap() [no member function]: ", test_result);
+	mu_assert(test_result, "error, Something failed in Swapping");
+}
+
+void test_differ_operator_true( void )
+{
+	IntVectorType v1(5, 24);
+	IntVectorType v2(5, 24);
+
+	print_test("operator!= [false]: ", (v1 != v2) == false);
+	mu_assert((v1 != v2) == false, "error, operator!= [false]");
+}
+
+void test_differ_operator_false( void )
+{
+	IntVectorType v1(5, 42);
+	IntVectorType v2(5, 24);
+
+	print_test("operator!= [true]: ", (v1 != v2) );
+	mu_assert((v1 != v2), "error, operator!= [false]");
+}
+
+void test_equal_operator_true( void )
+{
+	IntVectorType v1(5, 24);
+	IntVectorType v2(5, 24);
+
+	print_test("operator== [true]: ", v1 == v2);
+	mu_assert(v1 == v2, "error, operator== [true]");
+}
+
+void test_equal_operator_false( void )
+{
+	IntVectorType v1(5, 42);
+	IntVectorType v2(5, 24);
+
+	print_test("operator== [false]: ", (v1 == v2) == false);
+	mu_assert((v1 == v2) == false, "error, operator== [false]");
+}
+
+void test_more_operator_true( void )
+{
+	IntVectorType v1(6, 24);
+	IntVectorType v2(5, 24);
+
+	print_test("operator> [true]: ", v1 > v2);
+	mu_assert(v1 > v2, "error, operator> [true]");
+}
+
+void test_more_operator_false( void )
+{
+	IntVectorType v1(4, 24);
+	IntVectorType v2(5, 24);
+
+	print_test("operator> [false]: ", (v1 > v2) == false);
+	mu_assert((v1 > v2) == false, "error, operato> [false]");
+}
+
+void test_more_equal_operator_true( void )
+{
+	IntVectorType v1(6, 24);
+	IntVectorType v2(5, 24);
+
+	print_test("operator>= [true]: ", v1 >= v2);
+	mu_assert(v1 >= v2, "error, operator>= [true]");
+}
+
+void test_more_equal_operator_false( void )
+{
+	IntVectorType v1(4, 24);
+	IntVectorType v2(5, 24);
+
+	print_test("operator>= [false]: ", (v1 >= v2) == false);
+	mu_assert((v1 >= v2) == false, "error, operator>= [false]");
+}
+
+void test_less_operator_true( void )
+{
+	IntVectorType v1(5, 24);
+	IntVectorType v2(6, 24);
+
+	print_test("operator< [true]: ", v1 < v2);
+	mu_assert(v1 < v2, "error, operator< [true]");
+}
+
+void test_less_operator_false( void )
+{
+	IntVectorType v1(6, 24);
+	IntVectorType v2(5, 24);
+
+	print_test("operator< [false]: ", (v1 < v2) == false);
+	mu_assert((v1 < v2) == false, "error, operator< [false]");
+}
+
+void test_less_equal_operator_true( void )
+{
+	IntVectorType v1(4, 24);
+	IntVectorType v2(5, 24);
+
+	print_test("operator<= [true]: ", v1 <= v2);
+	mu_assert(v1 <= v2, "error, operator<= [true]");
+}
+
+void test_less_equal_operator_false( void )
+{
+	IntVectorType v1(6, 24);
+	IntVectorType v2(5, 24);
+
+	print_test("operator<= [false]: ", (v1 <= v2) == false);
+	mu_assert((v1 <= v2) == false, "error, operator<= [false]");
+}
+
+MU_TEST_SUITE(vector_no_member_functions)
+{
+		std::cout	<< std::endl << std::setw(65)
+				<< "\033[1;34m[RUNNING VECTOR NO MEMBERS TESTS]\033[0m" << std::endl;
+	MU_RUN_TEST(test_swap_no_member);
+	MU_RUN_TEST(test_equal_operator_true);
+	MU_RUN_TEST(test_equal_operator_false);
+	MU_RUN_TEST(test_differ_operator_true);
+	MU_RUN_TEST(test_differ_operator_false);
+	/* size and value counts */
+	MU_RUN_TEST(test_more_operator_true);
+	MU_RUN_TEST(test_more_operator_false);
+	MU_RUN_TEST(test_more_equal_operator_true);
+	MU_RUN_TEST(test_more_equal_operator_false);
+	MU_RUN_TEST(test_less_operator_true);
+	MU_RUN_TEST(test_less_operator_false);
+	MU_RUN_TEST(test_less_equal_operator_true);
+	MU_RUN_TEST(test_less_equal_operator_false);
+}
 
 int	vector_tests( void )
 {
@@ -575,7 +723,7 @@ int	vector_tests( void )
 	MU_RUN_SUITE(vector_iterators_tests);
 	MU_RUN_SUITE(vector_capacity_tests);
 	MU_RUN_SUITE(vector_modifiers_tests);
-
+	MU_RUN_SUITE(vector_no_member_functions);
 
 	MU_REPORT();
 	return MU_EXIT_CODE;
