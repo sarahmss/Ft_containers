@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 16:53:05 by smodesto          #+#    #+#             */
-/*   Updated: 2023/01/26 17:13:24 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/02/16 14:03:10 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ namespace ft
 		public:
 			typedef Key												key_type;
 			typedef T												mapped_type;
-			typedef ft::pair<const key_type, mapped_type>			value_type;
+			typedef ft::pair<key_type, mapped_type>					value_type;
 			typedef Compare											key_compare;
 			typedef typename Allocator::reference					reference;
 			typedef typename Allocator::const_reference				const_reference;
@@ -76,12 +76,13 @@ namespace ft
 		public:
 		/********************* Member Functions **********************/
 
-		explicit map(const key_compare& comp, const Allocator &alloc = Allocator())
+		explicit map(const key_compare& comp = key_compare(), const allocator_type &alloc = Allocator())
 					: _tree(comp, alloc) { return; }
+
 		template <class InputIt>
 		map ( InputIt first, InputIt last,
 			const key_compare& comp = Compare(),
-			const Allocator &alloc = Allocator()) : _tree(comp, alloc)
+			const allocator_type &alloc = Allocator()) : _tree(comp, alloc)
 		{
 			while (first != last)
 			{
@@ -105,14 +106,14 @@ namespace ft
 
 		mapped_type				&at( const key_type& key)
 		{
-			mapped_type	element = _tree->search(key);
+			mapped_type	element = _tree.search(key);
 			if (element == this->end())
 				throw std::out_of_range(" Out of bounds exception" );
 			return (element);
 		}
 		const mapped_type		&at( const key_type& key) const
 		{
-			mapped_type	element = _tree->search(key);
+			mapped_type	element = _tree.search(key);
 			if (element == this->end())
 				throw std::out_of_range(" Out of bounds exception" );
 			return (element);
@@ -128,18 +129,18 @@ namespace ft
 		}
 
 		/********************* Iterators **********************/
-		iterator				begin( void ) { return (_tree->begin()); }
-		const_iterator			begin( void ) const { return (_tree->begin()); }
-		iterator				end( void ) { return (_tree->end()); }
-		const_iterator			end( void ) const { return (_tree->end()); }
-		reverse_iterator		rbegin( void ) { return (_tree->rbegin()); }
-		const_reverse_iterator	rbegin( void ) const { return (_tree->rbegin()); }
-		reverse_iterator		rend( void ) { return (_tree->rend()); }
-		const_reverse_iterator	rend( void ) const { return (_tree->rend()); }
+		iterator				begin( void ) { return (_tree.begin()); }
+		const_iterator			begin( void ) const { return (_tree.begin()); }
+		iterator				end( void ) { return (_tree.end()); }
+		const_iterator			end( void ) const { return (_tree.end()); }
+		reverse_iterator		rbegin( void ) { return (_tree.rbegin()); }
+		const_reverse_iterator	rbegin( void ) const { return (_tree.rbegin()); }
+		reverse_iterator		rend( void ) { return (_tree.rend()); }
+		const_reverse_iterator	rend( void ) const { return (_tree.rend()); }
 		/********************* Capacity **********************/
-		bool					empty( void ) const { return (_tree->empty()); }
-		size_type				size( void ) const { return (_tree->size()); }
-		size_type				max_size( void ) const { return (_tree->max_size()); }
+		bool					empty( void ) const { return (_tree.empty()); }
+		size_type				size( void ) const { return (_tree.size()); }
+		size_type				max_size( void ) const { return (_tree.max_size()); }
 		/********************* Modifiers **********************/
 		void						clear( void ){_tree.clear();}
 		ft::pair<iterator, bool>	insert(const value_type& value)

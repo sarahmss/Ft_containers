@@ -6,14 +6,12 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 20:48:38 by smodesto          #+#    #+#             */
-/*   Updated: 2023/01/26 16:37:14 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/02/16 13:57:13 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PAIR_HPP
 #define PAIR_HPP
-
-#include <vector>
 
 /*
 	@brief:
@@ -41,10 +39,15 @@ namespace ft
 
 			pair (const first_type &x, const second_type &y) : first(x), second(y){};
 
-			pair  &operator=(const pair &rhs)
+			~pair( void ) {};
+
+ 			pair &operator=(const pair &rhs)
 			{
-				first = rhs.first;
-				second = rhs.second;
+				if (this != &rhs)
+				{
+					this->first = rhs.first;
+					this->second = rhs.second;
+				}
 				return (*this);
 			}
 	};
