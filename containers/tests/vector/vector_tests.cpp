@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:59:58 by smodesto          #+#    #+#             */
-/*   Updated: 2023/02/15 20:46:29 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/02/15 20:59:33 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -313,8 +313,8 @@ void	test_capacity_reserved_memory( void )
 	v1.push_back(424242);
 	bool	test_result = v1.capacity() > v1.size();
 
-	print_test("capacity(): ", test_result);
-	mu_assert(test_result, "error, capacity() failed");
+	print_test("capacity() of reserved memory: ", test_result);
+	mu_assert(test_result, "error, capacity() of reserved memory failed");
 }
 
 void	test_reserve( void )
@@ -378,6 +378,32 @@ MU_TEST_SUITE(vector_capacity_tests)
 }
 
 /*------------------------------------- Modifiers ------------------------------------------------*/
+
+void	test_pop_back( void )
+{
+	IntVectorType	v1(5, 42);
+	bool			test_result = true;
+
+
+	v1[3] = 24;
+	v1.pop_back();
+	if (*v1.rbegin() != 24)
+		test_result = false;
+	print_test("pop_back(): ", test_result);
+	mu_assert(test_result, "error, pop_back() method");
+}
+
+void	test_push_back( void )
+{
+	IntVectorType	v1(5, 42);
+	bool			test_result = true;
+
+	v1.push_back(24);
+	if (*v1.rbegin() != 24)
+		test_result = false;
+	print_test("push_back(): ", test_result);
+	mu_assert(test_result, "error, push_back() method");
+}
 
 void	test_erase_pos( void )
 {
@@ -479,7 +505,8 @@ MU_TEST_SUITE(vector_modifiers_tests)
 	MU_RUN_TEST(test_insert_pos_first_last);
 	MU_RUN_TEST(test_erase_pos);
 	MU_RUN_TEST(test_erase_first_last);
-
+	MU_RUN_TEST(test_push_back);
+	MU_RUN_TEST(test_pop_back);
 
 }
 
