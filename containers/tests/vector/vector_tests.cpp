@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:59:58 by smodesto          #+#    #+#             */
-/*   Updated: 2023/02/15 21:28:02 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/02/15 21:38:44 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -379,6 +379,27 @@ MU_TEST_SUITE(vector_capacity_tests)
 
 /*------------------------------------- Modifiers ------------------------------------------------*/
 
+void test_swap( void )
+{
+	std::vector<int> v1;
+	std::vector<int> v2;
+	bool test_result = false;
+
+	v1.push_back(1);
+	v1.push_back(2);
+	v1.push_back(3);
+	v2.push_back(4);
+	v2.push_back(5);
+	v2.push_back(6);
+	v1.swap(v2);
+
+	if (v1.size() == 3 && v1[0] == 4 && v1[1] == 5 && v1[2] == 6
+		&& v2.size() == 3 && v2[0] == 1 && v2[1] == 2 && v2[2] == 3)
+		test_result = true;
+	print_test("swap(): ", test_result);
+	mu_assert(test_result, "error, Something failed in Swapping");
+}
+
 void	test_resize_greater( void )
 {
 	IntVectorType	v1;
@@ -541,7 +562,11 @@ MU_TEST_SUITE(vector_modifiers_tests)
 	MU_RUN_TEST(test_pop_back);
 	MU_RUN_TEST(test_resize_smaller);
 	MU_RUN_TEST(test_resize_greater);
+	MU_RUN_TEST(test_swap);
 }
+
+/*------------------------------------- No Member Functions -------------------------------------*/
+
 
 int	vector_tests( void )
 {
