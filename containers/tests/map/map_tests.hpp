@@ -20,7 +20,7 @@
 #include <cstdio>
 #include <map>
 
-#if 1//CREATE A REAL STL EXAMPLE
+#if 0//CREATE A REAL STL EXAMPLE
 	namespace ft = std;
 #else
 	#include "../../map.hpp"

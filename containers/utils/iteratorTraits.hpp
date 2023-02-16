@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 19:20:48 by smodesto          #+#    #+#             */
-/*   Updated: 2023/01/26 17:13:24 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/02/16 14:20:08 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,13 @@ namespace ft {
 		object (first argument in template argument).
 	*/
 	template <class T>
-	class iterator_traits<const T*>
+	struct iterator_traits<const T*>
 	{
-		typedef std::random_access_iterator_tag	iterator_category;
-		typedef T								value_type;
-		typedef const T*						pointer;
-		typedef const T&						reference;
-		typedef std::ptrdiff_t					difference_type;
+			typedef std::random_access_iterator_tag	iterator_category;
+			typedef T								value_type;
+			typedef const T*						pointer;
+			typedef const T&						reference;
+			typedef std::ptrdiff_t					difference_type;
 	};
 }
 
