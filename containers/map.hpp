@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 16:53:05 by smodesto          #+#    #+#             */
-/*   Updated: 2023/02/17 14:48:54 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/02/17 15:31:07 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ namespace ft
 		/********************* Capacity **********************/
 		bool					empty( void ) const { return (_tree.empty()); }
 		size_type				size( void ) const { return (_tree.size()); }
-		size_type				max_size( void ) const { return (_tree.max_size()); }
+		size_type				max_size( void ) const { return (_alloc.max_size()); }
 		/********************* Modifiers **********************/
 		void						clear( void ){_tree.clear();}
 		ft::pair<iterator, bool>	insert(const value_type& value)
@@ -147,17 +147,16 @@ namespace ft
 			if (element != end())
 				return (element);
 			_tree.insert(value, pos.base());
-			return (_tree.find(value.first));
+			return (find(value.first));
 		}
 		template <class InputIt>
 		void						insert(InputIt first, InputIt last)
 		{
-			while(first != last)
+			while (first != last)
 			{
 				insert(*first);
 				++first;
 			}
-
 		}
 		void						erase( iterator pos ){_tree.erase(pos->first);}
 		void						erase( iterator first, iterator last )
@@ -180,7 +179,7 @@ namespace ft
 			}
 			return (0);
 		}
-		void						swap( map& other ) { _tree.swap(other->_tree); }
+		void						swap( map& other ) { _tree.swap(other._tree); }
 		/********************* Lookup **********************/
 		size_type				count(const key_type& key) const
 		{

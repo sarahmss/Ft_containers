@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 18:28:40 by smodesto          #+#    #+#             */
-/*   Updated: 2023/02/16 14:37:03 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/02/17 14:58:52 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ namespace ft {
 
 		other._alloc = this->_alloc;
 		other._size = this->_size;
-		other.root = this->_root;
-		other.TNULL = this->_TNULL;
+		other.root = this->root;
+		other.TNULL = this->TNULL;
 		other._comp = this->_comp;
 
 		this->_alloc = tmpAlloc;
