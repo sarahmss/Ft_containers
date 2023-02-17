@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:59:58 by smodesto          #+#    #+#             */
-/*   Updated: 2023/02/17 17:01:51 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/02/17 17:33:12 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	test_map_default_constr( void )
 
 void	test_map_range_constr( void )
 {
-	ft::pair<int, int> p1(1, 2);
-	ft::pair<int, int> p2(3, 4);
-	ft::pair<int, int> p3(5, 6);
+	IntPairType p1(1, 2);
+	IntPairType p2(3, 4);
+	IntPairType p3(5, 6);
 
 	IntMapType m1;
 	m1.insert(p1);
@@ -296,7 +296,7 @@ void	test_map_clear( void )
 
 void	test_map_insert_value( void )
 {
-	ft::pair<int, int>	p1(42, 42);
+	IntPairType	p1(42, 42);
 	IntMapType			m1;
 	m1.insert(p1);
 	bool	test_result = true;
@@ -310,7 +310,7 @@ void	test_map_insert_value( void )
 void	test_map_insert_pos_value( void )
 {
 	IntMapType				m1;
-	ft::pair<int, int>		p1(42, 42);
+	IntPairType		p1(42, 42);
 	bool					test_result = true;
 
 	m1[1] = 1;
@@ -329,9 +329,9 @@ void	test_map_insert_first_last( void )
 	IntMapType	m1;
 	bool		test_result;
 
-	ft::pair<int, int> p1(1, 2);
-	ft::pair<int, int> p2(3, 4);
-	ft::pair<int, int> p3(5, 6);
+	IntPairType p1(1, 2);
+	IntPairType p2(3, 4);
+	IntPairType p3(5, 6);
 
 	m1.insert(p1);
 	m1.insert(p2);
@@ -378,9 +378,9 @@ void	test_map_erase_first_last( void )
 {
 	IntMapType	m1;
 
-	ft::pair<int, int> p1(1, 2);
-	ft::pair<int, int> p2(3, 4);
-	ft::pair<int, int> p3(5, 6);
+	IntPairType p1(1, 2);
+	IntPairType p2(3, 4);
+	IntPairType p3(5, 6);
 
 	m1.insert(p1);
 	m1.insert(p2);
@@ -411,21 +411,49 @@ MU_TEST_SUITE(map_modifiers_tests)
 void	test_map_count( void )
 {
 	IntMapType			m1;
-	ft::pair<int, int>	p1(4242, 1);
-	bool		test_result = true;
+	bool				test_result = true;
 
-	m1.insert(p1);
+	m1.insert(IntPairType(4242, 1));
 	if (m1.count(4242) != 1 || m1.count(42) != 0)
 		test_result = false;
 	print_test("count(): ", test_result);
 	mu_assert(test_result == true, "error, count() method");
 }
 
+void	test_map_find( void )
+{
+	IntMapType					m1;
+	bool						test_result = true;
+	IntMapType::iterator		it;
+
+	m1.insert(IntPairType(1, 4242));
+	it = m1.find(1);
+
+	if (it != m1.begin() || it->first != 1)
+		test_result = false;
+	print_test("find(): ", test_result);
+	mu_assert(test_result == true, "error, find() method");
+}
+/*
+void	test_map_equal_range( void )
+{
+	IntMapType					m1;
+
+	m1.insert(IntPairType(1, 42));
+	m1.insert(IntPairType(2, 4242));
+	m1.insert(IntPairType(3, 424242));
+
+	ft::pair<IntMapType::const_iterator, IntMapType::const_iterator> range = m1.equal_range(1);
+	std::cout << range.first->first << " " << range.second->first;
+}
+*/
 MU_TEST_SUITE(map_lookup_tests)
 {
 	std::cout	<< std::endl << std::setw(60)
 				<< "\033[1;34m[RUNNING MAP LOOKUP TESTS]\033[0m" << std::endl;
 	MU_RUN_TEST(test_map_count);
+	MU_RUN_TEST(test_map_find);
+
 }
 
 /*------------------------------------- Observers ------------------------------------------------*/

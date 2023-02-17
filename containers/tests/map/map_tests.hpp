@@ -27,6 +27,7 @@
 #endif
 
 #define IntMapType	ft::map<int, int>
+#define IntPairType	ft::pair<int, int>
 #define KO "\033[1;31mKO\033[0m"
 #define OK "\033[1;32mOK\033[0m"
 void	print_test(std::string test_name, bool test_result);
