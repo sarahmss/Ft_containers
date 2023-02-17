@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 16:53:05 by smodesto          #+#    #+#             */
-/*   Updated: 2023/02/17 15:31:07 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/02/17 17:00:57 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,7 @@ namespace ft
 		/********************* Lookup **********************/
 		size_type				count(const key_type& key) const
 		{
-			const_iterator	it = _tree.find(key);
+			const_iterator	it = find(key);
 			if (it == _tree.end())
 				return (0);
 			return (1);
@@ -197,7 +197,11 @@ namespace ft
 			iterator element(_tree.search(key));
 			return (element);
 		}
-		const_iterator			find(const key_type& key) const {return(_tree.find(key));}
+		const_iterator			find(const key_type& key) const
+		{
+			const_iterator element(_tree.search(key));
+			return (element);
+		}
 
 		ft::pair<iterator, iterator> equal_range(const key_type& key)
 		{
@@ -213,7 +217,7 @@ namespace ft
 		}
 		/********************* Observers **********************/
 		key_compare				key_comp( void ) const { return (_tree.key_comp());}
-		value_compare			value_comp( void ) const { return (value_comp(_tree.key_comp()));}
+		value_compare			value_comp( void ) const { return (value_compare(_tree.key_comp()));}
 	};
 		/********************* Opertators **********************/
 		template< class Key, class T, class Compare, class Alloc >

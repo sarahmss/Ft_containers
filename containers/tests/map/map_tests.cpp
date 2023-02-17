@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:59:58 by smodesto          #+#    #+#             */
-/*   Updated: 2023/02/17 15:55:50 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/02/17 17:01:51 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,6 +204,59 @@ MU_TEST_SUITE(map_iterators_tests)
 	MU_RUN_TEST(test_map_end_iterator);
 	MU_RUN_TEST(test_map_rend_iterator);
 }
+/*------------------------------------- Capacity ------------------------------------------------*/
+
+void	test_map_max_size( void )
+{
+	IntMapType			m1;
+	bool			test_result = m1.max_size();
+
+	print_test("max_size(): ", test_result);
+	mu_assert(test_result, "error, wrong max_size()");
+}
+
+void	test_map_size( void )
+{
+	IntMapType	m1;
+	m1[1] = 10;
+	m1[2] = 20;
+	m1[3] = 30;
+	m1[4] = 40;
+	m1[5] = 50;
+	bool			test_result = m1.size() == 5;
+
+	print_test("size(): ", test_result);
+	mu_assert(test_result == true, "error, wrong size()");
+}
+
+void	test_map_empty( void )
+{
+	IntMapType	m1;
+	bool			test_result = m1.empty();
+
+	print_test("empty() [empty map]: ", test_result);
+	mu_assert(test_result == true, "error, empty() method");
+}
+
+void	test_map_not_empty( void )
+{
+	IntMapType	m1;
+	m1[1] = 42;
+	bool			test_result = m1.empty() == false;
+
+	print_test("empty() [not empty map]: ", test_result);
+	mu_assert(test_result == true, "error, empty() method");
+}
+
+MU_TEST_SUITE(map_capacity_tests)
+{
+		std::cout	<< std::endl << std::setw(60)
+				<< "\033[1;34m[RUNNING MAP CAPACITY TESTS]\033[0m" << std::endl;
+	MU_RUN_TEST(test_map_empty);
+	MU_RUN_TEST(test_map_not_empty);
+	MU_RUN_TEST(test_map_size);
+	MU_RUN_TEST(test_map_max_size);
+}
 
 /*------------------------------------- Modifiers ------------------------------------------------*/
 
@@ -341,7 +394,7 @@ void	test_map_erase_first_last( void )
 
 MU_TEST_SUITE(map_modifiers_tests)
 {
-		std::cout	<< std::endl << std::setw(60)
+	std::cout	<< std::endl << std::setw(60)
 				<< "\033[1;34m[RUNNING MAP MODIFIERS TESTS]\033[0m" << std::endl;
 	MU_RUN_TEST(test_map_clear);
 	MU_RUN_TEST(test_map_insert_value);
@@ -353,58 +406,69 @@ MU_TEST_SUITE(map_modifiers_tests)
 	MU_RUN_TEST(test_map_swap_method);
 }
 
-/*------------------------------------- Capacity ------------------------------------------------*/
+/*------------------------------------- Lookup ------------------------------------------------*/
 
-void	test_map_max_size( void )
+void	test_map_count( void )
 {
 	IntMapType			m1;
-	bool			test_result = m1.max_size();
+	ft::pair<int, int>	p1(4242, 1);
+	bool		test_result = true;
 
-	print_test("max_size(): ", test_result);
-	mu_assert(test_result, "error, wrong max_size()");
+	m1.insert(p1);
+	if (m1.count(4242) != 1 || m1.count(42) != 0)
+		test_result = false;
+	print_test("count(): ", test_result);
+	mu_assert(test_result == true, "error, count() method");
 }
 
-void	test_map_size( void )
+MU_TEST_SUITE(map_lookup_tests)
+{
+	std::cout	<< std::endl << std::setw(60)
+				<< "\033[1;34m[RUNNING MAP LOOKUP TESTS]\033[0m" << std::endl;
+	MU_RUN_TEST(test_map_count);
+}
+
+/*------------------------------------- Observers ------------------------------------------------*/
+
+void	test_map_key_comp( void )
 {
 	IntMapType	m1;
-	m1[1] = 10;
-	m1[2] = 20;
-	m1[3] = 30;
-	m1[4] = 40;
-	m1[5] = 50;
-	bool			test_result = m1.size() == 5;
+	bool		test_result = true;
 
-	print_test("size(): ", test_result);
-	mu_assert(test_result == true, "error, wrong size()");
+	m1.insert(ft::make_pair(1, 42));
+	m1.insert(ft::make_pair(2, 43));
+
+	IntMapType::key_compare	my_key_comp = m1.key_comp();
+	if (my_key_comp(1, 2) != true || my_key_comp(2, 1) != false)
+		test_result = false;
+	print_test("key_comp(): ", test_result);
+	mu_assert(test_result == true, "error, key_comp() method");
 }
 
-void	test_map_empty( void )
+void	test_map_value_comp( void )
 {
 	IntMapType	m1;
-	bool			test_result = m1.empty();
+	bool		test_result = true;
 
-	print_test("empty() [empty map]: ", test_result);
-	mu_assert(test_result == true, "error, empty() method");
+	m1.insert(ft::make_pair(1, 42));
+	m1.insert(ft::make_pair(2, 42));
+	IntMapType::iterator		it = m1.begin();
+	IntMapType::value_compare	my_value_comp = m1.value_comp();
+
+	for (; my_value_comp(*it, ft::make_pair(2, 42)); ++it) // element smaller than (2, 42)
+		if (it->first != 1 || it->second != 42)
+			test_result = false;
+	print_test("value_comp(): ", test_result);
+	mu_assert(test_result == true, "error, value_comp() method");
+
 }
 
-void	test_map_not_empty( void )
+MU_TEST_SUITE(map_observers_tests)
 {
-	IntMapType	m1;
-	m1[1] = 42;
-	bool			test_result = m1.empty() == false;
-
-	print_test("empty() [not empty map]: ", test_result);
-	mu_assert(test_result == true, "error, empty() method");
-}
-
-MU_TEST_SUITE(map_capacity_tests)
-{
-		std::cout	<< std::endl << std::setw(60)
-				<< "\033[1;34m[RUNNING MAP CAPACITY TESTS]\033[0m" << std::endl;
-	MU_RUN_TEST(test_map_empty);
-	MU_RUN_TEST(test_map_not_empty);
-	MU_RUN_TEST(test_map_size);
-	MU_RUN_TEST(test_map_max_size);
+	std::cout	<< std::endl << std::setw(60)
+				<< "\033[1;34m[RUNNING MAP OBSERVERS TESTS]\033[0m" << std::endl;
+	MU_RUN_TEST(test_map_key_comp);
+	MU_RUN_TEST(test_map_value_comp);
 }
 
 int	map_tests( void )
@@ -414,6 +478,8 @@ int	map_tests( void )
 	MU_RUN_SUITE(map_iterators_tests);
 	MU_RUN_SUITE(map_capacity_tests);
 	MU_RUN_SUITE(map_modifiers_tests);
+	MU_RUN_SUITE(map_lookup_tests);
+	MU_RUN_SUITE(map_observers_tests);
 /*	MU_RUN_SUITE(map_no_member_functions);*/
 
 	MU_REPORT();
