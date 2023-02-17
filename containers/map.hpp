@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 16:53:05 by smodesto          #+#    #+#             */
-/*   Updated: 2023/02/16 14:46:23 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/02/17 14:48:54 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ namespace ft
 			typedef ft::pair<key_type, mapped_type>					value_type;
 			typedef Compare											key_compare;
 			typedef Allocator										allocator_type;
+			typedef Node<value_type>								node;
+			typedef node*											node_ptr;
 			typedef typename Allocator::reference					reference;
 			typedef typename Allocator::const_reference				const_reference;
 			typedef typename Allocator::pointer						pointer;
@@ -106,21 +108,6 @@ namespace ft
 
 		allocator_type get_allocator( void ) const { return (_alloc); }
 		/********************* Element access **********************/
-
-		mapped_type				&at( const key_type& key)
-		{
-			mapped_type	element = _tree.search(key);
-			if (element == this->end())
-				throw std::out_of_range(" Out of bounds exception" );
-			return (element);
-		}
-		const mapped_type		&at( const key_type& key) const
-		{
-			mapped_type	element = _tree.search(key);
-			if (element == this->end())
-				throw std::out_of_range(" Out of bounds exception" );
-			return (element);
-		}
 		mapped_type&			operator[](const key_type& key)
 		{
 			iterator element = this->find(key);
