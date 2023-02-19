@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:59:58 by smodesto          #+#    #+#             */
-/*   Updated: 2023/02/19 13:49:39 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/02/19 14:19:56 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -557,6 +557,193 @@ MU_TEST_SUITE(map_observers_tests)
 	MU_RUN_TEST(test_map_value_comp);
 }
 
+
+/*------------------------------------- No Member Functions -------------------------------------*/
+
+void test_map_swap_no_member( void )
+{
+	IntMapType m1;
+	IntMapType m2;
+	bool test_result = false;
+
+	m1[1] = 1;
+	m1[2] = 2;
+	m1[3] = 3;
+	m2[4] = 4;
+	m2[5] = 5;
+	m2[6] = 6;
+
+	ft::swap(m1, m2);
+	if (m1.size() == 3 && m1[4] == 4 && m1[5] == 5 && m1[6] == 6
+		&& m2.size() == 3 && m2[1] == 1 && m2[2] == 2 && m2[3] == 3)
+		test_result = true;
+	print_test("swap() [no member]: ", test_result);
+	mu_assert(test_result, "error, Something failed in Swapping");
+}
+
+void test_map_differ_operator_false( void )
+{
+	IntMapType	m1;
+	IntMapType	m2;
+
+	m1.insert(IntPairType(42, 42));
+	m2.insert(IntPairType(42, 42));
+
+	print_test("operator!= [false]: ", (m1 != m2) == false);
+	mu_assert((m1 != m2) == false, "error, operator!= [false]");
+}
+void test_map_differ_operator_true( void )
+{
+	IntMapType	m1;
+	IntMapType	m2;
+
+	m1.insert(IntPairType(42, 42));
+	m2.insert(IntPairType(42, 4242));
+
+	print_test("operator!= [true]: ", (m1 != m2));
+	mu_assert((m1 != m2), "error, operator!= [true]");
+}
+
+void test_map_equal_operator_true( void )
+{
+	IntMapType	m1;
+	IntMapType	m2;
+
+	m1.insert(IntPairType(42, 42));
+	m2.insert(IntPairType(42, 42));
+
+	print_test("operator== [true]: ", m1 == m2);
+	mu_assert(m1 == m2, "error, operator== [true]");
+}
+
+void test_map_equal_operator_false( void )
+{
+	IntMapType	m1;
+	IntMapType	m2;
+
+	m1.insert(IntPairType(42, 42));
+	m2.insert(IntPairType(42, 4242));
+
+	print_test("operator== [false]: ", (m1 == m2) == false);
+	mu_assert((m1 == m2) == false, "error, operator== [false]");
+}
+
+void test_map_more_operator_true( void )
+{
+	IntMapType	m1;
+	IntMapType	m2;
+
+	m1.insert(IntPairType(52, 52));
+	m2.insert(IntPairType(42, 42));
+
+	print_test("operator> [true]: ", m1 > m2);
+	mu_assert(m1 > m2, "error, operator> [true]");
+}
+
+void test_map_more_operator_false( void )
+{
+	IntMapType	m1;
+	IntMapType	m2;
+
+	m1.insert(IntPairType(42, 42));
+	m2.insert(IntPairType(42, 42));
+
+	print_test("operator> [false]: ", (m1 > m2) == false);
+	mu_assert((m1 > m2) == false, "error, operato> [false]");
+}
+
+void test_map_more_equal_operator_true( void )
+{
+	IntMapType	m1;
+	IntMapType	m2;
+
+	m1.insert(IntPairType(42, 42));
+	m2.insert(IntPairType(42, 42));
+
+	print_test("operator>= [true]: ", m1 >= m2);
+	mu_assert(m1 >= m2, "error, operator>= [true]");
+}
+
+void test_map_more_equal_operator_false( void )
+{
+	IntMapType	m1;
+	IntMapType	m2;
+
+	m1.insert(IntPairType(32, 32));
+	m2.insert(IntPairType(42, 42));
+
+	print_test("operator>= [false]: ", (m1 >= m2) == false);
+	mu_assert((m1 >= m2) == false, "error, operator>= [false]");
+}
+
+void test_map_less_operator_true( void )
+{
+	IntMapType	m1;
+	IntMapType	m2;
+
+	m1.insert(IntPairType(32, 32));
+	m2.insert(IntPairType(42, 42));
+
+	print_test("operator< [true]: ", m1 < m2);
+	mu_assert(m1 < m2, "error, operator< [true]");
+}
+
+void test_map_less_operator_false( void )
+{
+	IntMapType	m1;
+	IntMapType	m2;
+
+	m1.insert(IntPairType(42, 42));
+	m2.insert(IntPairType(32, 32));
+
+	print_test("operator< [false]: ", (m1 < m2) == false);
+	mu_assert((m1 < m2) == false, "error, operator< [false]");
+}
+
+
+void test_map_less_equal_operator_true( void )
+{
+	IntMapType	m1;
+	IntMapType	m2;
+
+	m1.insert(IntPairType(42, 42));
+	m2.insert(IntPairType(42, 42));
+
+	print_test("operator<= [true]: ", m1 <= m2);
+	mu_assert(m1 <= m2, "error, operator<= [true]");
+}
+
+void test_map_less_equal_operator_false( void )
+{
+	IntMapType	m1;
+	IntMapType	m2;
+
+	m1.insert(IntPairType(52, 52));
+	m2.insert(IntPairType(42, 42));
+
+	print_test("operator<= [false]: ", (m1 <= m2) == false);
+	mu_assert((m1 <= m2) == false, "error, operator<= [false]");
+}
+
+MU_TEST_SUITE(map_no_member_functions)
+{
+		std::cout	<< std::endl << std::setw(65)
+				<< "\033[1;34m[RUNNING VECTOR NO MEMBERS TESTS]\033[0m" << std::endl;
+	MU_RUN_TEST(test_map_swap_no_member);
+	MU_RUN_TEST(test_map_differ_operator_true);
+	MU_RUN_TEST(test_map_differ_operator_false);
+	MU_RUN_TEST(test_map_equal_operator_true);
+	MU_RUN_TEST(test_map_equal_operator_false);
+	MU_RUN_TEST(test_map_more_operator_true);
+	MU_RUN_TEST(test_map_more_operator_false);
+	MU_RUN_TEST(test_map_more_equal_operator_true);
+	MU_RUN_TEST(test_map_more_equal_operator_false);
+	MU_RUN_TEST(test_map_less_operator_true);
+	MU_RUN_TEST(test_map_less_operator_false);
+	MU_RUN_TEST(test_map_less_equal_operator_true);
+	MU_RUN_TEST(test_map_less_equal_operator_false);
+}
+
 int	map_tests( void )
 {
  	MU_RUN_SUITE(map_member_functions_tests);
@@ -566,7 +753,7 @@ int	map_tests( void )
 	MU_RUN_SUITE(map_modifiers_tests);
 	MU_RUN_SUITE(map_lookup_tests);
 	MU_RUN_SUITE(map_observers_tests);
-/*	MU_RUN_SUITE(map_no_member_functions);*/
+	MU_RUN_SUITE(map_no_member_functions);
 
 	MU_REPORT();
 	return MU_EXIT_CODE;
