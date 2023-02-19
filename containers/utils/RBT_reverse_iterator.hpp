@@ -41,9 +41,13 @@ namespace ft
 				node_ptr														_node;
 			public:
 				rbt_rev_it( void ): _node(NULL){}
+
 				explicit rbt_rev_it( iterator_type it ): _node(it.base()) {}
+
 				explicit rbt_rev_it( node_ptr ptr ): _node(ptr){}
-				rbt_rev_it( const rbt_rev_it& rhs ){ _node = rhs._node; }
+
+				rbt_rev_it( const rbt_rev_it& rhs ): _node(rhs._node){ }
+
 				template <typename It>
 				rbt_rev_it( const rbt_rev_it<It> & x): _node(x.base()) {}
 
@@ -61,11 +65,11 @@ namespace ft
 
 				reference operator*( void )	const // return rvalue (value where point the pointer)
 				{
-					node_ptr tmp = _node->successor(_node);
+					node_ptr tmp = _node->predecessor(_node);
 					return (tmp->data);
 				}
 
-				pointer operator->( void ) const { return (&(operator*())); }
+				pointer operator->( void ) const { return (&(this->operator*())); }
 
 				rbt_rev_it& operator++( void )								// pre increment
 				{

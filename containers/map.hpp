@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 16:53:05 by smodesto          #+#    #+#             */
-/*   Updated: 2023/02/17 17:00:57 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/02/19 15:02:52 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ namespace ft
 		const_iterator			begin( void ) const { return (_tree.begin()); }
 		iterator				end( void ) { return (_tree.end()); }
 		const_iterator			end( void ) const { return (_tree.end()); }
-		reverse_iterator		rbegin( void ) { return (_tree.rbegin()); }
+		reverse_iterator		rbegin( void ){ return (_tree.rbegin()); }
 		const_reverse_iterator	rbegin( void ) const { return (_tree.rbegin()); }
 		reverse_iterator		rend( void ) { return (_tree.rend()); }
 		const_reverse_iterator	rend( void ) const { return (_tree.rend()); }

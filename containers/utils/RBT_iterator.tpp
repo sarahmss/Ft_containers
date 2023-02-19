@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 18:29:58 by smodesto          #+#    #+#             */
-/*   Updated: 2023/02/17 14:49:18 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/02/19 15:06:39 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ namespace ft {
 	template <RBT_TEMPLATE>
 	typename RBT_CLASS::reverse_iterator RBT_CLASS::rbegin( void )
 	{
-		return (reverse_iterator(maximum(root)));
+		return (reverse_iterator(end()));
 	}
 	template <RBT_TEMPLATE>
 	typename RBT_CLASS::const_reverse_iterator RBT_CLASS::rbegin( void ) const
 	{
-		return (const_reverse_iterator(maximum(root)));
+		return (const_reverse_iterator(end()));
 	}
 	template <RBT_TEMPLATE>
 	typename RBT_CLASS::reverse_iterator RBT_CLASS::rend( void )
