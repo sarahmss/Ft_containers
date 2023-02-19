@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:59:58 by smodesto          #+#    #+#             */
-/*   Updated: 2023/02/17 17:33:12 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/02/19 13:49:39 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -434,25 +434,83 @@ void	test_map_find( void )
 	print_test("find(): ", test_result);
 	mu_assert(test_result == true, "error, find() method");
 }
-/*
-void	test_map_equal_range( void )
+
+void	test_map_equal_range( void ) /*returns a pair of element + next_element*/
 {
-	IntMapType					m1;
+	IntMapType	m1;
+	bool		test_result = true;
 
 	m1.insert(IntPairType(1, 42));
 	m1.insert(IntPairType(2, 4242));
 	m1.insert(IntPairType(3, 424242));
 
-	ft::pair<IntMapType::const_iterator, IntMapType::const_iterator> range = m1.equal_range(1);
-	std::cout << range.first->first << " " << range.second->first;
+	ft::pair<IntMapType::const_iterator, IntMapType::const_iterator> range1 = m1.equal_range(1);
+	ft::pair<IntMapType::const_iterator, IntMapType::const_iterator> range2 = m1.equal_range(2);
+	ft::pair<IntMapType::const_iterator, IntMapType::const_iterator> range3 = m1.equal_range(3);
+	ft::pair<IntMapType::const_iterator, IntMapType::const_iterator> range4 = m1.equal_range(4);
+
+	if (range1.first->second != 42 || range1.second->second != 4242
+		|| range2.first->second != 4242 || range2.second->second != 424242
+		|| range3.first->second != 424242 || range3.second->second != 0
+		|| range4.first != m1.end() || range3.second != m1.end())
+		test_result = false;
+	print_test("equal_range(): ", test_result);
+	mu_assert(test_result == true, "error, equal_range() method");
 }
-*/
+
+void	test_map_lower_bound( void )
+{
+	IntMapType	m1;
+	bool		test_result = true;
+
+	m1.insert(IntPairType(1, 42));
+	m1.insert(IntPairType(2, 4242));
+	m1.insert(IntPairType(3, 424242));
+
+	IntMapType::iterator lower1 = m1.lower_bound(1);
+	IntMapType::iterator lower2 = m1.lower_bound(2);
+	IntMapType::iterator lower3 = m1.lower_bound(3);
+	IntMapType::iterator lower4 = m1.lower_bound(4);
+
+	if (lower1->first != 1 || lower1->second != 42
+		|| lower2->first != 2 || lower2->second != 4242
+		|| lower3->first != 3 || lower3->second != 424242
+		|| lower4 != m1.end() || lower4 != m1.end())
+		test_result = false;
+	print_test("lower_bound(): ", test_result);
+	mu_assert(test_result == true, "error, lower_bound() method");
+}
+
+void	test_map_upper_bound( void )
+{
+	IntMapType	m1;
+	bool		test_result = true;
+
+	m1.insert(IntPairType(1, 42));
+	m1.insert(IntPairType(2, 4242));
+	m1.insert(IntPairType(3, 424242));
+
+	IntMapType::iterator upper1 = m1.upper_bound(1);
+	IntMapType::iterator upper2 = m1.upper_bound(2);
+	IntMapType::iterator upper3 = m1.upper_bound(3);
+
+	if (upper1->first != 2 || upper1->second != 4242
+		|| upper2->first != 3 || upper2->second != 424242
+		|| upper3 !=  m1.end()|| upper3 != m1.end())
+		test_result = false;
+	print_test("upper_bound(): ", test_result);
+	mu_assert(test_result == true, "error, upper_bound() method");
+}
+
 MU_TEST_SUITE(map_lookup_tests)
 {
 	std::cout	<< std::endl << std::setw(60)
 				<< "\033[1;34m[RUNNING MAP LOOKUP TESTS]\033[0m" << std::endl;
 	MU_RUN_TEST(test_map_count);
 	MU_RUN_TEST(test_map_find);
+	MU_RUN_TEST(test_map_equal_range);
+	MU_RUN_TEST(test_map_upper_bound);
+	MU_RUN_TEST(test_map_lower_bound);
 
 }
 

@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 18:28:40 by smodesto          #+#    #+#             */
-/*   Updated: 2023/02/17 14:58:52 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/02/19 13:38:03 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ namespace ft {
 		node_ptr y = TNULL;
 		while(x != TNULL)
 		{
-			if (!_comp(k, KeyOfValue()(x->data)))
+			if (_comp(k, KeyOfValue()(x->data)))
 			{
 				y = x;
 				x = x->left;
@@ -108,7 +108,7 @@ namespace ft {
 		node_ptr y = TNULL;
 		while(x != TNULL)
 		{
-			if (!_comp(k, KeyOfValue()(x->data)))
+			if (_comp(k, KeyOfValue()(x->data)))
 			{
 				y = x;
 				x = x->left;

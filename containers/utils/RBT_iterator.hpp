@@ -35,7 +35,11 @@ namespace ft
 			node_ptr														_node;
 		public:
 			rbt_it( void ): _node(NULL){}
-			rbt_it( node_ptr ptr ): _node(ptr){}
+			explicit rbt_it( node_ptr ptr ): _node(ptr){}
+
+			template<typename it>
+			rbt_it(const rbt_it<it> &iter): _node(iter.base()){}
+
 			rbt_it( const rbt_it& rhs ){ *this = rhs; }
 			~rbt_it( void ){}
 
