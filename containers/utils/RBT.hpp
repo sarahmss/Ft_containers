@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/01 14:25:53 by smodesto          #+#    #+#             */
-/*   Updated: 2023/01/26 17:13:24 by smodesto         ###   ########.fr       */
+/*   Created: 2023/02/19 21:32:21 by smodesto          #+#    #+#             */
+/*   Updated: 2023/02/19 21:40:10 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 #include "./RBT_node.hpp"
 #include "./RBT_iterator.hpp"
 #include "./RBT_reverse_iterator.hpp"
+#include "./equal.hpp"
+#include "./lexicographicalCompare.hpp"
 #include <memory>
 #include <string>
 #include <iostream>
@@ -29,41 +31,6 @@
 
 #define NEWNODE 1
 
-/*
-	-> A red black tree is  a binary search tree with following 5 properties:
-		- Every node in T is either RED or BLACK
-		- The ROOT node is BLACK
-		- Every NULL node -that wich doesn't contain any keys- is black
-		- If a node is red, both of its children are black
-		- Every path from a ROOT node to a NULL node has the same number of black nodes
-	-> Dynamic set operation:
-		- Search
-		- Predecessor
-		- Succesor
-		- insert
-		- delete
-	-> Insertion and deletion may violate the invariants creterials, to solve that we need to restru
-		cture the tree through:
-		- rotation is a transformation technique used to change the structure
-		of bts without changing the order of the elements.
-				a) Left rotation:
-				b)  right rotation:
-		- Recolor: flips the color of a node
-	-> it is called balanced search because its height is always in the order of O(log n)
-
-				  [61]
-				/      \
-			   /	    \
-			[52]        [85]
-		    /   \       /   \
-		   /	 \	   /	 \
-		  /		  \   /		  \
-		 [20]    [55](76)     (93)
-		 /  \    / \
-		(16) [N][N][N]
-		/  \
-	[N] [N]
-*/
 namespace ft
 {
 	template	<typename Key,
@@ -159,8 +126,49 @@ namespace ft
 			bool					empty( void ) const;
 			size_type				size( void ) const;
 			size_type				max_size( void ) const;
-
 	};
+
+	template <class K, class V, class KOV, class C, class A>
+	inline bool operator==(const ft::RedBlackTree<K, V, KOV, C, A> rhs,
+							const ft::RedBlackTree<K, V, KOV, C, A> lhs)
+	{
+		return (rhs.size() == lhs.size() && ft::equal(rhs.begin(), rhs.end(), lhs.begin()));
+	}
+
+	template <class K, class V, class KOV, class C, class A>
+	inline bool operator!= (const ft::RedBlackTree<K, V, KOV, C, A> rhs,
+							const ft::RedBlackTree<K, V, KOV, C, A> lhs)
+	{
+		return (!(rhs == lhs));
+	}
+
+	template <class K, class V, class KOV, class C, class A>
+	inline bool operator<(const ft::RedBlackTree<K, V, KOV, C, A> rhs,
+						const ft::RedBlackTree<K, V, KOV, C, A> lhs)
+	{
+		return (ft::lexicographical_compare(rhs.begin(), rhs.end(), lhs.begin(), lhs.end()));
+	}
+
+	template <class K, class V, class KOV, class C, class A>
+	inline bool operator<=(const ft::RedBlackTree<K, V, KOV, C, A> rhs,
+							const ft::RedBlackTree<K, V, KOV, C, A> lhs)
+	{
+		return (!(lhs < rhs));
+	}
+
+	template <class K, class V, class KOV, class C, class A>
+	inline bool operator>(const ft::RedBlackTree<K, V, KOV, C, A> rhs,
+							const ft::RedBlackTree<K, V, KOV, C, A> lhs)
+	{
+		return (lhs < rhs);
+	}
+
+	template <class K, class V, class KOV, class C, class A>
+	inline bool operator>=(const ft::RedBlackTree<K, V, KOV, C, A> rhs,
+							const ft::RedBlackTree<K, V, KOV, C, A> lhs)
+	{
+		return (!(rhs < lhs));
+	}
 }
 
 #include "./RBT.tpp"

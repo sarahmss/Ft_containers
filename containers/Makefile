@@ -6,7 +6,7 @@
 #    By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/11 17:02:33 by smodesto          #+#    #+#              #
-#    Updated: 2023/02/19 15:21:47 by smodesto         ###   ########.fr        #
+#    Updated: 2023/02/19 21:40:55 by smodesto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ OBJS_PATH		= ./objects/
 SRCS_FILES =	main.cpp						\
 				tests/vector/vector_tests.cpp	\
 				tests/map/map_tests.cpp			\
-				tests/stack/stack_tests.cpp
+				tests/stack/stack_tests.cpp		\
+				tests/set/set_tests.cpp
 
 
 SRCS = $(addprefix $(SRC_PATH), $(SRCS_FILES))
@@ -34,6 +35,7 @@ HEADER_FILES	=	vector.hpp									\
 					tests/vector/vector_tests.hpp				\
 					tests/map/map_tests.hpp						\
 					tests/stack/stack_tests.hpp					\
+					tests/set/set_tests.hpp						\
 					utils/randomAccessIterator.hpp				\
 					utils/reverseIterator.hpp					\
 					utils/iteratorTraits.hpp					\
@@ -66,6 +68,7 @@ $(OBJS_PATH)%.o : $(SRC_PATH)%.cpp $(HEADERS)
 			@mkdir -p objects/tests/vector
 			@mkdir -p objects/tests/map
 			@mkdir -p objects/tests/stack
+			@mkdir -p objects/tests/set
 			$(CC) $(FLAGS) -c  $< -o $@
 
 clean:

@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 16:53:05 by smodesto          #+#    #+#             */
-/*   Updated: 2023/02/19 15:02:52 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/02/19 21:39:47 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 
 #include "./utils/RBT.hpp"
 #include "./utils/pair.hpp"
-#include "./utils/equal.hpp"
-#include "./utils/lexicographicalCompare.hpp"
 
 namespace ft
 {
