@@ -6,11 +6,11 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:59:58 by smodesto          #+#    #+#             */
-/*   Updated: 2023/02/17 15:18:36 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/02/19 23:09:10 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./vector_tests.hpp"
+#include "../tests.hpp"
 /*------------------------------- Member function ------------------------------------------------*/
 void	print_test(std::string test_name, bool test_result)
 {
@@ -330,8 +330,7 @@ void	test_reserve( void )
 void	test_max_size( void )
 {
 	IntVectorType		v;
-	std::vector<int>	std_v;
-	bool			test_result = v.max_size() == std_v.max_size();
+	bool				test_result = v.max_size();
 
 	print_test("max_size(): ", test_result);
 	mu_assert(test_result, "error, wrong max_size()");

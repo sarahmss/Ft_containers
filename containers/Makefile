@@ -6,7 +6,7 @@
 #    By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/11 17:02:33 by smodesto          #+#    #+#              #
-#    Updated: 2023/02/19 21:40:55 by smodesto         ###   ########.fr        #
+#    Updated: 2023/02/19 23:03:26 by smodesto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,10 +32,7 @@ HEADER_FILES	=	vector.hpp									\
 					map.hpp										\
 					stack.hpp									\
 					tests/minunit.h								\
-					tests/vector/vector_tests.hpp				\
-					tests/map/map_tests.hpp						\
-					tests/stack/stack_tests.hpp					\
-					tests/set/set_tests.hpp						\
+					tests/tests.hpp								\
 					utils/randomAccessIterator.hpp				\
 					utils/reverseIterator.hpp					\
 					utils/iteratorTraits.hpp					\

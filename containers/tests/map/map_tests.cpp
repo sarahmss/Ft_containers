@@ -6,11 +6,11 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:59:58 by smodesto          #+#    #+#             */
-/*   Updated: 2023/02/19 14:19:56 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/02/19 23:00:07 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./map_tests.hpp"
+#include "../tests.hpp"
 /*------------------------------- Member function ------------------------------------------------*/
 void	test_map_default_constr( void )
 {
