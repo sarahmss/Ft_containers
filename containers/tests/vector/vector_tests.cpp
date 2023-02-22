@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:59:58 by smodesto          #+#    #+#             */
-/*   Updated: 2023/02/19 23:09:10 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/02/22 11:55:08 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -282,6 +282,7 @@ void	test_rend_iterator( void ) // decrement form begin to endend
 	mu_assert(test_result, "error, wrong rend iterator");
 }
 
+
 MU_TEST_SUITE(vector_iterators_tests)
 {
 	std::cout	<< std::endl << std::setw(65)
@@ -290,6 +291,8 @@ MU_TEST_SUITE(vector_iterators_tests)
 	MU_RUN_TEST(test_end_iterator);
 	MU_RUN_TEST(test_rend_iterator);
 	MU_RUN_TEST(test_rbegin_iterator);
+//	MU_RUN_TEST(test_compare_iterator);
+
 }
 
 /*------------------------------------- Capacity ------------------------------------------------*/
@@ -395,6 +398,13 @@ void test_swap_method( void )
 	if (v1.size() == 3 && v1[0] == 4 && v1[1] == 5 && v1[2] == 6
 		&& v2.size() == 3 && v2[0] == 1 && v2[1] == 2 && v2[2] == 3)
 		test_result = true;
+	/*
+						Checking Iterators
+	for (IntVectorType::iterator i1 = v1.begin(); i1 != v1.end(); i1++)
+		std::cout << *i1 << ' ';
+	for (IntVectorType::iterator i2 = v2.begin(); i2 != v2.end(); i2++)
+		std::cout << *i2 << ' ';
+	*/
 	print_test("swap() [method]: ", test_result);
 	mu_assert(test_result, "error, Something failed in Swapping");
 }
@@ -583,6 +593,13 @@ void test_swap_no_member( void )
 	if (v1.size() == 3 && v1[0] == 4 && v1[1] == 5 && v1[2] == 6
 		&& v2.size() == 3 && v2[0] == 1 && v2[1] == 2 && v2[2] == 3)
 		test_result = true;
+	/*
+						Checking Iterators
+	for (IntVectorType::iterator i1 = v1.begin(); i1 != v1.end(); i1++)
+		std::cout << *i1 << ' ';
+	for (IntVectorType::iterator i2 = v2.begin(); i2 != v2.end(); i2++)
+		std::cout << *i2 << ' ';
+	*/
 	print_test("swap() [no member function]: ", test_result);
 	mu_assert(test_result, "error, Something failed in Swapping");
 }

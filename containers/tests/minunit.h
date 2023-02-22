@@ -120,8 +120,8 @@ static void (*minunit_teardown)(void) = NULL;
 	minunit_run++;\
 	if (minunit_status) {\
 		minunit_fail++;\
-		printf("F");\
-		printf("\n%s\n", minunit_last_message);\
+		std::cout << "F";\
+		std::cout << "\n" <<  minunit_last_message << "\n";\
 	}\
 	fflush(stdout);\
 	if (minunit_teardown) (*minunit_teardown)();\
@@ -131,13 +131,14 @@ static void (*minunit_teardown)(void) = NULL;
 #define MU_REPORT() MU__SAFE_BLOCK(\
 	double minunit_end_real_timer;\
 	double minunit_end_proc_timer;\
-	printf("\n\n%d tests, %d assertions, %d failures\n", minunit_run, minunit_assert, minunit_fail);\
+	std::cout << "\n\n" <<  minunit_run << " tests," << minunit_assert << " assertions, " << minunit_fail << " failures\n";\
 	minunit_end_real_timer = mu_timer_real();\
 	minunit_end_proc_timer = mu_timer_cpu();\
-	printf("\nFinished in %.8f seconds (real) %.8f seconds (proc)\n\n",\
-		minunit_end_real_timer - minunit_real_timer,\
-		minunit_end_proc_timer - minunit_proc_timer);\
-)
+	std::cout	<< "\nFinished in "<<  std::fixed << std::setprecision(8)\
+				<< (minunit_end_real_timer - minunit_real_timer)\
+				<< "seconds (real) " <<  std::fixed << std::setprecision(8)\
+				<< (minunit_end_proc_timer - minunit_proc_timer)\
+				<< " seconds (proc)\n\n";)
 #define MU_EXIT_CODE minunit_fail
 
 /*  Assertions */
