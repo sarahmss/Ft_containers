@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 22:59:31 by smodesto          #+#    #+#             */
-/*   Updated: 2023/02/19 23:24:43 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/02/22 12:16:40 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include <iomanip>
 #include <cstdio>
 
-#if 1//CREATE A REAL STL EXAMPLE
+#if 0//CREATE A REAL STL EXAMPLE
 	#include <map>
 	#include <set>
 	#include <vector>

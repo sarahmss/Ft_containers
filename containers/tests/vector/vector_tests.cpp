@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:59:58 by smodesto          #+#    #+#             */
-/*   Updated: 2023/02/22 11:55:08 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/02/22 12:19:50 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -282,6 +282,20 @@ void	test_rend_iterator( void ) // decrement form begin to endend
 	mu_assert(test_result, "error, wrong rend iterator");
 }
 
+void	test_compare_iterator( void ) // decrement form begin to endend
+{
+	IntVectorType	v1;
+	v1.push_back(42);
+	v1.push_back(4242);
+	v1.push_back(424242);
+	IntVectorType::iterator begin = v1.begin();
+	IntVectorType::const_iterator const_begin = v1.begin();
+
+	bool	test_result = begin == const_begin;;
+
+	print_test("Comparing const_iterator and iterator: ", test_result);
+	mu_assert(test_result, "error, wrong rend iterator");
+}
 
 MU_TEST_SUITE(vector_iterators_tests)
 {
@@ -291,8 +305,7 @@ MU_TEST_SUITE(vector_iterators_tests)
 	MU_RUN_TEST(test_end_iterator);
 	MU_RUN_TEST(test_rend_iterator);
 	MU_RUN_TEST(test_rbegin_iterator);
-//	MU_RUN_TEST(test_compare_iterator);
-
+	MU_RUN_TEST(test_compare_iterator);
 }
 
 /*------------------------------------- Capacity ------------------------------------------------*/
@@ -366,6 +379,31 @@ void	test_not_empty( void )
 	mu_assert(test_result == true, "error, empty() method");
 }
 
+void	test_deep_copy( void )
+{
+	IntVectorType	v1;
+	IntVectorType	v2;
+	bool			test_result = true;
+
+	for (int i = 0; i < 1000; i++)
+		v1.push_back(i);
+	v2 = v1;
+	IntVectorType::iterator it1 = v1.begin();
+	IntVectorType::iterator it2 = v2.begin();
+	for (int i = 0; i < 1000; i++)
+	{
+		if (it1 == it2 || *it1 != *it2)
+			test_result = false;
+		it1++;
+		it2++;
+	}
+	v2[5] = 10;
+	if (v1[5] == v2[5])
+		test_result = false;
+	print_test("Vector performance: ", test_result);
+	mu_assert(test_result, "error, wrong rend iterator");
+}
+
 MU_TEST_SUITE(vector_capacity_tests)
 {
 		std::cout	<< std::endl << std::setw(65)
@@ -377,6 +415,8 @@ MU_TEST_SUITE(vector_capacity_tests)
 	MU_RUN_TEST(test_reserve);
 	MU_RUN_TEST(test_capacity);
 	MU_RUN_TEST(test_capacity_reserved_memory);
+	MU_RUN_TEST(test_deep_copy);
+
 }
 
 /*------------------------------------- Modifiers ------------------------------------------------*/
