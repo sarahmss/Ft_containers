@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 18:28:40 by smodesto          #+#    #+#             */
-/*   Updated: 2023/02/19 13:38:03 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/02/22 12:43:39 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ namespace ft {
 
 		other._alloc = this->_alloc;
 		other._size = this->_size;
-		other.root = this->root;
+		other.root = this->root; // mooving pointer
 		other.TNULL = this->TNULL;
 		other._comp = this->_comp;
 

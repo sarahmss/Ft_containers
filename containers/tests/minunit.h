@@ -131,12 +131,12 @@ static void (*minunit_teardown)(void) = NULL;
 #define MU_REPORT() MU__SAFE_BLOCK(\
 	double minunit_end_real_timer;\
 	double minunit_end_proc_timer;\
-	std::cout << "\n\n" <<  minunit_run << " tests," << minunit_assert << " assertions, " << minunit_fail << " failures\n";\
+	std::cout << "\n\n" <<  minunit_run << " tests, " << minunit_assert << " assertions, " << minunit_fail << " failures\n";\
 	minunit_end_real_timer = mu_timer_real();\
 	minunit_end_proc_timer = mu_timer_cpu();\
 	std::cout	<< "\nFinished in "<<  std::fixed << std::setprecision(8)\
 				<< (minunit_end_real_timer - minunit_real_timer)\
-				<< "seconds (real) " <<  std::fixed << std::setprecision(8)\
+				<< " seconds (real) " <<  std::fixed << std::setprecision(8)\
 				<< (minunit_end_proc_timer - minunit_proc_timer)\
 				<< " seconds (proc)\n\n";)
 #define MU_EXIT_CODE minunit_fail

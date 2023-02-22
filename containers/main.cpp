@@ -6,7 +6,7 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:59:58 by smodesto          #+#    #+#             */
-/*   Updated: 2023/02/22 12:15:40 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/02/22 13:31:17 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	set_tests( void );
 
 int main(void) {
 	vector_tests();
-//	map_tests();
-//	stack_tests();
-//	set_tests();
+	map_tests();
+	stack_tests();
+	set_tests();
 }

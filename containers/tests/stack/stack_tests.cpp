@@ -11,11 +11,15 @@
 /* ************************************************************************** */
 
 #include "../tests.hpp"
+
 /*------------------------------- Member function ------------------------------------------------*/
 void	test_stack_default_constr( void )
 {
-	IntStackType		s1;
-	bool				test_result = s1.empty();
+	IntStackType						s1;
+	ft::stack<int, std::list<int> >		s2;
+	ft::stack<int, std::deque<int> >	s3;
+
+	bool	test_result = (s1.empty() && s2.empty() && s3.empty());
 
 	print_test("Instanciating default constructor: ", test_result);
 	mu_assert(test_result == true, "error, stack_default_constr");

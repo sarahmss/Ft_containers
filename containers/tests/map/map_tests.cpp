@@ -6,11 +6,12 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:59:58 by smodesto          #+#    #+#             */
-/*   Updated: 2023/02/19 23:00:07 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/02/22 13:32:12 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../tests.hpp"
+
 /*------------------------------- Member function ------------------------------------------------*/
 void	test_map_default_constr( void )
 {
@@ -248,6 +249,31 @@ void	test_map_not_empty( void )
 	mu_assert(test_result == true, "error, empty() method");
 }
 
+void	test_map_deep_copy( void )
+{
+	IntMapType	m1;
+	IntMapType	m2;
+	bool			test_result = true;
+
+	for (int i = 0; i < 1000; i++)
+		m1.insert(IntPairType(i, 42));
+	m2 = m1;
+	IntMapType::iterator it1 = m1.begin();
+	IntMapType::iterator it2 = m2.begin();
+	for (int i = 0; i < 1000; i++)
+	{
+		if (it1 == it2 || it1->first != it2->first || it1->second != it2->second)
+			test_result = false;
+		it1++;
+		it2++;
+	}
+	m2[5] = 4242;
+	if (m1[5] == m2[5])
+		test_result = false;
+	print_test("Map performance: ", test_result);
+	mu_assert(test_result, "error, deep copy failed");
+}
+
 MU_TEST_SUITE(map_capacity_tests)
 {
 		std::cout	<< std::endl << std::setw(60)
@@ -256,6 +282,7 @@ MU_TEST_SUITE(map_capacity_tests)
 	MU_RUN_TEST(test_map_not_empty);
 	MU_RUN_TEST(test_map_size);
 	MU_RUN_TEST(test_map_max_size);
+	MU_RUN_TEST(test_map_deep_copy);
 }
 
 /*------------------------------------- Modifiers ------------------------------------------------*/
@@ -344,6 +371,10 @@ void	test_map_insert_first_last( void )
 	mu_assert(test_result == true, "error, insert(first, last) method");
 }
 
+	/*					Checking Iterators
+	for (IntMapType::iterator i1 = m1.begin(); i1 != m1.end(); i1++)
+		std::cout << i1->first << ' ' << i1->second << ' '; */
+
 void	test_map_erase_key( void )
 {
 	IntMapType				m1;
@@ -355,6 +386,7 @@ void	test_map_erase_key( void )
 	m1.erase(1);
 	if (m1.size() != 2 || m1[2] != 2 || m1[3] != 3)
 		test_result = false;
+
 	print_test("erase(key): ", test_result);
 	mu_assert(test_result, "error, erase(key) method");
 }

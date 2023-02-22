@@ -59,6 +59,7 @@ namespace ft {
 			root = TNULL;
 			RbtCopy(rhs.root);
 		}
+		return *this;
 	}
 	template <RBT_TEMPLATE>
 	typename RBT_CLASS::node_ptr RBT_CLASS::get_root( void )

@@ -6,11 +6,12 @@
 /*   By: smodesto <smodesto@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:59:58 by smodesto          #+#    #+#             */
-/*   Updated: 2023/02/22 12:19:50 by smodesto         ###   ########.fr       */
+/*   Updated: 2023/02/22 13:32:20 by smodesto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../tests.hpp"
+
 /*------------------------------- Member function ------------------------------------------------*/
 void	print_test(std::string test_name, bool test_result)
 {
@@ -401,7 +402,7 @@ void	test_deep_copy( void )
 	if (v1[5] == v2[5])
 		test_result = false;
 	print_test("Vector performance: ", test_result);
-	mu_assert(test_result, "error, wrong rend iterator");
+	mu_assert(test_result, "error, deep copy failed");
 }
 
 MU_TEST_SUITE(vector_capacity_tests)
